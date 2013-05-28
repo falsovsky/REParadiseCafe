@@ -1,0 +1,46 @@
+Policia:
+* esta tudo bem? - policia_esta_tudo_bem.png
+* mostre os seus papeis - policia_mostre_papeis.png
+** com carteira - policia_mostre_papeis_com_carteira.png
+** sem carteira - 
+*** game over
+
+Ladrao:
+* Tem lume? - ladrao_tem_lume.png
+* Passe a carteira - ladrao_passe_a_carteira.png
+** Com pistola - ladrao_nao_tens_pistola.png
+** Sem pistola - ladrao_roubado_sem_pistola.png
+** Disparar (0) - 300 pontos - ladrao_maezinha.png
+
+Velha:
+* Assaltar (a) - 100$, 200$, 500$ - velha_assaltada.png
+* Violar (v) - 100 pontos - velha_violada.png
+* Tentar assaltar/violar sem pistola - velha_nao_tenho_pistola.png
+
+Prostituta:
+* Ola não queres entrar? - puta_ola_nao_queres_entrar.png
+* Queres vir comigo? - puta_queres_vir_comigo.png
+* Queres provar? - puta_queres_provar.png
+** Entrar (s) - puta_entao_anda.png
+*** O que queres? - puta_entao_o_que_queres.png
+**** Cona (f) - 1000$ - puta_cona.png
+**** Cu (c) - 1000$ - puta_cu.png
+**** Broche (b) 2000$ - puta_broche.png
+***** Se nao tiveres dinheiro - puta_nao_tenho_dinheiro.png
+****** Vem o Reinaldo - puta_reinaldo.png
+** Nao entrar (n) - puta_nao_entrar.png
+
+Cafe:
+* Entrada - cafe_entrada.png
+** Entrar (e)
+*** sentado - cafe_sentado.png
+**** comprar arma (s/n) - 1000$, 800$ - cafe_arma.png
+**** comprar boi (s/n)- 1000$ , 300$ - cafe_boi.png
+**** comprar LSD (s/n)- 1000$ - cafe_lsd.png
+**** vender droga (s/n)- 1500$, 1000$ - cafe_vender_droga.png
+**** comprar carteira (s/n) - 800$, 1000$ - cafe_carteira.png
+**** bebida (despesa) - 200$ (a primeira), 100$ (seguintes)
+**** sair (s) - cafe_conta.png
+***** sem dinheiro - cafe_nao_tenho_dinheiro.png
+****** game over
+** Nao entrar (q)
