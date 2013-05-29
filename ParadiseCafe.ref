@@ -4,11 +4,6 @@
 ; This disassembly copyright (c) Pedro de Oliveira, 2013. <falsovsky@gmail.com>
 ;
 
-;[Config]
-;SkoolFile=ParadiseCafe.skool
-;HtmlWriterClass=skoolkit.thegreatescape.TheGreatEscapeHtmlWriter
-;GameDir=build/TheGreatEscape
-
 [Info]
 Release=The incomplete Paradise Café disassembly
 Copyright=&copy; DAMATTA. Pedro de Oliveira.
@@ -16,30 +11,3 @@ Copyright=&copy; DAMATTA. Pedro de Oliveira.
 [Game]
 Game=Paradise Café
 Logo=#SCR,2,2,25,13(/images/logo)
-
-;[Paths]
-;#StyleSheet=skoolkit.css;microsphere.css;skool.css;sd.css
-;StyleSheet=TheGreatEscape.css
-;#JavaScript=microsphere.js
-
-;[Links]
-;DataMap=[Data] (just the data)
-;Graphics=Other graphics
-;MemoryMap=[Everything] (routines, data, text and unused addresses)
-;MessagesMap=[Messages] (just the text)
-;RoutinesMap=[Routines] (just the routines)
-
-;[Glossary:Super tiles]
-;4x4 group of tile refs of which the main map is constructed.
-
-;[Fact:unusedSupertiles:Unused super tiles]
-;There are two unused supertiles. $4F and $9A.
-
-;[Bug:spotattr:Spotlight attribute]
-;Sometimes the nighttime spotlight will set the attributes of the barbed wire game screen border.
-
-;[Bug:pauseclear:Pause doesn't always clear the screen]
-;Pause doesn't always clear the full game screen. You get a two-row high sliver of pixels left behind.
-
-;[Bug:solitarymental:Player goes nuts in solitary]
-;Sometimes the player will go nuts when put in solitary. He'll run up against the topmost corner of the room and keep running.
