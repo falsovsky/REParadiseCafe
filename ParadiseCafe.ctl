@@ -462,6 +462,8 @@ c $BF17 Ladrão
   $BF22 Animacao a virar-se pra frente
   $BF3C Tem lume?
   $BF66 Saca da pistola - Passe a carteira
+  $BF8B Entra na porta
+  $BF93 Fecha a porta
   $BF9E Ve se tem pistola(????)
   $BFA6 Não tens pistola?
   $BFC4 Merda
