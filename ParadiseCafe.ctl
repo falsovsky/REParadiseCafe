@@ -306,16 +306,14 @@ c $AFD1 Limpa o ecra (genero de fade)
 c $B001
 c $B01D
 b $B0A9
-t $B190
-b $B1A1
+b $B0E4
+b $B14C
+b $B1B5
 t $B1FA
 b $B205
-t $B270
-b $B273
-t $B27C
-b $B27F
-t $B2E1
-b $B2F3
+b $B226
+b $B299
+z $B309
 c $B30A
 b $B353
 t $B3B6
@@ -330,6 +328,8 @@ c $B48F Animação da porta a abrir
 z $B4EF
 c $B4F1 Animação da porta a fechar
 b $B551
+b $B55F
+b $B56B
 c $B579
 c $B583
 c $B594
@@ -387,8 +387,7 @@ c $B99F
 z $B9A9
 c $B9AF Calcular variaveis/Refresh delas no ecrã
 b $B9F1
-t $B9F8 SCORE= / DINHEIRO (barra de baixo?)
-b $BA0B
+b $BA00
 c $BA0D
 c $BA21
 c $BA2C
@@ -446,14 +445,7 @@ c $BDA0
 c $BDBF Ladrão: animação a entrar na porta
 c $BDDE
 b $BDE8
-t $BE24
-b $BE29
-t $BE3E
-b $BE42
-t $BE53
-b $BE64
-t $BE94
-b $BE97
+b $BE65
 c $BEC5
 c $BEDC
 b $BEE9
@@ -472,6 +464,13 @@ b $BFE0 Animação Ladrão (???)
 b $BFE7
 b $BFFA
 b $C00F
+b $C026
+b $C03B
+b $C052
+b $C067
+b $C07C
+b $C093
+b $C0B3
 c $C0F8
 c $C192
 c $C1C2
