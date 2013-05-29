@@ -300,7 +300,9 @@ c $AF6B
 b $AF84
 c $AFB8
 z $AFC3
-c $AFC8
+c $AFC8 Escreve o valor de HL no ecrã até achar FF
+;D $AFC8 Percorre a memoria desde o endereço em HL até achar o valor FF
+;D $AFC8 Escreve no ecrã o CHR$ do valor encontrado(?)
 z $AFD0
 c $AFD1 Limpa o ecra (genero de fade)
 c $B001
