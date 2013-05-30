@@ -10,3 +10,7 @@ all:
 	mkdir -p $(OUTPUT)
 	sna2skool.py $(SNA2SKOOL_OPTIONS) -c $(PARADISECAFE).ctl $(PARADISECAFE).z80 > $(PARADISECAFE).skool 
 	skool2html.py $(SKOOL2HTML_OPTIONS) -H $(PARADISECAFE).skool
+
+install:
+	cp $(PARADISECAFE).py /usr/local/lib/python2.6/dist-packages/skoolkit/
+

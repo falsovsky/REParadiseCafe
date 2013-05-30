@@ -340,10 +340,12 @@ c $B5B6
 c $B5E0
 c $B5E6
 b $B5F0
-t $B636
-b $B63A
-t $B65E
-b $B661
+D $B5F0 #HTML[#CALL:decode_data($C8E0,$B5F0)]
+;t $B636
+;b $B63A
+;t $B65E
+;b $B661
+b $B688
 t $B6D0
 b $B6D5
 t $B6F8
@@ -370,6 +372,7 @@ c $B7E9
 z $B7FF
 c $B800
 b $B811
+B $B811 #HTML[#CALL:decode_data($CAEA,$B811)]
 c $B82E
 b $B83F
 c $B85A
@@ -412,7 +415,14 @@ c $BB03
 z $BB0E
 c $BB11 Ladrão: Animação a sair da porta
 C $BB11 Em $5C36 define-se o endereço para onde a font(?) começa
-C $BB1A Fica então $CEB9 #HTML[#UDG$CEB9,20(ceb9)] #HTML[#UDG$CEC1,20(cec1)] 
+C $BB1A Fica então $CEB9 #HTML[#UDG$CEB9,20(ceb9)] #HTML[#UDG$CEC1,20(cec1)] #HTML[#UDG$CEC9,20(cec9)]
+; $CEB9 + $100 (256) - Posição do Espaço 0x20
+;C $BB1B #HTML[#UDGARRAY3,20,2,1,0,0,0;$CFB9;$CFC1;$CFC9(zbr4)]
+;C $BB1B #HTML[#UDGARRAY3;$CFB9-$CFE1-$8(aids)]
+C $BB1B #HTML[#UDGARRAY3;$CFB9-$CFF9-$8(aids)]
+;C $BB1E #HTML[#UDGARRAY3,20,2,1,0,0,0;$CFD1;$CFD9;$CFE1(zbr6)]
+;C $BB1E #HTML[#UDGARRAY3;52945-52969-8(zbr2.png)]
+;C $BB21 #HTML[#UDGARRAY3,20,2,1,0,0,0;$CFB8;$CFC0;$CFC8(zbr3)]
 c $BB2E Delay(???)
 C $BB2E C = F0
 C $BB30 B = 00
@@ -420,10 +430,14 @@ C $BB32 Decrementa B, se nao for 0 salta para si proprio
 C $BB34 Decrementa C
 C $BB35 Se nao for 0, salta para $BB30
 b $BB38 Sprites(?) ladrão a sair da porta 1ª parte
+B $BB38 #HTML[#CALL:decode_data($CEB9,$BB38)]
 b $BBA1 Sprites(?) ladrão a sair da porta 2ª parte
+B $BBA1 #HTML[#CALL:decode_data($CEB9,$BBA1)]
+
 z $BC67
 c $BC6A Ladrão: animação a virar-se pra frente (tronco)
 b $BC7B Sprites(?) do ladrão a virar-se pra frente (NOT SURE)
+B $BC7B #HTML[#CALL:decode_data($D089,$BC7B)]
 ;t $BCC8
 ;b $BCCB
 ;t $BCDB

@@ -4,6 +4,9 @@
 ; This disassembly copyright (c) Pedro de Oliveira, 2013. <falsovsky@gmail.com>
 ;
 
+[Config]
+HtmlWriterClass=skoolkit.ParadiseCafe.ParadiseCafeHtmlWriter
+
 [Info]
 Release=The incomplete Paradise Café disassembly
 Copyright=&copy; DAMATTA. Pedro de Oliveira.
