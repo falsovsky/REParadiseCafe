@@ -86,8 +86,11 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
             attr = ink | (paper << 3) | attr << 6
 
             # Mega martelada
-            if ( self.snapshot[addr] - 32)  == 96:
-                udg_array[xy[0]][xy[1]] = Udg(attr, self.snapshot[zbr:zbr+8])
+            if ( self.snapshot[addr] - 32)  >= 96:
+                v = ( self.snapshot[addr] - 32) - 96
+                ad = ( 0xFF58 ) + v
+                print "%02X" % (ad)
+                udg_array[xy[0]][xy[1]] = Udg(ad, self.snapshot[ad:ad+8])
             else:
                 udg_array[xy[0]][xy[1]] = Udg(attr, self.snapshot[ad:ad+8])
 

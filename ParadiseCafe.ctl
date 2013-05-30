@@ -339,7 +339,7 @@ c $B59C
 c $B5B6
 c $B5E0
 c $B5E6
-b $B5F0
+b $B5F0 Puta a sair da porta 1ª frame
 D $B5F0 #HTML[#CALL:decode_data($C8E0,$B5F0)]
 ;t $B636
 ;b $B63A
@@ -371,7 +371,7 @@ b $B7E6
 c $B7E9
 z $B7FF
 c $B800
-b $B811
+b $B811 Cara do gajo a olhar pra puta
 B $B811 #HTML[#CALL:decode_data($CAEA,$B811)]
 c $B82E
 b $B83F
@@ -690,5 +690,4 @@ t $FE7E
 b $FE83
 t $FEAC
 b $FEB1
-;b $FF58 #HTML[#UDG$FF58,20(ff58)]
-;b $FF98 #HTML[#UDG$FF98,21(ff98)]
+b $FF58 UDG
