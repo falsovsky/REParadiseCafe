@@ -69,9 +69,9 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
             ad = ( chraddr + 256 ) + ( ( self.snapshot[addr] - 32) * 8 )
 
             #print "chraddr [%02X] + 256 =  %02X" % (chraddr, chraddr+0x100)
-            print "valor [%02X] - 0x20 = %02X" % (self.snapshot[addr], (self.snapshot[addr] - 0x20))
+            #print "valor [%02X] - 0x20 = %02X" % (self.snapshot[addr], (self.snapshot[addr] - 0x20))
             #print "a escrever em [%d,%d] endereço %02X" % (xy[0], xy[1], ad)
-            print "endereço %02X" % (ad)
+            #print "endereço %02X" % (ad)
 
             #print "fundo [%02X] cor [%02X]" % (paper, ink)
 
@@ -85,7 +85,12 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
             attr = 0
             attr = ink | (paper << 3) | attr << 6
 
-            udg_array[xy[0]][xy[1]] = Udg(attr, self.snapshot[ad:ad+8])
+            # Mega martelada
+            if ( self.snapshot[addr] - 32)  == 96:
+                udg_array[xy[0]][xy[1]] = Udg(attr, self.snapshot[zbr:zbr+8])
+            else:
+                udg_array[xy[0]][xy[1]] = Udg(attr, self.snapshot[ad:ad+8])
+
             xy[1] = xy[1] + 1
             addr += 1
 
