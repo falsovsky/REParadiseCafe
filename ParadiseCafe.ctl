@@ -339,8 +339,10 @@ c $B59C
 c $B5B6
 c $B5E0
 c $B5E6
+
 b $B5F0 Puta a sair da porta 1ª frame
-D $B5F0 #HTML[#CALL:decode_data($C8E0,$B5F0)]
+;D $B5F0 #HTML[#CALL:decode_data($C8E0,$B5F0)]
+
 ;t $B636
 ;b $B63A
 ;t $B65E
@@ -352,7 +354,9 @@ t $B6F8
 b $B703
 t $B70D
 b $B720
-c $B721
+
+c $B721 Random generator ????
+
 c $B734
 c $B737
 c $B745
@@ -371,10 +375,21 @@ b $B7E6
 c $B7E9
 z $B7FF
 c $B800
+
 b $B811 Cara do gajo a olhar pra puta
 B $B811 #HTML[#CALL:decode_data($CAEA,$B811)]
-c $B82E
+
+c $B82E Animacao?
+  $B82E O endereço $5C36 CHARS define onde a Font(?) começa
+  $B837 CHARS = $CE2A
+  $B838 Endereço da frame - #R$B83F
+  $B83B Desenha a frame
+
 b $B83F
+B $B83F #HTML[#CALL:decode_data($CA2A,$B83F)]
+
+z $B858
+
 c $B85A
 c $B867
 c $B86A Puta
@@ -413,40 +428,52 @@ c $BAE4
 c $BAEF
 c $BB03
 z $BB0E
-c $BB11 Ladrão: Animação a sair da porta
-C $BB11 Em $5C36 define-se o endereço para onde a font(?) começa
-C $BB1A Fica então $CEB9 #HTML[#UDG$CEB9,20(ceb9)] #HTML[#UDG$CEC1,20(cec1)] #HTML[#UDG$CEC9,20(cec9)]
-; $CEB9 + $100 (256) - Posição do Espaço 0x20
-;C $BB1B #HTML[#UDGARRAY3,20,2,1,0,0,0;$CFB9;$CFC1;$CFC9(zbr4)]
-;C $BB1B #HTML[#UDGARRAY3;$CFB9-$CFE1-$8(aids)]
-C $BB1B #HTML[#UDGARRAY3;$CFB9-$CFF9-$8(aids)]
-;C $BB1E #HTML[#UDGARRAY3,20,2,1,0,0,0;$CFD1;$CFD9;$CFE1(zbr6)]
-;C $BB1E #HTML[#UDGARRAY3;52945-52969-8(zbr2.png)]
-;C $BB21 #HTML[#UDGARRAY3,20,2,1,0,0,0;$CFB8;$CFC0;$CFC8(zbr3)]
-c $BB2E Delay(???)
+
+; Animação do ladrão a saír da porta
+; 1º Metade do corpo
+; 2º Corpo todo virado pra frente
+c $BB11 Ladrão: Animação a saír
+C $BB11 O endereço $5C36 CHARS define onde a Font(?) começa
+C $BB1A CHARS = $CEB9
+C $BB1B Endereço da frame 1 - #R$BB38
+C $BB1E Desenha a frame
+C $BB21 Delay
+C $BB24 Endereço da frame 2 - #R$BBA1
+C $BB27 Desenha a frame
+C $BB2A Delay
+
+; Rotina de delay usada no ladrão
+c $BB2E Delay
+E $BB2E Conta desde FFF0 até 0000
 C $BB2E C = F0
 C $BB30 B = 00
 C $BB32 Decrementa B, se nao for 0 salta para si proprio
 C $BB34 Decrementa C
 C $BB35 Se nao for 0, salta para $BB30
-b $BB38 Sprites(?) ladrão a sair da porta 1ª parte
+
+; Frame
+b $BB38 Ladrão a sair - Frame 1
 B $BB38 #HTML[#CALL:decode_data($CEB9,$BB38)]
-b $BBA1 Sprites(?) ladrão a sair da porta 2ª parte
+
+; Frame
+b $BBA1 Ladrão a sair - Frame 2
+;B $BBA1 #CALL:comment_frame($CEB9,$BBA1)
 B $BBA1 #HTML[#CALL:decode_data($CEB9,$BBA1)]
 
 z $BC67
-c $BC6A Ladrão: animação a virar-se pra frente (tronco)
-b $BC7B Sprites(?) do ladrão a virar-se pra frente (NOT SURE)
+
+; Animação do ladrão a virar-se para a esquerda
+c $BC6A Ladrão: Virado para a esquerda
+C $BC73 CHARS = $D089
+C $BC74 Endereço da frame - #R$BC7B
+C $BC77 Desenha a frame
+
+; Frame
+b $BC7B Ladrão virado para a esquerda - Frame
 B $BC7B #HTML[#CALL:decode_data($D089,$BC7B)]
-;t $BCC8
-;b $BCCB
-;t $BCDB
-;b $BCDE
-;t $BCF1
-;b $BCF4
-;t $BD01
-;b $BD0B
-c $BD0C
+
+c $BD0C Define o valor de DE em $5C36 (Endereço CHARS)
+
 c $BD15
 b $BD22
 t $BD59
@@ -465,9 +492,20 @@ b $BE65
 c $BEC5
 c $BEDC
 b $BEE9
+
+; Rotina principal do ladrão
 c $BF17 Ladrão
-  $BF1F Animação a sair da porta
-  $BF22 Animacao a virar-se pra frente
+  $BF17 Porta abre-se
+  $BF1C ????
+  $BF1F Sai da porta
+  $BF22 Vira-se para a esquerda
+  $BF25 Endereço da frame - #R$BFE0
+  $BF28 Desenha a frame
+  $BF2E A = $06
+  $BF31 Delay com o valor em A
+  $BF34 $5C08 Ultima tecla carregada
+  $BF37 É o "0" ?
+  $BF39 Se for salta !
   $BF3C Tem lume?
   $BF66 Saca da pistola - Passe a carteira
   $BF8B Entra na porta
@@ -475,8 +513,12 @@ c $BF17 Ladrão
   $BF9E Ve se tem pistola(????)
   $BFA6 Não tens pistola?
   $BFC4 Merda
+
 b $BFCF
+
 b $BFE0 Animação Ladrão (???)
+B $BFE0 #HTML[#CALL:decode_data($D089,$BFE0)]
+
 b $BFE7
 b $BFFA
 b $C00F
@@ -489,10 +531,19 @@ b $C093
 b $C0B3
 c $C0F8
 c $C192
-c $C1C2
+
+; Rotina executada quando se tenta disparar contra o ladrão
+c $C1C2 Disparar contra o ladrão
+  $C1C2 #R$C33D Endereço da pistola
+  $C1C7 Se não tiver salta
+
 c $C23B
 z $C258
-c $C259 Animações (sem ser o gajo a andar)
+
+; Delay variavel
+c $C259 Delay (rotina corre o numero de vezes que o valor em A)
+
+
 c $C266
 c $C26A
 z $C273

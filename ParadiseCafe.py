@@ -16,14 +16,74 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
     def hello_world(self, cwd):
         return "Hello, world!"
 
+    def generate_block(self, cwd, char):
+        
+        blockbytes = []
+
+        if char == 0x80:
+            blockbytes = [0, 0, 0, 0, 0, 0, 0, 0]
+
+        if char == 0x8f:
+            blockbytes = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]
+
+        return blockbytes
+
+    def comment_frame(self, cwd, chraddr, dataaddr):
+        ink = 0
+        paper = 0
+        xy = [ 0, 0 ]
+        addr = dataaddr
+        
+        print "D $%04X CHARS addr = %04X" % (addr,chraddr)
+        print "E $%04X #HTML[#CALL:decode_data($%04X,$%04X)]" % (addr, chraddr, dataaddr)
+
+        while self.snapshot[addr] != 0xFF:
+
+            if self.snapshot[addr] == 0x16:
+                xy[0] = self.snapshot[addr+1]
+                xy[1] = self.snapshot[addr+2]
+                print "B $%04X,$3 AT - X = %d, Y = %d" % (addr, xy[0], xy[1])
+                addr += 3
+                continue
+
+            if self.snapshot[addr] == 0x10:
+                ink = self.snapshot[addr+1]
+                print "B $%04X,$3 INK %d" % (addr, ink)
+                addr += 2
+                continue
+
+            if self.snapshot[addr] == 0x11:
+                paper = self.snapshot[addr+1]
+                print "B $%04X,$3 PAPER %d" % (addr, paper)
+                addr += 2
+                continue
+
+            attr = 0
+            attr = ink | (paper << 3) | attr << 6
+            
+            ad = ( chraddr + 256 ) + ( ( self.snapshot[addr] - 32) * 8 )
+
+            if ( self.snapshot[addr] - 32)  >= 96:
+                v = ( self.snapshot[addr] - 32) - 96
+                ad = ( 0xFF58 ) + v
+                print "B $%04X,$1 UDG %02X - addr = %04X - #HTML[#UDG$%04X,%d(%04x)]" % (addr, self.snapshot[addr], ad, ad, attr, ad)
+            else:
+                print "B $%04X,$1 CHAR %02X - addr = %04X - #HTML[#UDG$%04X,%d(%04x)]" % (addr, self.snapshot[addr], ad, ad, attr, ad)
+
+            xy[1] = xy[1] + 1
+            addr += 1
+
+
     def decode_data(self, cwd, chraddr, dataaddr):
+
+        #print "chraddr: 0x%04X - dataddr: 0x%04X" % (chraddr, dataaddr)
 
         # Cria um array com 24 linhas e 32 colunas
         udg_array = [[0 for i in range(32)] for j in range(24)]
 
         # Posicao da proxima escrita no ecra
-        xy = [ 0, 0 ]
-
+        x = 0
+        y = 0
         # cor
         ink = 0
         # fundo
@@ -39,8 +99,8 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
         while self.snapshot[addr] != 0xFF:
 
             if self.snapshot[addr] == 0x16:
-                xy[0] = self.snapshot[addr+1]
-                xy[1] = self.snapshot[addr+2]
+                x = self.snapshot[addr+1]
+                y = self.snapshot[addr+2]
                 addr += 3
                 continue
             
@@ -54,47 +114,37 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
                 addr += 2
                 continue
             
-            #ad = (chraddr + 256) + (self.snapshot[addr] - 0x20)
-            #print "valor 1: %02X" % (chraddr + 256)
-            #print "valor 2: %02X" % (self.snapshot[addr] - 0x20)
-            #print "result: %02X" % ( (int(chraddr) + int(256)) + ( int(self.snapshot[addr]) - int(32) ))
-
-
-            # The default printable characters (32 (space) to 127 (copyright)) are stored at the end of the Spectrum's ROM at memory address 15616 (0x3D00) to 16383 (0x3FFF) and are referenced by the system variable CHARS which can be found at memory address 23606/7.
-            # The value in CHARS is actually 256 bytes lower than the first byte of the space character so that referencing a printable ASCII character does not need to consider the first 32 characters. As such, the CHARS value (by default) holds the address 15360 (0x3C00).
-            # O endereço do char e':
+            v = (self.snapshot[addr] - 0x20)
+            ad = ( chraddr + 256 ) + v * 8
             
-            # (CHARSaddr + 256 bytes) + ( (valor@addr - 32) * 8)
-
-            ad = ( chraddr + 256 ) + ( ( self.snapshot[addr] - 32) * 8 )
-
-            #print "chraddr [%02X] + 256 =  %02X" % (chraddr, chraddr+0x100)
-            #print "valor [%02X] - 0x20 = %02X" % (self.snapshot[addr], (self.snapshot[addr] - 0x20))
-            #print "a escrever em [%d,%d] endereço %02X" % (xy[0], xy[1], ad)
-            #print "endereço %02X" % (ad)
-
-            #print "fundo [%02X] cor [%02X]" % (paper, ink)
-
-            #paperbits = bin(int(paper, base=10))[2:]
-            #inkbits = bin(int(ink, base=10))[2:]
-            #atribute = int('00'+paperbits+inkbits,2)
-            #print atribute
-            #paperbits = '0b{0:0>3b}'.format(paper)[2:]
-            #inkbits = '0b{0:0>3b}'.format(ink)[2:]
-            #atribute = int('00'+paperbits+inkbits,2)
             attr = 0
             attr = ink | (paper << 3) | attr << 6
 
-            # Mega martelada
-            if ( self.snapshot[addr] - 32)  >= 96:
-                v = ( self.snapshot[addr] - 32) - 96
-                ad = ( 0xFF58 ) + v
-                print "%02X" % (ad)
-                udg_array[xy[0]][xy[1]] = Udg(ad, self.snapshot[ad:ad+8])
-            else:
-                udg_array[xy[0]][xy[1]] = Udg(attr, self.snapshot[ad:ad+8])
+            #print "Data addr: %04X - Data value: %02X" % (addr, self.snapshot[addr])
 
-            xy[1] = xy[1] + 1
+            # Mega martelada
+            #if ( self.snapshot[addr] - 32)  >= 96:
+                #print "ink %d - paper %d" % (ink, paper)
+                #v = ( self.snapshot[addr] - 32) - 96 - 1
+                #print "estou a ler %02X" % (self.snapshot[addr])
+            #    v = ( self.snapshot[addr] - 0x80)
+                #print "fica %02X" % (v)
+                #ad = ( 0xFF58 ) + (v*8)
+            #    ad = ( 0xFF58 - 8) + (v*8)
+                #print "U - addr: 0x%04X- val: 0x%02X" % (ad, v)
+            #    udg_array[x][y] = Udg(ad, self.snapshot[ad:ad+8])
+
+            if (self.snapshot[addr] == 0x80):
+                zbr = self.generate_block(cwd, 0x80)
+                udg_array[x][y] = Udg(attr, zbr)
+            elif (self.snapshot[addr] == 0x8f):
+                zbr = self.generate_block(cwd, 0x8f)
+                udg_array[x][y] = Udg(attr, zbr)
+            else:
+                #print "N - addr: 0x%04X- val: 0x%04X" % (ad, v)
+                udg_array[x][y] = Udg(attr, self.snapshot[ad:ad+8])
+
+            y += 1
             addr += 1
 
 
