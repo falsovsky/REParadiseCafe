@@ -341,7 +341,7 @@ c $B5E0
 c $B5E6
 
 b $B5F0 Puta a sair da porta 1ª frame
-;D $B5F0 #HTML[#CALL:decode_data($C8E0,$B5F0)]
+D $B5F0 #HTML[#CALL:decode_data($C8E0,$B5F0)]
 
 ;t $B636
 ;b $B63A
@@ -523,7 +523,10 @@ b $BFE7
 b $BFFA
 b $C00F
 b $C026
-b $C03B
+
+b $C03B Balão - Não tenho pistola
+  $C03B #HTML[#CALL:decode_data($D689,$C03B)]
+
 b $C052
 b $C067
 b $C07C
