@@ -28,9 +28,13 @@ t $772A
 b $7736
 t $77D1 THE END
 b $77E3
-;c $77EA Inicio!4realz
+
 c $77F2 Inicializa variaveis
-C $7856 Tira a arma :-(
+  $7854,2 Começa-se sem arma
+  $787D,3 Guarda o valor do FRAMES (contador de tempo +-)
+  $7880,2 Subtrai $80
+  $7882,8 Corre o "randomizer" o numero de vezes que estiver em A
+
 b $788D
 t $78AC
 b $78C7
@@ -51,7 +55,9 @@ b $79BF
 t $79D6 Recordista do jogo
 b $79E8
 c $7CF0
-c $7D2B
+
+c $7D2B Delay(?)
+
 b $7D35
 c $7D3B pontuação e o dinheiro na status(?) / calcula distancia pra porta
 c $7D8D
@@ -60,8 +66,9 @@ c $7DAB Verifica colisao com a porta(main loop)
   $7DAB Le a distancia para a porta
   $7DAE Está em cima?
   $7DB0 Nao, volta para tras
-  $7DB8 Refresha o Status
-  $7DBC Já terminou a animacao?
+  $7DB1 Guarda o valor do FRAMES (contador de tempo +-)
+  $7DB4 Subtrai $80
+  $7DB6,8 Corre o "randomizer" o numero de vezes que estiver em A
   $7DBE Knock Knock1!
   $7DC1 É igual a 2?
   $7DC3 Então é a puta!
@@ -300,9 +307,12 @@ c $AF6B
 b $AF84
 c $AFB8
 z $AFC3
+
+; @label:$AFC8=desenha_frame
 c $AFC8 Escreve o valor de HL no ecrã até achar FF
 ;D $AFC8 Percorre a memoria desde o endereço em HL até achar o valor FF
-;D $AFC8 Escreve no ecrã o CHR$ do valor encontrado(?)
+;D $AFC8 Escreve no ecrã o CHR$ do valor encontrado
+
 z $AFD0
 c $AFD1 Limpa o ecra (genero de fade)
 c $B001
@@ -355,9 +365,17 @@ b $B703
 t $B70D
 b $B720
 
-c $B721 Random generator ????
+c $B721 Random que define quem vai aparecer na porta
+  $B721 Carrega o valor do endereço #R$C34D (?) em A
+  $B724 Incrementa
+  $B725 Compara com $07
+  $B727 Se for igual chama #R$B734 que mete A a $01
+  $B72A Guarda o valor de A no endereço #R$C34D (?)
+  $B72D Copia o valor de A para B
+  $B731,2 Decrementa B, se B > 0 salta para o CALL acima 
 
-c $B734
+c $B734 Define A = $01
+
 c $B737
 c $B745
 z $B753
@@ -391,7 +409,14 @@ B $B83F #HTML[#CALL:decode_data($CA2A,$B83F)]
 z $B858
 
 c $B85A
-c $B867
+  $B85A Carrega o valor do endereço #R$C34A (?) em A
+  $B85D Incrementa
+  $B85E Compara com $04
+  $B860 Se for igual chama #R$B867 que mete A a $00
+  $B863,3 Guarda o valor de A no endereço #R$C34A (?)
+
+c $B867 Define A = $00
+
 c $B86A Puta
 b $B8B1
 t $B8E3
@@ -494,13 +519,15 @@ c $BEDC
 b $BEE9
 
 ; Rotina principal do ladrão
+; @label:$BF17=ladrao
 c $BF17 Ladrão
-  $BF17 Porta abre-se
-  $BF1C ????
+  $BF17,3 Abre a porta
+  $BF1A,5 ????
   $BF1F Sai da porta
   $BF22 Vira-se para a esquerda
   $BF25 Endereço da frame - #R$BFE0
   $BF28 Desenha a frame
+  $BF2B ??
   $BF2E A = $06
   $BF31 Delay com o valor em A
   $BF34 $5C08 Ultima tecla carregada
@@ -538,7 +565,7 @@ c $C192
 ; Rotina executada quando se tenta disparar contra o ladrão
 c $C1C2 Disparar contra o ladrão
   $C1C2 #R$C33D Endereço da pistola
-  $C1C7 Se não tiver salta
+  $C1C5,5 Se não tiver salta
 
 c $C23B
 z $C258
@@ -566,6 +593,8 @@ c $C2DF
 b $C302
 t $C309 HISCORE
 b $C311
+
+; @label:$C33D=arma
 b $C33D Inventorio: Arma
 b $C33E
 t $C33E Dinheiro (Little endian - 0081 -> 0018) -> 001800$00
@@ -576,7 +605,12 @@ D $C346 Dois bytes ASCII em Little Endian.
 D $C346 Exemplo: 1032 fica 0123 ou seja 012300 pontos.
 
 b $C34A
+
 b $C34B Distancia para a porta?
+b $C34C ??
+b $C34D ??
+b $C34E ??
+
 b $C34C
 t $C598
 b $C59B
