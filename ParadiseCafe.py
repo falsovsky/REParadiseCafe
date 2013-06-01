@@ -159,7 +159,7 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
 
         #pprint.pprint(udg_array)
         img_path_id = 'ScreenshotImagePath'
-        fname = 'zbr-%x' % addr
+        fname = 'zbr-%x-%x' % (chraddr, addr)
         img_path = self.image_path(fname, img_path_id)
         self.write_image(img_path, udg_array)
         return self.img_element(cwd, img_path)

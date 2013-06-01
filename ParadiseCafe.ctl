@@ -341,36 +341,40 @@ c $B46C
 c $B477
 c $B486
 z $B48E
+
 c $B48F Animação da porta a abrir
+
 z $B4EF
+
 c $B4F1 Animação da porta a fechar
+
 b $B551
 b $B55F
 b $B56B
 c $B579
 c $B583
 c $B594
-c $B59C
+
+c $B59C Animacao da puta a sair
+  $B59C,$a CHARS = $C8E0
+  $B5A6 Endereço da frame #R$B5F0
+  $B5A9 Desenha a frame
+  $B5AC Delay
+  $B5AF Endereço da frame #R$B688
+  $B5B2,3 Desenha a frame
+
 c $B5B6
 c $B5E0
-c $B5E6
 
-b $B5F0 Puta a sair da porta 1ª frame
-D $B5F0 #HTML[#CALL:decode_data($C8E0,$B5F0)]
+c $B5E6 Delay conta de $FFFF ate 0
 
-;t $B636
-;b $B63A
-;t $B65E
-;b $B661
-b $B688
-t $B6D0
-b $B6D5
-t $B6F8
-b $B703
-t $B70D
-b $B720
+b $B5F0 Puta a sair - Frame 1
+  $B5F0 #HTML[#CALL:decode_data($C8E0,$B5F0)]
 
-c $B721 Random que define quem vai aparecer na porta
+b $B688 Puta a sair - Frame 2
+  $B688 #HTML[#CALL:decode_data($C8E0,$B688)]
+
+c $B721 Random que define quem vai aparecer na porta - 1
   $B721 Carrega o valor do endereço #R$C34D (?) em A
   $B724 Incrementa
   $B725 Compara com $07
@@ -387,8 +391,16 @@ z $B753
 c $B755
 c $B766
 z $B76A
+
 c $B76D Paradise Café
-c $B775 Ficar à espera de input?
+
+c $B775 Espera que se pressione uma tecla e guarda em #R$C34C
+  $B777 Endereço da ultima tecla pressionada
+  $B77A Mete a 00 (limpar?)
+  $B77C Compara a ultima tecla pressionada a A (0)
+  $B77D,2 Se for igual volta a comparar
+  $B780,3 Guarda a tecla pressionada em #R$C34C
+
 z $B784
 c $B785
 b $B7A4
@@ -397,7 +409,11 @@ c $B7D3
 b $B7E6
 c $B7E9
 z $B7FF
-c $B800
+
+c $B800 Vira a cara para a puta
+  $B800,$a CHARS = $CAEA
+  $B80A Endereço da frame #R$B811
+  $B80D,3 Desenha a frame
 
 b $B811 Cara do gajo a olhar pra puta
 B $B811 #HTML[#CALL:decode_data($CAEA,$B811)]
@@ -413,7 +429,7 @@ B $B83F #HTML[#CALL:decode_data($CE2A,$B83F)]
 
 z $B858
 
-c $B85A
+c $B85A Random que define quem vai aparecer na porta - 2
   $B85A Carrega o valor do endereço #R$C34A (?) em A
   $B85D Incrementa
   $B85E Compara com $04
@@ -423,17 +439,47 @@ c $B85A
 c $B867 Define A = $00
 
 c $B86A Puta
-b $B8B1
-t $B8E3
-b $B8E8
+  $B86A,3 Abre a porta
+  $B86D,3 Vira a cara para a puta
+  $B870,3 Delay
+  $B873,3 Sai da porta
+  $B876,6 Randomize crap!
+  $B881,3 CHARS = $CB2A - Ola nao queres entrar?
+  $B884,5 Se random2 == $01
+  $B889 CHARS = $CBEA - Queres vir comigo?
+  $B88C,5 Se random2 == $02
+  $B891,3 CHARS = $CCAA - Queres provar?
+  $B894 Endereço da frame - #R$B8B1
+  $B897,3 Desenha a frame
+  $B89A,3 Espera por input do utilizador
+  $B8A0 Foi o "s" ?
+  $B8A5 Foi o "n" ?
+  $B8A7 Dizer que não à puta
+  $B8AA Foi o "q" ?
+  $B8AC,3 Dizer que nao à puta
+  $B8AF Se não foi nenhuma delas volta a pedir input
+
+b $B8B1 Frases da puta na rua
+E $B8B1 CHARS $CB2A #HTML[#CALL:decode_data($CB2A,$B8B1)]
+E $B8B1 CHARS $CBEA #HTML[#CALL:decode_data($CBEA,$B8B1)]
+E $B8B1 CHARS $CCAA #HTML[#CALL:decode_data($CCAA,$B8B1)]
+
+
 c $B8E9
 c $B914
 c $B93C Recusar a puta
 b $B967
-c $B97E
-c $B989
-c $B994
-c $B99F
+
+c $B97E CHARS = $CB2A
+  $B97e,10 CHARS = $CB2A
+
+c $B989 CHARS = $CBEA
+  $B98C,3 CHARS = DE
+
+c $B994 CHARS = $CCAA
+
+c $B99F Delay conta de $FFFF ate 0
+
 z $B9A9
 c $B9AF Calcular variaveis/Refresh delas no ecrã
 b $B9F1
@@ -619,7 +665,7 @@ D $C346 Exemplo: 1032 fica 0123 ou seja 012300 pontos.
 b $C34A
 
 b $C34B Distancia para a porta?
-b $C34C ??
+b $C34C Ultima tecla pressionada
 b $C34D ??
 b $C34E ??
 
