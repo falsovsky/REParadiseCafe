@@ -317,8 +317,13 @@ z $AFD0
 c $AFD1 Limpa o ecra (genero de fade)
 c $B001
 c $B01D
+
 b $B0A9
+  $B0A9 #HTML[#CALL:decode_data($89D6,$B0A9)]
+
 b $B0E4
+  $B0E4 #HTML[#CALL:decode_data($C420,$B0E4)]
+
 b $B14C
 b $B1B5
 t $B1FA
@@ -397,14 +402,14 @@ c $B800
 b $B811 Cara do gajo a olhar pra puta
 B $B811 #HTML[#CALL:decode_data($CAEA,$B811)]
 
-c $B82E Animacao?
+c $B82E Heroi vira a cara para o ecrã
   $B82E O endereço $5C36 CHARS define onde a Font(?) começa
   $B837 CHARS = $CE2A
   $B838 Endereço da frame - #R$B83F
   $B83B Desenha a frame
 
-b $B83F
-B $B83F #HTML[#CALL:decode_data($CA2A,$B83F)]
+b $B83F Cara virada para o ecrã
+B $B83F #HTML[#CALL:decode_data($CE2A,$B83F)]
 
 z $B858
 
@@ -515,24 +520,24 @@ c $BDDE
 b $BDE8
 b $BE65
 c $BEC5
-c $BEDC
-b $BEE9
+
+c $BEDC Saca a pistola
+
+b $BEE9 Frame - Sacar a pistola
+B $BEE9 #HTML[#CALL:decode_data($D409,$BEE9)]
 
 ; Rotina principal do ladrão
 ; @label:$BF17=ladrao
 c $BF17 Ladrão
   $BF17,3 Abre a porta
-  $BF1A,5 ????
+  $BF1A,5 Define a "LAST K" last pressed key = 00 (é para limpar IMEO)
   $BF1F Sai da porta
   $BF22 Vira-se para a esquerda
   $BF25 Endereço da frame - #R$BFE0
   $BF28 Desenha a frame
-  $BF2B ??
-  $BF2E A = $06
-  $BF31 Delay com o valor em A
-  $BF34 $5C08 Ultima tecla carregada
-  $BF37 É o "0" ?
-  $BF39 Se for salta !
+  $BF2B Randomizer
+  $BF2E,6 Delay com a duracao do valor em A
+  $BF34,8 $5C08 Se a ultima tecla carregada foi "0" entao é para disparar!
   $BF3C Tem lume?
   $BF66 Saca da pistola - Passe a carteira
   $BF8B Entra na porta
@@ -555,6 +560,7 @@ b $C03B Balão - Não tenho pistola
   $C03B #HTML[#CALL:decode_data($D689,$C03B)]
 
 b $C052
+  $C052 #HTML[#CALL:decode_data($D689,$C052)]
 b $C067
 b $C07C
 b $C093
@@ -564,10 +570,16 @@ c $C192
 
 ; Rotina executada quando se tenta disparar contra o ladrão
 c $C1C2 Disparar contra o ladrão
-  $C1C2 #R$C33D Endereço da pistola
-  $C1C5,5 Se não tiver salta
+  $C1C2,8 Se não tiver pistola chama #R$C23B
+  $C1E7,3 Saca a pistola para fora!
+  $C1EA,5 Delay com a duracao do valor em A
 
-c $C23B
+c $C23B Não tenho pistola
+  $C23B Vira a cara para o ecrã #R$B83F
+  $C23E,$c Balão - Não tenho pistola, #R$C03B
+  $C24A,5 Delay com a duracao do valor em A 
+  $C24F,6 Esconde o balão #R$C052
+
 z $C258
 
 ; Delay variavel
@@ -618,6 +630,9 @@ t $C62B
 b $C62F
 t $CCC2
 b $CCC5
+
+;b $CD3B
+
 t $CD63
 b $CD68
 t $D1CC

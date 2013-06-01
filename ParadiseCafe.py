@@ -18,13 +18,20 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
 
     def generate_block(self, cwd, char):
         
-        blockbytes = []
+        blockbytes = [0, 0, 0, 0, 0, 0, 0, 0]
 
         if char == 0x80:
             blockbytes = [0, 0, 0, 0, 0, 0, 0, 0]
-
-        if char == 0x8f:
+        elif char == 0x85:
+            blockbytes = [0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf]
+        elif char == 0x8A:
+            blockbytes = [0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0, 0xf0]
+        elif char == 0x8B:
+            blockbytes = [0xff, 0xff, 0xff, 0xff, 0xf0, 0xf0, 0xf0, 0xf0]
+        elif char == 0x8f:
             blockbytes = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]
+        else:
+            print "BLOCK %02X NOT IMPLEMENTED" % (char)
 
         return blockbytes
 
@@ -134,12 +141,14 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
                 #print "U - addr: 0x%04X- val: 0x%02X" % (ad, v)
             #    udg_array[x][y] = Udg(ad, self.snapshot[ad:ad+8])
 
-            if (self.snapshot[addr] == 0x80):
-                zbr = self.generate_block(cwd, 0x80)
+            # BLOCK CHARS
+            if (self.snapshot[addr] >= 0x80 and self.snapshot[addr] <= 0x8f):
+                zbr = self.generate_block(cwd, self.snapshot[addr])
                 udg_array[x][y] = Udg(attr, zbr)
-            elif (self.snapshot[addr] == 0x8f):
-                zbr = self.generate_block(cwd, 0x8f)
-                udg_array[x][y] = Udg(attr, zbr)
+            elif (self.snapshot[addr] >= 0x90 and self.snapshot[addr] <= 0xa4):
+                v = ( self.snapshot[addr] - 0x90)
+                ad = ( 0xFF58 ) + (v*8)
+                udg_array[x][y] = Udg(ad, self.snapshot[ad:ad+8])
             else:
                 #print "N - addr: 0x%04X- val: 0x%04X" % (ad, v)
                 udg_array[x][y] = Udg(attr, self.snapshot[ad:ad+8])
