@@ -83,8 +83,6 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
 
     def decode_data(self, cwd, chraddr, dataaddr):
 
-        #print "chraddr: 0x%04X - dataddr: 0x%04X" % (chraddr, dataaddr)
-
         # Cria um array com 24 linhas e 32 colunas
         udg_array = [[0 for i in range(32)] for j in range(24)]
 
@@ -127,20 +125,6 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
             attr = 0
             attr = ink | (paper << 3) | attr << 6
 
-            #print "Data addr: %04X - Data value: %02X" % (addr, self.snapshot[addr])
-
-            # Mega martelada
-            #if ( self.snapshot[addr] - 32)  >= 96:
-                #print "ink %d - paper %d" % (ink, paper)
-                #v = ( self.snapshot[addr] - 32) - 96 - 1
-                #print "estou a ler %02X" % (self.snapshot[addr])
-            #    v = ( self.snapshot[addr] - 0x80)
-                #print "fica %02X" % (v)
-                #ad = ( 0xFF58 ) + (v*8)
-            #    ad = ( 0xFF58 - 8) + (v*8)
-                #print "U - addr: 0x%04X- val: 0x%02X" % (ad, v)
-            #    udg_array[x][y] = Udg(ad, self.snapshot[ad:ad+8])
-
             # BLOCK CHARS
             if (self.snapshot[addr] >= 0x80 and self.snapshot[addr] <= 0x8f):
                 zbr = self.generate_block(cwd, self.snapshot[addr])
@@ -150,14 +134,11 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
                 ad = ( 0xFF58 ) + (v*8)
                 udg_array[x][y] = Udg(ad, self.snapshot[ad:ad+8])
             else:
-                #print "N - addr: 0x%04X- val: 0x%04X" % (ad, v)
                 udg_array[x][y] = Udg(attr, self.snapshot[ad:ad+8])
 
             y += 1
             addr += 1
 
-
-        #pprint.pprint(udg_array)
         img_path_id = 'ScreenshotImagePath'
         fname = 'zbr-%x-%x' % (chraddr, addr)
         img_path = self.image_path(fname, img_path_id)
