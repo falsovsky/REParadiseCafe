@@ -363,8 +363,14 @@ c $B59C Animacao da puta a sair
   $B5AF Endereço da frame #R$B688
   $B5B2,3 Desenha a frame
 
-c $B5B6
-c $B5E0
+c $B5B6 Puta entra e porta é limpa
+  $B5B6,$a CHARS = $C8E0
+  $B5C0 Frame @ #R$B5F0 - Puta a entrar
+  $B5C3,3 Desenha a frame
+  $B5C6,3 Delay
+  $B5C9,$16 Limpa a porta - Imprime 5 caracteres em branco desde a posicao x = 10 y = 2 até x = 10 y = 16 #HTML(<br>)O que é printado é: 16 02 0A 80 80 80 80 80 16 03 0A 80 80 80 80 80 16 04 0A 80 80 80 80 80 16 05 0A 80 80 80 80 80 16 06 0A 80 80 80 80 80 16 07 0A 80 80 80 80 80 16 08 0A 80 80 80 80 80 16 09 0A 80 80 80 80 80 16 0A 0A 80 80 80 80 80 16 0B 0A 80 80 80 80 80 16 0C 0A 80 80 80 80 80 16 0D 0A 80 80 80 80 80 16 0E 0A 80 80 80 80 80 16 0F 0A 80 80 80 80 80 16 10 0A 80 80 80 80 80
+
+c $B5E0 Imprime um espaço o numero de vezes que estiver em B
 
 c $B5E6 Delay conta de $FFFF ate 0
 
@@ -464,9 +470,17 @@ E $B8B1 CHARS $CB2A #HTML[#CALL:decode_data($CB2A,$B8B1)]
 E $B8B1 CHARS $CBEA #HTML[#CALL:decode_data($CBEA,$B8B1)]
 E $B8B1 CHARS $CCAA #HTML[#CALL:decode_data($CCAA,$B8B1)]
 
-
 c $B8E9
+  $B8E9,$a CHARS = $CD6A
+  $B8F3 Frame @ #R$B811 - Virar a cara
+  $B8F6,3 Desenha a frame
+  $B8F9,6 Delay
+  $B902,3 Delay
+  $B90B,3 Fecha a porta
+  $B90E,3 Delay
+
 c $B914
+
 c $B93C Recusar a puta
 b $B967
 
