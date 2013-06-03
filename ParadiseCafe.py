@@ -6,6 +6,7 @@
 import string
 
 from .skoolhtml import HtmlWriter, Udg
+from .skoolasm import AsmWriter
 
 class ParadiseCafeHtmlWriter(HtmlWriter):
 
@@ -259,3 +260,5 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
         self.write_image(img_path, udg_array)
         return self.img_element(cwd, img_path)
 
+#class ParadiseCafeHtmlWriter(AsmWriter):
+#   pass

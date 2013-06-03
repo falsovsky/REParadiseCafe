@@ -12,5 +12,5 @@ all:
 	skool2html.py $(SKOOL2HTML_OPTIONS) -H $(PARADISECAFE).skool
 
 install:
-	cp $(PARADISECAFE).py /usr/local/lib/python2.6/dist-packages/skoolkit/
+	cp $(PARADISECAFE).py `skool2html.py -p`
 

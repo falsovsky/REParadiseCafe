@@ -302,13 +302,16 @@ b $AF84
 c $AFB8
 z $AFC3
 
-; @label:$AFC8=desenha_frame
+; @label:$AFC8=desenhaFrameHL
 c $AFC8 Escreve o valor de HL no ecrã até achar FF
 ;D $AFC8 Percorre a memoria desde o endereço em HL até achar o valor FF
 ;D $AFC8 Escreve no ecrã o CHR$ do valor encontrado
 
 z $AFD0
+
+; @label:$AFD1=fadeOut
 c $AFD1 Limpa o ecra (genero de fade)
+
 c $B001
 c $B01D
 
@@ -336,10 +339,12 @@ c $B477
 c $B486
 z $B48E
 
+; @label:$B48F=abrePorta
 c $B48F Animação da porta a abrir
 
 z $B4EF
 
+; @label:$B4F1=fechaPorta
 c $B4F1 Animação da porta a fechar
 
 b $B551
@@ -364,8 +369,10 @@ c $B5B6 Puta entra e porta é limpa
   $B5C6,3 Delay
   $B5C9,$16 Limpa a porta - Imprime 5 caracteres em branco desde a posicao x = 10 y = 2 até x = 10 y = 16 #HTML(<br>)O que é printado é: 16 02 0A 80 80 80 80 80 16 03 0A 80 80 80 80 80 16 04 0A 80 80 80 80 80 16 05 0A 80 80 80 80 80 16 06 0A 80 80 80 80 80 16 07 0A 80 80 80 80 80 16 08 0A 80 80 80 80 80 16 09 0A 80 80 80 80 80 16 0A 0A 80 80 80 80 80 16 0B 0A 80 80 80 80 80 16 0C 0A 80 80 80 80 80 16 0D 0A 80 80 80 80 80 16 0E 0A 80 80 80 80 80 16 0F 0A 80 80 80 80 80 16 10 0A 80 80 80 80 80
 
+; @label:$B5E0=imprimeEspacosB
 c $B5E0 Imprime um espaço o numero de vezes que estiver em B
 
+; @label:$B5E6=delayPuta
 c $B5E6 Delay conta de $FFFF ate 0
 
 b $B5F0 Puta a sair - Frame 1
@@ -394,6 +401,7 @@ z $B76A
 
 c $B76D Paradise Café
 
+; @label:$B775=inputC34C
 c $B775 Espera que se pressione uma tecla e guarda em #R$C34C
   $B777 Endereço da ultima tecla pressionada
   $B77A Mete a 00 (limpar?)
@@ -410,6 +418,7 @@ b $B7E6
 c $B7E9
 z $B7FF
 
+; @label:$B800=viraCaraPuta
 c $B800 Vira a cara para a puta
   $B800,$a CHARS = $CAEA
   $B80A Endereço da frame #R$B811
@@ -418,6 +427,7 @@ c $B800 Vira a cara para a puta
 b $B811 Cara do gajo a olhar pra puta
 B $B811 #HTML[#CALL:decode_data($CAEA,$B811)]
 
+; @label:$B82E=viraCaraFrente
 c $B82E Heroi vira a cara para o ecrã
   $B82E O endereço $5C36 CHARS define onde a Font(?) começa
   $B837 CHARS = $CE2A
@@ -478,14 +488,18 @@ c $B914
 c $B93C Recusar a puta
 b $B967
 
+; @label:$B97E=charsCB2A
 c $B97E CHARS = $CB2A
   $B97e,10 CHARS = $CB2A
 
+; @label:$B989=charsCBEA
 c $B989 CHARS = $CBEA
   $B98C,3 CHARS = DE
 
+; @label:$B994=charsCCAA
 c $B994 CHARS = $CCAA
 
+; @label:$B99F=delay1
 c $B99F Delay conta de $FFFF ate 0
 
 z $B9A9
@@ -513,6 +527,7 @@ c $BAEF
 c $BB03
 z $BB0E
 
+; @label:$BB11=ladraoAnimSai
 ; Animação do ladrão a saír da porta
 ; 1º Metade do corpo
 ; 2º Corpo todo virado pra frente
@@ -526,7 +541,7 @@ C $BB24 Endereço da frame 2 - #R$BBA1
 C $BB27 Desenha a frame
 C $BB2A Delay
 
-; Rotina de delay usada no ladrão
+; @label:$BB2E=delayLadrao
 c $BB2E Delay
 E $BB2E Conta desde FFF0 até 0000
 C $BB2E C = F0
@@ -546,6 +561,7 @@ B $BBA1 #HTML[#CALL:decode_data($CEB9,$BBA1)]
 
 z $BC67
 
+; @label:$BC6A=ladraoViradoEsq
 ; Animação do ladrão a virar-se para a esquerda
 c $BC6A Ladrão: Virado para a esquerda
 C $BC73 CHARS = $D089
@@ -556,6 +572,7 @@ C $BC77 Desenha a frame
 b $BC7B Ladrão virado para a esquerda - Frame
 B $BC7B #HTML[#CALL:decode_data($D089,$BC7B)]
 
+; @label:$BD0C=deToChars
 c $BD0C Define o valor de DE em $5C36 (Endereço CHARS)
 
 c $BD15
@@ -575,7 +592,8 @@ b $BDE8
 b $BE65
 c $BEC5
 
-c $BEDC Saca a pistola
+; @label:$BEDC=sacaAPistola 
+c $BEDC Saca a pistola @ #R$BEE9
 
 b $BEE9 Frame - Sacar a pistola
 B $BEE9 #HTML[#CALL:decode_data($D409,$BEE9)]
@@ -628,6 +646,7 @@ c $C1C2 Disparar contra o ladrão
   $C1E7,3 Saca a pistola para fora!
   $C1EA,5 Delay com a duracao do valor em A
 
+; @label:$C23B=naoTenhoPistola
 c $C23B Não tenho pistola
   $C23B Vira a cara para o ecrã #R$B83F
   $C23E,$c Balão - Não tenho pistola, #R$C03B
@@ -636,7 +655,7 @@ c $C23B Não tenho pistola
 
 z $C258
 
-; Delay variavel
+; @label:$C259=delayEmA
 c $C259 Delay (rotina corre o numero de vezes que o valor em A)
 
 
