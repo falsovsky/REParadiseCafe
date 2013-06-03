@@ -1,59 +1,42 @@
 b $4000 screen$
-D $4000 #UDGTABLE { #SCR(loading) | Ecrã de entrada - screen$. } TABLE#
-b $5B00 System variables (?)
-b $5CB6 Channel infomation (?)
-b $5CCB Program data (Basic?)
-;b $5CD5
-;t $5CF4 AVISO AO PUBLICO
-;b $5D0B
-;t $5D22 Contem cenas
-;b $5D39
-;t $5D4E eventualmente chocantes
-;b $5D6F
-;t $5D94
-;b $5D97
-;t $5DC6
-;b $5DCB #HTML[#UDG$53AB,2(5dcb)]
-;t $5E1B
-;b $5E20
-;t $5E3F DAMATTA
-;b $5E46
-b $5E27 Basic stacks (novo)
-c $7530 Inicio do codigo(?)
-c $75CF
-b $75E2
-t $76F3
-b $76F6
-t $772A
-b $7736
-t $77D1 THE END
-b $77E3
+D $4000,$1b00 #UDGTABLE { #SCR(loading) | Ecrã de entrada - screen$. } TABLE#
 
-c $77F2 Inicializa variaveis
+;b $5B00 System variables (?)
+;b $5CB6 Channel infomation (?)
+
+b $5CCB Program data (Basic?)
+  $5CCB,$15c
+
+;b $5E27 Basic stacks (novo)
+
+c $7530 Game over(?)
+c $75CF
+
+b $75E2 Prisão
+  $75E2 #HTML[#CALL:decode_data($8970,$75E2)]
+
+b $7799 Canhola - Frame 1
+  $7799 #HTML[#CALL:decode_data($8C30,$7799)]
+
+b $77B6 Canhola - Frame 2
+  $77B6 #HTML[#CALL:decode_data($8C30,$77B6)]
+
+b $77D5 The End
+  $77D5 #HTML[#CALL:decode_data($3C00,$77D5)]
+
+z $77E4
+
+c $77EA Inicio do codigo!
   $7854,2 Começa-se sem arma
   $787D,3 Guarda o valor do FRAMES (contador de tempo +-)
   $7880,2 Subtrai $80
   $7882,8 Corre o "randomizer" o numero de vezes que estiver em A
 
-b $788D
-t $78AC
-b $78C7
-t $78D7
-b $78DB
-t $78F0
-b $78F3
-t $7938
-b $793B
-t $7970
-b $7973
-t $797C
-b $797F
-t $7988
-b $798B
-t $79BC
-b $79BF
-t $79D6 Recordista do jogo
-b $79E8
+b $788D Ecrã de entrada - Recordista do jogo - BY DAMATTA
+  $788D #HTML[#CALL:decode_data($3C00,$788D)]
+
+z $79EA
+
 c $7CF0
 
 c $7D2B Delay(?)
@@ -107,10 +90,21 @@ b $87D8
 c $8800
 z $88FF
 c $8900
+
 t $89A6 DAMATTA
 b $89AD
-t $89DC NOVO RECORDE / Introduza o seu nome / Esta correcto o seu nome
-b $8A27
+
+b $89D2 Novo record - Introduza o seu nome .
+  $89D2 #HTML[#CALL:decode_data($3C00,$89D2)]
+
+b $8A09 Esta correcto o seu nome ?
+  $8A09 #HTML[#CALL:decode_data($3C00,$8A09)]
+
+b $8A29 Duas linhas pretas (?)
+  $8A29 #HTML[#CALL:decode_data($3C00,$8A29)]
+
+b $8A70
+
 t $8CD2
 b $8CE0
 t $8CFC
