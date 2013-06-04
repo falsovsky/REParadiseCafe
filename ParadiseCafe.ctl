@@ -115,7 +115,7 @@ b $89D2 Novo record - Introduza o seu nome .
 b $8A09 Esta correcto o seu nome ?
   $8A09 #HTML[#CALL:decode_data($3C00,$8A09)]
 
-b $8A29 Duas linhas pretas (?)
+b $8A29 Duas linhas pretas
   $8A29 #HTML[#CALL:decode_data($3C00,$8A29)]
 
 b $8A70
@@ -137,10 +137,10 @@ z $91DF
 b $91E1 Puta - Vaginal - Frame 2
   $91E1 #HTML[#CALL:decode_data($EDB9,$91E1)]
 
-b $921A Venho-me haaaaaaa
+b $921A Balão - Venho-me haaaaaaa
   $921A #HTML[#CALL:decode_data($EED9,$921A)]
 
-b $9231 Limpa balão
+b $9231 Limpa balão @ #R$921A
   $9231 #HTML[#CALL:decode_data($EDB9,$9231)]
 
 c $9246
@@ -149,25 +149,32 @@ c $92A3
 c $92B8
 c $92C1
 
-b $92D6
+b $92D6 Puta - Anal
+  $92D6 #HTML[#CALL:decode_data($EF39,$92D6)]
 
 z $938E
 
-b $9392
+b $9392 Puta - Anal - Frame 1
+  $9392 #HTML[#CALL:decode_data($F151,$9392)]
 
 z $93C5
 
-b $93C9
+b $93C9 Puta - Anal - Frame 2
+  $93C9 #HTML[#CALL:decode_data($F151,$93C9)]
 
 z $93F8
 
-b $93FC
+b $93FC Balão - Ahhh tão grosso
+  $93FC #HTML[#CALL:decode_data($F201,$93FC)]
 
-b $9413
+b $9413 Limpa balão @ #R$93FC
+  $9413 #HTML[#CALL:decode_data($F201,$9413)]
 
-b $9428
+b $9428 Balão - AAAA...
+  $9428 #HTML[#CALL:decode_data($F261,$9428)]
 
-b $943F
+b $943F Limpa balão @ #R$9428
+  $943F #HTML[#CALL:decode_data($F151,$943F)]
 
 z $9454
 
@@ -175,97 +182,133 @@ c $9455
 
 z $9476
 
-b $9479
+b $9479 Policia a sair - Frame 1
+  $9479 #HTML[#CALL:decode_data($F2C1,$9479)]
 
 z $94DA
 
-b $94DE
+b $94DE Policia a sair - Frame 2
+  $94DE #HTML[#CALL:decode_data($F2C1,$94DE)]
 
 z $959D
 
 c $959F
 c $95B7
 
-b $95C7
+b $95C7 Policia virado para a esquerda
+  $95C7 #HTML[#CALL:decode_data($F4B9,$95C7)]
 
 c $9663
-b $9670
+
+b $9670 Mostrar a carteira (ao policia)
+  $9670 #HTML[#CALL:decode_data($F881,$9670)]
+
 c $9695
 c $96B8
 c $96DF
 c $96F4
 
-b $9709
+b $9709 Puta - Oral
+  $9709 #HTML[#CALL:decode_data($F8B1,$9709)]
 
 z $97C4
 
-b $97C8
+b $97C8 Puta - Oral - Frame 1
+  $97C8 #HTML[#CALL:decode_data($FB41,$97C8)]
 
 z $97F6
 
-b $9800 
+b $97FA Puta - Oral - Frame 2
+  $97FA #HTML[#CALL:decode_data($FB41,$9800)]
 
 c $9826
 
-b $9833
+b $9833 Puta na cama
+  $9833 #HTML[#CALL:decode_data($7E5A,$9833)]
 
-b $9899
+c $9899
+
+b $98A6 Reinaldo
+  $98A6 #HTML[#CALL:decode_data($804A,$98A6)]
 
 c $9912
 
-b $991F
+b $991F Heroi na casa da puta
+  $991F #HTML[#CALL:decode_data($81A2,$991F)]
 
 z $9998
 
 c $999A
 
-b $9AAE
+b $9AAE Reinaldo a espreitar na porta
+  $9AAE #HTML[#CALL:decode_data($82CA,$9AAE)]
 
-b $9ACF
+b $9ACF Balão - Cu cu
+  $9ACF #HTML[#CALL:decode_data($FD61,$9ACF)]
 
-b $9AE2
+b $9AE2 Balão - O que foi?
+  $9AE2 #HTML[#CALL:decode_data($FDA1,$9AE2)]
 
-b $9AF9
+b $9AF9 Reinaldo - Enrabadela
+  $9AF9 #HTML[#CALL:decode_data($8322,$9AF9)]
 
-b $9BB1
+b $9BB1 Reinaldo - Enrabadela - Frame 1
+  $9BB1 #HTML[#CALL:decode_data($8502,$9BB1)]
 
-b $9BE3
+b $9BE3 Reinaldo - Enrabadela - Frame 2
+  $9BE3 #HTML[#CALL:decode_data($8502,$9BE3)]
 
-b $9C15
+b $9C15 Balão - Ai que caralhinho
+  $9C15 #HTML[#CALL:decode_data($868A,$9C15)]
 
 c $9C30
 z $9C3C
 c $9C40
-b $9C4D
+
+b $9C4D Velha - Vergada
+  $9C4D #HTML[#CALL:decode_data($D899,$9C4D)]
+
 c $9CD7
 
-b $9CE4
+b $9CE4 Velha - Vestido levantado
+  $9CE4 #HTML[#CALL:decode_data($D899,$9CE4)]
 
 c $9D7A
 
-b $9D87
+b $9D87 Velha - Pichota para fora
+  $9D87 #HTML[#CALL:decode_data($D899,$9D87)]
 
 c $9DB1
 
-b $9DBE
+b $9DBE Velha - Violar - Frame 1
+  $9DBE #HTML[#CALL:decode_data($D899,$9DBE)]
 
 c $9DED
 
-b $9DFA
+b $9DFA Velha - Violar - Frame 2
+  $9DFA #HTML[#CALL:decode_data($D899,$9DFA)]
 
 c $9E2F
 
-b $9E4A
+b $9E4A Velha a sair - Frame 1
+  $9E4A #HTML[#CALL:decode_data($D739,$9E4A)]
 
 z $9E8E
 
-b $9E92
+b $9E92 Velha a sair - Frame 2
+  $9E92 #HTML[#CALL:decode_data($D739,$9E92)]
 
 c $9F31
 c $9F54 Velha
+
 b $9FFF
+  $9FFF #HTML[#CALL:decode_data($DD21,$9FFF)]
+
 c $A004
+
 b $A00F
+  $A00F #HTML[#CALL:decode_data($DD21,$A00F)]
+
 c $A014
 c $A03A
 c $A0D4
@@ -273,17 +316,21 @@ c $A100
 c $A134
 c $A143
 
-b $A14C
+b $A14C Balão - Ai tão grande
+  $A14C #HTML[#CALL:decode_data($DBB1,$A14C)]
 
-b $A163
+b $A163 Limpa balão @ #R$A14C
+  $A163 #HTML[#CALL:decode_data($D899,$A163)]
 
 b $A178
+  $A178 #HTML[#CALL:decode_data($99D8,$A178)]
 
 z $A194
 
 c $A195
 
 b $A1A2
+  $A1A2 #HTML[#CALL:decode_data($E111,$A1A2)]
 
 z $A1EF
 
@@ -292,17 +339,20 @@ c $A20A
 z $A214
 c $A215
 
-b $A222
+b $A222 Café - Sentado
+  $A222 #HTML[#CALL:decode_data($DE31,$A222)]
 
 z $A35E
 
 c $A360
 
-b $A38B
+b $A38B Café - Beber - Frame 1
+  $A38B #HTML[#CALL:decode_data($DE31,$A38B)]
 
 z $A3D0
 
-b $A3D2
+b $A3D2 Café - Beber - Frame 2
+  $A3D2 #HTML[#CALL:decode_data($DE31,$A3D2)]
 
 c $A410
 c $A416
@@ -313,26 +363,31 @@ c $A425
 
 c $A430
 
-b $A465
+b $A465 Café - Mafioso - Frame 1
+  $A465 #HTML[#CALL:decode_data($E279,$A465)]
 
 z $A4A7
 
-b $A4AB
+b $A4AB Café - Mafioso - Frame 2
+  $A4AB #HTML[#CALL:decode_data($E279,$A4AB)]
 
 z $A51A
 
-b $A51E
+b $A51E Café - Mafioso - Frame 3
+  $A51E #HTML[#CALL:decode_data($E279,$A51E)]
 
 z $A586
 
 c $A589
 c $A5B5
 
-b $A5D6
+b $A5D6 Café - Empregado - Frame 1
+  $A5D6 #HTML[#CALL:decode_data($E441,$A5D6)]
 
 z $A620
 
-b $A625
+b $A625 Café - Empregado - Frame 2
+  $A625 #HTML[#CALL:decode_data($E441,$A625)]
 
 z $A6B3
 
@@ -340,11 +395,13 @@ c $A6B7
 c $A6FE
 c $A710
 
-b $A728
+b $A728 Café - Empregado a servir bebida - Frame 1
+  $A728 #HTML[#CALL:decode_data($E441,$A728)]
 
 z $A74A
 
-b $A74E
+b $A74E Café - Empregado a servir bebida - Frame 2
+  $A74E #HTML[#CALL:decode_data($E441,$A74E)]
 
 c $A770
 c $A799
@@ -356,21 +413,29 @@ b $AB87
 
 c $AB88
 
-b $ABC3
+b $ABC3 Limpa algo, não sei o que
+  $ABC3 #HTML[#CALL:decode_data($E279,$A74E)]
 
-b $ABCE
+b $ABCE Balão - Aceito
+  $ABCE #HTML[#CALL:decode_data($E659,$ABCE)]
 
-b $ABE5
+b $ABE5 Limpa balão @ #R$ABCE
+  $ABE5 #HTML[#CALL:decode_data($E659,$ABE5)]
 
-b $ABFA
+b $ABFA Balão - Sei que tem aí droga
+  $ABFA #HTML[#CALL:decode_data($E9F9,$ABFA)]
 
-b $AC11
+b $AC11 Limpa balão @ #R$ABFA
+  $AC11 #HTML[#CALL:decode_data($E659,$AC11)]
 
-b $AC26
+b $AC26 Balão - A sua conta
+  $AC26 #HTML[#CALL:decode_data($E779,$AC26)]
 
-b $AC3D
+b $AC3D Limpa balão @ #R$AC26
+  $AC3D #HTML[#CALL:decode_data($E779,$AC3D)]
 
 b $AC52
+  $AC52 #HTML[#CALL:decode_data($DE31,$AC52)]
 
 z $AC8F
 
@@ -381,17 +446,23 @@ b $ACD6
 
 z $ACD7
 
-b $ACD8
+b $ACD8 Café - quando a porta abre
+  $ACD8 #HTML[#CALL:decode_data($EA59,$ACD8)]
 
 z $ACF4
 
 c $ACF6
-b $AD05
+
+b $AD05 Puta - Quarto
+  $AD05 #HTML[#CALL:decode_data($EAC1,$AD05)]
+
 c $AF6B
 
-b $AF84
+b $AF84 Balão - Ir-te a' cona
+  $AF84 #HTML[#CALL:decode_data($8DF4,$AF84)]
 
-b $AF9B
+b $AF9B Limpa balão @ #R$AF84
+  $AF9B #HTML[#CALL:decode_data($FD01,$AF9B)]
 
 c $AFB0
 c $AFB8
@@ -411,12 +482,14 @@ c $B001
 c $B01D
 
 b $B0A9
-  $B0A9 #HTML[#CALL:decode_data($89D6,$B0A9)]
+  $B0A9 #HTML[#CALL:decode_data($C538,$B0A9)]
+E $B0A9 Esta frame é usada com CHARS a: $C538, $c328, $C420, $C538
 
-b $B0E4
-  $B0E4 #HTML[#CALL:decode_data($C420,$B0E4)]
+b $B0E4 Animacao Pernas (?) - Frame 1
+  $B0E4 #HTML[#CALL:decode_data($C250,$B0E4)]
 
-b $B14C
+b $B14C Animacao Pernas (?) - Frame 2
+  $B14C #HTML[#CALL:decode_data($C328,$B14C)]
 
 b $B1B5
 

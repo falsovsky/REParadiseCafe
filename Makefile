@@ -1,6 +1,6 @@
 OUTPUT?=/home/falso/public_html/p
 SNA2SKOOL_OPTIONS=-h -H
-SKOOL2HTML_OPTIONS=-d $(OUTPUT)
+SKOOL2HTML_OPTIONS=-d $(OUTPUT) -a
 
 #./sna2skool.py -h -H -c paradisecafe.ctl paradisecafe.z80 > paradisecafe.skool && ./skool2html.py -d /home/falso/public_html/p -H paradisecafe.skool
 

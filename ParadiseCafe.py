@@ -185,7 +185,6 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
 
 
     def decode_data(self, cwd, chraddr, dataaddr):
-
         # Cria um array com 24 linhas e 32 colunas
         udg_array = [[0 for i in range(32)] for j in range(24)]
 
@@ -196,14 +195,14 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
         ink = 0
         # fundo
         paper = 0
-	flash = 0
-	brightness = 0
+        flash = 0
+        brightness = 0
 
         # encher o array com o caracter SPACE
         zbr = 0x3D00 # endereço do chr$ space na memoria
         for i in range(24):
-                for j in range(32):
-                    udg_array[i][j] = Udg(63, self.snapshot[zbr:zbr+8])
+            for j in range(32):
+                udg_array[i][j] = Udg(63, self.snapshot[zbr:zbr+8])
 
         addr = dataaddr
         while self.snapshot[addr] != 0xFF:
@@ -226,8 +225,8 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
 
             if self.snapshot[addr] == 0x12:
                 flash = self.snapshot[addr+1]
-		addr += 2
-		continue
+                addr += 2
+                continue
             
             v = (self.snapshot[addr] - 0x20)
             ad = ( chraddr + 256 ) + v * 8
@@ -237,22 +236,26 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
             # BLOCK CHARS
             if (self.snapshot[addr] >= 0x80 and self.snapshot[addr] <= 0x8f):
                 zbr = self.generate_block(cwd, self.snapshot[addr])
+                #print "ZBR %04X - %02X" % (addr, self.snapshot[addr])
                 udg_array[x][y] = Udg(attr, zbr)
             elif (self.snapshot[addr] >= 0x90 and self.snapshot[addr] <= 0xa4):
                 v = ( self.snapshot[addr] - 0x90)
                 ad = ( 0xFF58 ) + (v*8)
                 udg_array[x][y] = Udg(ad, self.snapshot[ad:ad+8])
             else:
-		if (chraddr == 0x3C00):
-			#ad = ( 0x3C00 + 256) + v * 8
-			#udg_array[x][y] = Udg(attr, self.snapshot[ad:ad+8])
-			key = "%02X" % (self.snapshot[addr])
-			udg_array[x][y] = Udg(attr, self.font[key])
-		else:
-                	udg_array[x][y] = Udg(attr, self.snapshot[ad:ad+8])
+                if (chraddr == 0x3C00):
+                    #ad = ( 0x3C00 + 256) + v * 8
+                    #udg_array[x][y] = Udg(attr, self.snapshot[ad:ad+8])
+                    key = "%02X" % (self.snapshot[addr])
+                    udg_array[x][y] = Udg(attr, self.font[key])
+                else:
+                    udg_array[x][y] = Udg(attr, self.snapshot[ad:ad+8])
 
-            y += 1
             addr += 1
+            y += 1
+            if y == 32:
+                y = 0
+                x += 1
 
         img_path_id = 'ScreenshotImagePath'
         fname = 'zbr-%x-%x' % (chraddr, addr)
