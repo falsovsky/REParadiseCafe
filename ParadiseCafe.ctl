@@ -4,8 +4,8 @@ D $4000,$1b00 #UDGTABLE { #SCR(loading) | Ecrã de entrada - screen$. } TABLE#
 ;b $5B00 System variables (?)
 ;b $5CB6 Channel infomation (?)
 
-b $5CCB Program data (Basic?)
-  $5CCB,$15c
+;b $5CCB Program data (Basic?)
+;  $5CCB,$15c
 
 ;b $5E27 Basic stacks (novo)
 
@@ -27,12 +27,13 @@ b $77D5 The End
 z $77E4
 
 c $77EA Inicio do codigo!
+  $77EA,$13 Espera que se pressione uma tecla
   $7854,2 Começa-se sem arma
   $787D,3 Guarda o valor do FRAMES (contador de tempo +-)
   $7880,2 Subtrai $80
   $7882,8 Corre o "randomizer" o numero de vezes que estiver em A
 
-b $788D Ecrã de entrada - Recordista do jogo - BY DAMATTA
+b $788D Ecrã de entrada
   $788D #HTML[#CALL:decode_data($3C00,$788D)]
 
 z $79EA
@@ -68,31 +69,45 @@ c $7DAB Verifica colisao com a porta(main loop)
 
 z $7DE1
 c $7DEA Policia
-b $7EE9
-t $826A
-b $8272
-t $835B
-b $835F
-t $8474
-b $8478
-t $86D5
-b $86E2
-t $870B
-b $8710
-t $8723
-b $8728
-t $8774
-b $8778
-t $87A5
-b $87A8
-t $87CC
-b $87D8
+
+b $7EE9 Então está tudo bem?
+  $7EE9 #HTML[#CALL:decode_data($F641,$7EE9)]
+
+b $7F15 Está sim seu guarda
+  $7F15 #HTML[#CALL:decode_data($F6A1,$7F15)]
+
+b $7F2C Limpa balão - esquerdo
+  $7F2C #HTML[#CALL:decode_data($F6A1,$7F2C)]
+
+b $7F41 Limpa chão
+  $7F41 #HTML[#CALL:decode_data($F701,$7F41)]
+
+b $7F52
+
+;t $826A
+;b $8272
+;t $835B
+;b $835F
+;t $8474
+;b $8478
+;t $86D5
+;b $86E2
+;t $870B
+;b $8710
+;t $8723
+;b $8728
+;t $8774
+;b $8778
+;t $87A5
+;b $87A8
+;t $87CC
+;b $87D8
+
 c $8800
 z $88FF
 c $8900
 
-t $89A6 DAMATTA
-b $89AD
+t $89A6 Recordista do jogo
 
 b $89D2 Novo record - Introduza o seu nome .
   $89D2 #HTML[#CALL:decode_data($3C00,$89D2)]
@@ -105,94 +120,91 @@ b $8A29 Duas linhas pretas (?)
 
 b $8A70
 
-t $8CD2
-b $8CE0
-t $8CFC
-b $8CFF
-t $8E9F
-b $8EA4
-t $8EE5
-b $8EEA
-t $8F95
-b $8FA1
-t $8FBF
-b $8FC4
-t $8FCF
-b $8FD4
-t $8FED
-b $8FF2
-t $9005
-b $9012
-t $9056
-b $905A
 c $9088
 c $90B1
 c $90D2
-b $90E7
-t $9118
-b $9123
-t $913F
-b $9142
-t $9155
-b $9158
-t $9175
-b $918E
-t $91D2
-b $91D6
+
+b $90E7 Puta - Vaginal
+  $90E7 #HTML[#CALL:decode_data($EB31,$90E7)]
+
+z $9197
+
+b $919B Puta - Vaginal - Frame 1
+  $919B #HTML[#CALL:decode_data($EDB9,$919B)]
+
+b $91DF
+
+b $921A Venho-me haaaaaaa
+  $921A #HTML[#CALL:decode_data($EED9,$921A)]
+
+b $9231 Limpa balão
+  $9231 #HTML[#CALL:decode_data($EDB9,$9231)]
+
 c $9246
 c $9274
 c $92A3
 c $92B8
 c $92C1
+
 b $92D6
-t $92F6
-b $92F9
-t $933F
-b $9346
-t $9353
-b $9356
-t $9363
-b $9367
-t $9375
-b $937B
-t $93C1
-b $93C4
-t $93F4
-b $93F7
+
+z $938E
+
+b $9392
+
+z $93C5
+
+b $93C9
+
+z $93F8
+
+b $93FC
+
+b $9413
+
+b $9428
+
+b $943F
+
+z $9454
+
 c $9455
 b $9476
 c $959F
 c $95B7
+
 b $95C7
-t $9648
-b $964B
-t $9656
-b $9662
+
 c $9663
 b $9670
 c $9695
 c $96B8
 c $96DF
 c $96F4
+
 b $9709
-t $9739
-b $974D
-t $9770
-b $9774
-t $9783
-b $9787
-t $9793
-b $979D
+
+z $97C4
+
+b $97C8
+
+z $97F6
+
+b $9800 
+
 c $9826
+
 b $9833
-t $9862
-b $9870
-t $9879
-b $9898
-t $98D2
-b $98D6
-t $990E
-b $9911
+
+;t $9862
+;b $9870
+;t $9879
+;b $9898
+;t $98D2
+;b $98D6
+;t $990E
+;b $9911
+
 c $9912
 b $991F
 t $9959
@@ -576,13 +588,11 @@ B $BC7B #HTML[#CALL:decode_data($D089,$BC7B)]
 c $BD0C Define o valor de DE em $5C36 (Endereço CHARS)
 
 c $BD15
+
 b $BD22
-t $BD59
-b $BD5E
-t $BD73
-b $BD80
-t $BD8C
-b $BD8F
+
+z $BD94
+
 c $BD95
 z $BD9F
 c $BDA0
@@ -671,9 +681,10 @@ D $C27A Provavelmente define alguma variavel, pq é executado antes de mostrar o
 
 z $C2A9
 c $C2AA
-b $C2CE
-t $C2D5 DESPESA
-b $C2DD
+
+b $C2CE Despesa(?)
+z $C2DE
+
 c $C2DF
 b $C302
 t $C309 HISCORE
@@ -693,177 +704,177 @@ b $C34A
 
 b $C34B Distancia para a porta?
 b $C34C Ultima tecla pressionada
+
 b $C34D ??
 b $C34E ??
+b $C34F ??
 
-b $C34C
-t $C598
-b $C59B
-t $C62B
-b $C62F
-t $CCC2
-b $CCC5
+b $C350
 
-;b $CD3B
-
-t $CD63
-b $CD68
-t $D1CC
-b $D1D1
-t $D3BA
-b $D3BD
-t $D57C
-b $D57F
-t $D594
-b $D597
-t $D603
-b $D607
-t $D646
-b $D649
-t $D683
-b $D688
-t $D693
-b $D6A0
-t $D756
-b $D759
-t $D7AC
-b $D7B1
-t $D7D3
-b $D7D6
-t $DB11
-b $DB15
-t $DC8A
-b $DC8E
-t $DCA2
-b $DCA5
-t $DCFA
-b $DCFE
-t $DD1C
-b $DD29
-t $DD4C
-b $DD4F
-t $DD5C
-b $DD68
-t $DDC2
-b $DDC7
-t $DDEE
-b $DDF1
-t $DE2C
-b $DE2F
-t $DE3D
-b $DE49
-t $DE74
-b $DE77
-t $DE94
-b $DE99
-t $DEB4
-b $DEB9
-t $DEC2
-b $DEC6
-t $DED2
-b $DEDD
-t $E28E
-b $E296
-t $E2DC
-b $E2E1
-t $E30E
-b $E311
-t $E334
-b $E338
-t $E363
-b $E367
-t $E74B
-b $E750
-t $E82C
-b $E831
-t $E853
-b $E868
-t $E88C
-b $E88F
-t $E8BA
-b $E8BF
-t $E8CA
-b $E8CF
-t $E955
-b $E958
-t $E965
-b $E968
-t $E98B
-b $E990
-t $E9AC
-b $E9B8
-t $E9C4
-b $E9C9
-t $E9D4
-b $E9D8
-t $E9EC
-b $E9F0
-t $EA34
-b $EA39
-t $EA44
-b $EA48
-t $EA5C
-b $EA60
-t $EA94
-b $EA99
-t $EAB3
-b $EAB8
-t $EAC3
-b $EAC6
-t $EB0C
-b $EB11
-t $EB43
-b $EB48
-t $EB7E
-b $EB85
-t $EBA5
-b $EBA8
-t $EBB3
-b $EBB6
-t $EF91
-b $EF99
-t $F22A
-b $F22D
-t $F314
-b $F318
-t $F352
-b $F35F
-t $F43C
-b $F441
-t $F624
-b $F62C
-t $F649
-b $F651
-t $F681
-b $F685
-t $F6B9
-b $F6BD
-t $F764
-b $F771
-t $F7EA
-b $F7EE
-t $F80D
-b $F830
-t $F85B
-b $F85E
-t $F8B3
-b $F8B7
-t $F90A
-b $F90E
-t $F944
-b $F949
-t $F95A
-b $F95D
-t $F985
-b $F989
-t $FD5C
-b $FD61
-t $FDB4
-b $FDC1
-t $FE41
-b $FE46
-t $FE7E
-b $FE83
-t $FEAC
-b $FEB1
-b $FF58 UDG
+;t $C598
+;b $C59B
+;t $C62B
+;b $C62F
+;t $CCC2
+;b $CCC5
+;t $CD63
+;b $CD68
+;t $D1CC
+;b $D1D1
+;t $D3BA
+;b $D3BD
+;t $D57C
+;b $D57F
+;t $D594
+;b $D597
+;t $D603
+;b $D607
+;t $D646
+;b $D649
+;t $D683
+;b $D688
+;t $D693
+;b $D6A0
+;t $D756
+;b $D759
+;t $D7AC
+;b $D7B1
+;t $D7D3
+;b $D7D6
+;t $DB11
+;b $DB15
+;t $DC8A
+;b $DC8E
+;t $DCA2
+;b $DCA5
+;t $DCFA
+;b $DCFE
+;t $DD1C
+;b $DD29
+;t $DD4C
+;b $DD4F
+;t $DD5C
+;b $DD68
+;t $DDC2
+;b $DDC7
+;t $DDEE
+;b $DDF1
+;t $DE2C
+;b $DE2F
+;t $DE3D
+;b $DE49
+;t $DE74
+;b $DE77
+;t $DE94
+;b $DE99
+;t $DEB4
+;b $DEB9
+;t $DEC2
+;b $DEC6
+;t $DED2
+;b $DEDD
+;t $E28E
+;b $E296
+;t $E2DC
+;b $E2E1
+;t $E30E
+;b $E311
+;t $E334
+;b $E338
+;t $E363
+;b $E367
+;t $E74B
+;b $E750
+;t $E82C
+;b $E831
+;t $E853
+;b $E868
+;t $E88C
+;b $E88F
+;t $E8BA
+;b $E8BF
+;t $E8CA
+;b $E8CF
+;t $E955
+;b $E958
+;t $E965
+;b $E968
+;t $E98B
+;b $E990
+;t $E9AC
+;b $E9B8
+;t $E9C4
+;b $E9C9
+;t $E9D4
+;b $E9D8
+;t $E9EC
+;b $E9F0
+;t $EA34
+;b $EA39
+;t $EA44
+;b $EA48
+;t $EA5C
+;b $EA60
+;t $EA94
+;b $EA99
+;t $EAB3
+;b $EAB8
+;t $EAC3
+;b $EAC6
+;t $EB0C
+;b $EB11
+;t $EB43
+;b $EB48
+;t $EB7E
+;b $EB85
+;t $EBA5
+;b $EBA8
+;t $EBB3
+;b $EBB6
+;t $EF91
+;b $EF99
+;t $F22A
+;b $F22D
+;t $F314
+;b $F318
+;t $F352
+;b $F35F
+;t $F43C
+;b $F441
+;t $F624
+;b $F62C
+;t $F649
+;b $F651
+;t $F681
+;b $F685
+;t $F6B9
+;b $F6BD
+;t $F764
+;b $F771
+;t $F7EA
+;b $F7EE
+;t $F80D
+;b $F830
+;t $F85B
+;b $F85E
+;t $F8B3
+;b $F8B7
+;t $F90A
+;b $F90E
+;t $F944
+;b $F949
+;t $F95A
+;b $F95D
+;t $F985
+;b $F989
+;t $FD5C
+;b $FD61
+;t $FDB4
+;b $FDC1
+;t $FE41
+;b $FE46
+;t $FE7E
+;b $FE83
+;t $FEAC
+;b $FEB1
+;b $FF58 UDG
