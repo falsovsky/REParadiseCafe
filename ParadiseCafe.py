@@ -185,6 +185,7 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
 
 
     def decode_data(self, cwd, chraddr, dataaddr):
+        #print "DEBUG: CHRADDR %04X+100 = %04X" % (chraddr, (chraddr+0x100))
         # Cria um array com 24 linhas e 32 colunas
         udg_array = [[0 for i in range(32)] for j in range(24)]
 
