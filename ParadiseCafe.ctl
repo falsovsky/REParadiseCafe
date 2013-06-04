@@ -132,7 +132,10 @@ z $9197
 b $919B Puta - Vaginal - Frame 1
   $919B #HTML[#CALL:decode_data($EDB9,$919B)]
 
-b $91DF
+z $91DF
+
+b $91E1 Puta - Vaginal - Frame 2
+  $91E1 #HTML[#CALL:decode_data($EDB9,$91E1)]
 
 b $921A Venho-me haaaaaaa
   $921A #HTML[#CALL:decode_data($EED9,$921A)]
@@ -169,7 +172,17 @@ b $943F
 z $9454
 
 c $9455
-b $9476
+
+z $9476
+
+b $9479
+
+z $94DA
+
+b $94DE
+
+z $959D
+
 c $959F
 c $95B7
 
@@ -196,47 +209,58 @@ c $9826
 
 b $9833
 
-;t $9862
-;b $9870
-;t $9879
-;b $9898
-;t $98D2
-;b $98D6
-;t $990E
-;b $9911
+b $9899
 
 c $9912
+
 b $991F
-t $9959
-b $995C
-t $9B3A
-b $9B45
-t $9B99
-b $9B9D
+
+z $9998
+
+c $999A
+
+b $9AAE
+
+b $9ACF
+
+b $9AE2
+
+b $9AF9
+
+b $9BB1
+
+b $9BE3
+
+b $9C15
+
 c $9C30
 z $9C3C
 c $9C40
 b $9C4D
 c $9CD7
+
 b $9CE4
-t $9D4A
-b $9D4D
-t $9D75
-b $9D79
+
 c $9D7A
+
 b $9D87
-t $9D9E
-b $9DA1
+
 c $9DB1
+
 b $9DBE
-t $9DD6
-b $9DDF
+
 c $9DED
+
 b $9DFA
-t $9E1E
-b $9E22
+
 c $9E2F
+
 b $9E4A
+
+z $9E8E
+
+b $9E92
+
 c $9F31
 c $9F54 Velha
 b $9FFF
@@ -248,69 +272,128 @@ c $A0D4
 c $A100
 c $A134
 c $A143
+
 b $A14C
+
+b $A163
+
+b $A178
+
+z $A194
+
 c $A195
+
 b $A1A2
-t $A1C7
-b $A1CC
-t $A1DD
-b $A1EA
+
+z $A1EF
+
 c $A1F0
 c $A20A
 z $A214
 c $A215
+
 b $A222
-t $A25C
-b $A265
-t $A288
-b $A28B
-t $A2A0
-b $A2A3
-t $A2B1
-b $A2B5
-t $A2C2
-b $A2E8
-t $A303
-b $A311
+
+z $A35E
+
 c $A360
+
 b $A38B
-t $A3DE
-b $A3E2
-t $A3EB
-b $A3F9
+
+z $A3D0
+
+b $A3D2
+
 c $A410
 c $A416
-b $A423
+
+z $A423
+
+c $A425
+
 c $A430
+
 b $A465
+
+z $A4A7
+
+b $A4AB
+
+z $A51A
+
+b $A51E
+
+z $A586
+
 c $A589
 c $A5B5
+
 b $A5D6
-t $A6AE
-b $A6B2
+
+z $A620
+
+b $A625
+
+z $A6B3
+
 c $A6B7
 c $A6FE
 c $A710
+
 b $A728
-t $A72F
-b $A732
-t $A73F
-b $A742
-t $A75F
-b $A763
+
+z $A74A
+
+b $A74E
+
 c $A770
 c $A799
 z $A79C
 c $A7A0 Café
 C $A9F9 Activar a arma!
+
 b $AB87
+
+c $AB88
+
+b $ABC3
+
+b $ABCE
+
+b $ABE5
+
+b $ABFA
+
+b $AC11
+
+b $AC26
+
+b $AC3D
+
+b $AC52
+
+z $AC8F
+
 c $AC90 Café (Porta)
 c $ACD3
+
 b $ACD6
+
+z $ACD7
+
+b $ACD8
+
+z $ACF4
+
 c $ACF6
 b $AD05
 c $AF6B
+
 b $AF84
+
+b $AF9B
+
+c $AFB0
 c $AFB8
 z $AFC3
 
@@ -334,18 +417,18 @@ b $B0E4
   $B0E4 #HTML[#CALL:decode_data($C420,$B0E4)]
 
 b $B14C
+
 b $B1B5
-t $B1FA
-b $B205
+
 b $B226
 b $B299
 z $B309
 c $B30A
+
 b $B353
-t $B3B6
-b $B3BA
-t $B3CB
-b $B3DE
+
+b $B3DF
+
 c $B46C
 c $B477
 c $B486
@@ -426,7 +509,11 @@ c $B785
 b $B7A4
 c $B7CC
 c $B7D3
+
 b $B7E6
+
+b $B7E8
+
 c $B7E9
 z $B7FF
 
@@ -686,9 +773,22 @@ b $C2CE Despesa(?)
 z $C2DE
 
 c $C2DF
+
 b $C302
-t $C309 HISCORE
-b $C311
+
+z $C314
+
+b $C337
+
+b $C338
+
+b $C339
+
+b $C33A
+
+b $C33B
+
+b $C33C
 
 ; @label:$C33D=arma
 b $C33D Inventorio: Arma
