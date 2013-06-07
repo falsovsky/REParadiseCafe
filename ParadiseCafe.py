@@ -138,54 +138,9 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
 
         return blockbytes
 
-    def comment_frame(self, cwd, chraddr, dataaddr):
-        ink = 0
-        paper = 0
-        xy = [ 0, 0 ]
-        addr = dataaddr
-        
-        print "D $%04X CHARS addr = %04X" % (addr,chraddr)
-        print "E $%04X #HTML[#CALL:decode_data($%04X,$%04X)]" % (addr, chraddr, dataaddr)
-
-        while self.snapshot[addr] != 0xFF:
-
-            if self.snapshot[addr] == 0x16:
-                xy[0] = self.snapshot[addr+1]
-                xy[1] = self.snapshot[addr+2]
-                print "B $%04X,$3 AT - X = %d, Y = %d" % (addr, xy[0], xy[1])
-                addr += 3
-                continue
-
-            if self.snapshot[addr] == 0x10:
-                ink = self.snapshot[addr+1]
-                print "B $%04X,$3 INK %d" % (addr, ink)
-                addr += 2
-                continue
-
-            if self.snapshot[addr] == 0x11:
-                paper = self.snapshot[addr+1]
-                print "B $%04X,$3 PAPER %d" % (addr, paper)
-                addr += 2
-                continue
-
-            attr = 0
-            attr = ink | (paper << 3) | attr << 6
-            
-            ad = ( chraddr + 256 ) + ( ( self.snapshot[addr] - 32) * 8 )
-
-            if ( self.snapshot[addr] - 32)  >= 96:
-                v = ( self.snapshot[addr] - 32) - 96
-                ad = ( 0xFF58 ) + v
-                print "B $%04X,$1 UDG %02X - addr = %04X - #HTML[#UDG$%04X,%d(%04x)]" % (addr, self.snapshot[addr], ad, ad, attr, ad)
-            else:
-                print "B $%04X,$1 CHAR %02X - addr = %04X - #HTML[#UDG$%04X,%d(%04x)]" % (addr, self.snapshot[addr], ad, ad, attr, ad)
-
-            xy[1] = xy[1] + 1
-            addr += 1
-
-
-    def decode_data(self, cwd, chraddr, dataaddr):
+    def decode_data(self, cwd, chraddr, dataaddr, comment = False):
         #print "DEBUG: CHRADDR %04X+100 = %04X" % (chraddr, (chraddr+0x100))
+
         # Cria um array com 24 linhas e 32 colunas
         udg_array = [[0 for i in range(32)] for j in range(24)]
 
@@ -195,7 +150,7 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
         # cor
         ink = 0
         # fundo
-        paper = 0
+        paper = 7
         flash = 0
         brightness = 0
 
@@ -211,21 +166,29 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
             if self.snapshot[addr] == 0x16:
                 x = self.snapshot[addr+1]
                 y = self.snapshot[addr+2]
+                if comment == True:
+                    print "B $%04X,$3 AT - X = %d, Y = %d" % (addr, x, y)
                 addr += 3
                 continue
             
             if self.snapshot[addr] == 0x10:
                 ink = self.snapshot[addr+1]
+                if comment == True:
+                    print "B $%04X,$2 INK %d" % (addr, ink)
                 addr += 2
                 continue
 
             if self.snapshot[addr] == 0x11:
                 paper = self.snapshot[addr+1]
+                if comment == True:
+                    print "B $%04X,$2 PAPER %d" % (addr, paper)
                 addr += 2
                 continue
 
             if self.snapshot[addr] == 0x12:
                 flash = self.snapshot[addr+1]
+                if comment == True:
+                    print "B $%04X,$2 FLASH %d" % (addr, flash)
                 addr += 2
                 continue
             
@@ -237,20 +200,23 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
             # BLOCK CHARS
             if (self.snapshot[addr] >= 0x80 and self.snapshot[addr] <= 0x8f):
                 zbr = self.generate_block(cwd, self.snapshot[addr])
-                #print "ZBR %04X - %02X" % (addr, self.snapshot[addr])
                 udg_array[x][y] = Udg(attr, zbr)
+                #if comment == True:
+                #    print "B $%04X,$1 UDG %02X - ADDR = %04X - AT %d,%d - INK %d - PAPER %d - #HTML[#UDG$%04X,%d(%04x)]" % (addr, self.snapshot[addr], ad, ad, attr, ad)
             elif (self.snapshot[addr] >= 0x90 and self.snapshot[addr] <= 0xa4):
                 v = ( self.snapshot[addr] - 0x90)
                 ad = ( 0xFF58 ) + (v*8)
                 udg_array[x][y] = Udg(ad, self.snapshot[ad:ad+8])
+                #if comment == True:
+                #    print "B $%04X,$1 UDG %02X - ADDR = %04X - AT %d,%d - INK %d - PAPER %d - #HTML[#UDG$%04X,%d(%04x)]" % (addr, self.snapshot[addr], ad, x, y, ink, paper, ad, attr, ad)
             else:
                 if (chraddr == 0x3C00):
-                    #ad = ( 0x3C00 + 256) + v * 8
-                    #udg_array[x][y] = Udg(attr, self.snapshot[ad:ad+8])
                     key = "%02X" % (self.snapshot[addr])
                     udg_array[x][y] = Udg(attr, self.font[key])
                 else:
                     udg_array[x][y] = Udg(attr, self.snapshot[ad:ad+8])
+                    if comment == True:
+                         print "B $%04X,$1 UDG %02X - ADDR = $%04X - AT $%02X,$%02X - ATTRIBUTES $%02X - #HTML[#UDG$%04X,%d(%04x_%02x)]" % (addr, self.snapshot[addr], ad, x, y, attr, ad, attr, ad, attr)
 
             addr += 1
             y += 1

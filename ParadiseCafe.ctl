@@ -13,7 +13,223 @@ c $7530 Game over(?)
 c $75CF
 
 b $75E2 Prisão
-  $75E2 #HTML[#CALL:decode_data($8970,$75E2)]
+B $75E2,$3 AT - X = 18, Y = 0
+B $75E5,$2 PAPER 0
+B $75E7,$2 INK 2
+B $75EB,$1 UDG 67 - ADDR = $8CA8 - AT $12,$02 - ATTRIBUTES $02 - #HTML[<br/>#UDG$8CA8,2(8ca8_02)]
+B $75EC,$3 AT - X = 19, Y = 0
+B $75F0,$1 UDG 67 - ADDR = $8CA8 - AT $13,$01 - ATTRIBUTES $02 - #HTML[<br/>#UDG$8CA8,2(8ca8_02)]
+B $75F2,$3 AT - X = 20, Y = 0
+B $75F5,$1 UDG 67 - ADDR = $8CA8 - AT $14,$00 - ATTRIBUTES $02 - #HTML[<br/>#UDG$8CA8,2(8ca8_02)]
+B $75F8,$3 AT - X = 21, Y = 0
+B $75FE,$3 AT - X = 10, Y = 6
+B $7601,$2 INK 5
+B $7603,$1 UDG 6C - ADDR = $8CD0 - AT $0A,$06 - ATTRIBUTES $05 - #HTML[<br/>#UDG$8CD0,5(8cd0_05)]
+B $7604,$3 AT - X = 11, Y = 6
+B $7607,$1 UDG 6D - ADDR = $8CD8 - AT $0B,$06 - ATTRIBUTES $05 - #HTML[<br/>#UDG$8CD8,5(8cd8_05)]
+B $7608,$3 AT - X = 12, Y = 4
+B $760B,$2 INK 3
+B $760D,$1 UDG 68 - ADDR = $8CB0 - AT $0C,$04 - ATTRIBUTES $03 - #HTML[<br/>#UDG$8CB0,3(8cb0_03)]
+B $760E,$2 PAPER 3
+B $7610,$2 INK 7
+B $7612,$1 UDG 6F - ADDR = $8CE8 - AT $0C,$05 - ATTRIBUTES $1F - #HTML[<br/>#UDG$8CE8,31(8ce8_1f)]
+B $7613,$1 UDG 6E - ADDR = $8CE0 - AT $0C,$06 - ATTRIBUTES $1F - #HTML[<br/>#UDG$8CE0,31(8ce0_1f)]
+B $7614,$3 AT - X = 13, Y = 4
+B $7617,$2 INK 3
+B $7619,$2 PAPER 0
+B $761B,$1 UDG 69 - ADDR = $8CB8 - AT $0D,$04 - ATTRIBUTES $03 - #HTML[<br/>#UDG$8CB8,3(8cb8_03)]
+B $761C,$2 PAPER 3
+B $761E,$2 INK 7
+B $7620,$1 UDG 70 - ADDR = $8CF0 - AT $0D,$05 - ATTRIBUTES $1F - #HTML[<br/>#UDG$8CF0,31(8cf0_1f)]
+B $7621,$3 AT - X = 14, Y = 4
+B $7624,$2 INK 3
+B $7626,$2 PAPER 0
+B $7628,$1 UDG 6A - ADDR = $8CC0 - AT $0E,$04 - ATTRIBUTES $03 - #HTML[<br/>#UDG$8CC0,3(8cc0_03)]
+B $7629,$2 INK 7
+B $762B,$2 PAPER 3
+B $762D,$1 UDG 71 - ADDR = $8CF8 - AT $0E,$05 - ATTRIBUTES $1F - #HTML[<br/>#UDG$8CF8,31(8cf8_1f)]
+B $762E,$3 AT - X = 15, Y = 4
+B $7631,$2 INK 3
+B $7633,$2 PAPER 0
+B $7635,$1 UDG 6B - ADDR = $8CC8 - AT $0F,$04 - ATTRIBUTES $03 - #HTML[<br/>#UDG$8CC8,3(8cc8_03)]
+B $7636,$2 INK 7
+B $7638,$3 AT - X = 10, Y = 21
+B $763B,$2 PAPER 0
+B $763D,$1 UDG 6C - ADDR = $8CD0 - AT $0A,$15 - ATTRIBUTES $07 - #HTML[<br/>#UDG$8CD0,7(8cd0_07)]
+B $763E,$3 AT - X = 11, Y = 21
+B $7641,$1 UDG 6D - ADDR = $8CD8 - AT $0B,$15 - ATTRIBUTES $07 - #HTML[<br/>#UDG$8CD8,7(8cd8_07)]
+B $7642,$3 AT - X = 12, Y = 20
+B $7645,$2 PAPER 3
+B $7647,$1 UDG 6F - ADDR = $8CE8 - AT $0C,$14 - ATTRIBUTES $1F - #HTML[<br/>#UDG$8CE8,31(8ce8_1f)]
+B $7648,$1 UDG 6E - ADDR = $8CE0 - AT $0C,$15 - ATTRIBUTES $1F - #HTML[<br/>#UDG$8CE0,31(8ce0_1f)]
+B $7649,$2 INK 0
+B $764B,$1 UDG 6B - ADDR = $8CC8 - AT $0C,$16 - ATTRIBUTES $18 - #HTML[<br/>#UDG$8CC8,24(8cc8_18)]
+B $764C,$3 AT - X = 13, Y = 20
+B $764F,$2 INK 7
+B $7651,$1 UDG 70 - ADDR = $8CF0 - AT $0D,$14 - ATTRIBUTES $1F - #HTML[<br/>#UDG$8CF0,31(8cf0_1f)]
+B $7652,$2 INK 0
+B $7654,$1 UDG 68 - ADDR = $8CB0 - AT $0D,$15 - ATTRIBUTES $18 - #HTML[<br/>#UDG$8CB0,24(8cb0_18)]
+B $7655,$3 AT - X = 14, Y = 20
+B $7658,$2 INK 7
+B $765A,$1 UDG 71 - ADDR = $8CF8 - AT $0E,$14 - ATTRIBUTES $1F - #HTML[<br/>#UDG$8CF8,31(8cf8_1f)]
+B $765B,$2 INK 0
+B $765D,$1 UDG 69 - ADDR = $8CB8 - AT $0E,$15 - ATTRIBUTES $18 - #HTML[<br/>#UDG$8CB8,24(8cb8_18)]
+B $765E,$3 AT - X = 15, Y = 21
+B $7661,$1 UDG 6A - ADDR = $8CC0 - AT $0F,$15 - ATTRIBUTES $18 - #HTML[<br/>#UDG$8CC0,24(8cc0_18)]
+B $7662,$3 AT - X = 1, Y = 24
+B $7665,$2 INK 2
+B $7667,$2 PAPER 1
+B $766B,$2 INK 0
+B $766E,$2 INK 6
+B $7670,$1 UDG 72 - ADDR = $8D00 - AT $01,$1B - ATTRIBUTES $0E - #HTML[<br/>#UDG$8D00,14(8d00_0e)]
+B $7671,$2 INK 0
+B $7675,$3 AT - X = 2, Y = 24
+B $7678,$2 INK 2
+B $767C,$2 INK 0
+B $767F,$2 INK 6
+B $7681,$1 UDG 73 - ADDR = $8D08 - AT $02,$1B - ATTRIBUTES $0E - #HTML[<br/>#UDG$8D08,14(8d08_0e)]
+B $7682,$2 INK 0
+B $7685,$2 INK 7
+B $7687,$1 UDG 76 - ADDR = $8D20 - AT $02,$1D - ATTRIBUTES $0F - #HTML[<br/>#UDG$8D20,15(8d20_0f)]
+B $7688,$3 AT - X = 3, Y = 24
+B $768B,$2 INK 2
+B $768F,$2 INK 0
+B $7692,$2 INK 7
+B $7694,$1 UDG 74 - ADDR = $8D10 - AT $03,$1B - ATTRIBUTES $0F - #HTML[<br/>#UDG$8D10,15(8d10_0f)]
+B $7695,$2 INK 0
+B $7698,$2 INK 7
+B $769A,$1 UDG 77 - ADDR = $8D28 - AT $03,$1D - ATTRIBUTES $0F - #HTML[<br/>#UDG$8D28,15(8d28_0f)]
+B $769B,$3 AT - X = 4, Y = 24
+B $769E,$2 INK 2
+B $76A2,$2 INK 0
+B $76A5,$2 INK 7
+B $76A7,$1 UDG 75 - ADDR = $8D18 - AT $04,$1B - ATTRIBUTES $0F - #HTML[<br/>#UDG$8D18,15(8d18_0f)]
+B $76A8,$2 INK 0
+B $76AC,$3 AT - X = 5, Y = 24
+B $76AF,$2 INK 2
+B $76B3,$2 INK 0
+B $76B5,$2 PAPER 2
+B $76BB,$3 AT - X = 3, Y = 12
+B $76BE,$2 INK 7
+B $76C0,$2 PAPER 0
+B $76C2,$1 UDG 20 - ADDR = $8A70 - AT $03,$0C - ATTRIBUTES $07 - #HTML[<br/>#UDG$8A70,7(8a70_07)]
+B $76C3,$1 UDG 21 - ADDR = $8A78 - AT $03,$0D - ATTRIBUTES $07 - #HTML[<br/>#UDG$8A78,7(8a78_07)]
+B $76C4,$1 UDG 22 - ADDR = $8A80 - AT $03,$0E - ATTRIBUTES $07 - #HTML[<br/>#UDG$8A80,7(8a80_07)]
+B $76C5,$3 AT - X = 4, Y = 12
+B $76C8,$2 INK 6
+B $76CA,$1 UDG 23 - ADDR = $8A88 - AT $04,$0C - ATTRIBUTES $06 - #HTML[<br/>#UDG$8A88,6(8a88_06)]
+B $76CC,$1 UDG 24 - ADDR = $8A90 - AT $04,$0E - ATTRIBUTES $06 - #HTML[<br/>#UDG$8A90,6(8a90_06)]
+B $76CD,$3 AT - X = 5, Y = 12
+B $76D0,$1 UDG 25 - ADDR = $8A98 - AT $05,$0C - ATTRIBUTES $06 - #HTML[<br/>#UDG$8A98,6(8a98_06)]
+B $76D1,$1 UDG 26 - ADDR = $8AA0 - AT $05,$0D - ATTRIBUTES $06 - #HTML[<br/>#UDG$8AA0,6(8aa0_06)]
+B $76D2,$1 UDG 27 - ADDR = $8AA8 - AT $05,$0E - ATTRIBUTES $06 - #HTML[<br/>#UDG$8AA8,6(8aa8_06)]
+B $76D3,$3 AT - X = 6, Y = 12
+B $76D6,$1 UDG 28 - ADDR = $8AB0 - AT $06,$0C - ATTRIBUTES $06 - #HTML[<br/>#UDG$8AB0,6(8ab0_06)]
+B $76D7,$1 UDG 29 - ADDR = $8AB8 - AT $06,$0D - ATTRIBUTES $06 - #HTML[<br/>#UDG$8AB8,6(8ab8_06)]
+B $76D8,$1 UDG 2A - ADDR = $8AC0 - AT $06,$0E - ATTRIBUTES $06 - #HTML[<br/>#UDG$8AC0,6(8ac0_06)]
+B $76D9,$3 AT - X = 7, Y = 10
+B $76DC,$1 UDG 2B - ADDR = $8AC8 - AT $07,$0A - ATTRIBUTES $06 - #HTML[<br/>#UDG$8AC8,6(8ac8_06)]
+B $76DD,$1 UDG 2C - ADDR = $8AD0 - AT $07,$0B - ATTRIBUTES $06 - #HTML[<br/>#UDG$8AD0,6(8ad0_06)]
+B $76DE,$2 INK 7
+B $76E3,$2 INK 6
+B $76E5,$1 UDG 41 - ADDR = $8B78 - AT $07,$0F - ATTRIBUTES $06 - #HTML[<br/>#UDG$8B78,6(8b78_06)]
+B $76E6,$1 UDG 42 - ADDR = $8B80 - AT $07,$10 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8B80,6(8b80_06)]
+B $76E7,$3 AT - X = 8, Y = 10
+B $76EA,$1 UDG 2D - ADDR = $8AD8 - AT $08,$0A - ATTRIBUTES $06 - #HTML[<br/>#UDG$8AD8,6(8ad8_06)]
+B $76EB,$1 UDG 2E - ADDR = $8AE0 - AT $08,$0B - ATTRIBUTES $06 - #HTML[<br/>#UDG$8AE0,6(8ae0_06)]
+B $76EC,$2 INK 7
+B $76F1,$2 INK 6
+B $76F3,$1 UDG 43 - ADDR = $8B88 - AT $08,$0F - ATTRIBUTES $06 - #HTML[<br/>#UDG$8B88,6(8b88_06)]
+B $76F4,$1 UDG 44 - ADDR = $8B90 - AT $08,$10 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8B90,6(8b90_06)]
+B $76F5,$1 UDG 45 - ADDR = $8B98 - AT $08,$11 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8B98,6(8b98_06)]
+B $76F6,$3 AT - X = 9, Y = 9
+B $76F9,$1 UDG 2F - ADDR = $8AE8 - AT $09,$09 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8AE8,6(8ae8_06)]
+B $76FA,$1 UDG 30 - ADDR = $8AF0 - AT $09,$0A - ATTRIBUTES $06 - #HTML[<br/>#UDG$8AF0,6(8af0_06)]
+B $76FB,$1 UDG 31 - ADDR = $8AF8 - AT $09,$0B - ATTRIBUTES $06 - #HTML[<br/>#UDG$8AF8,6(8af8_06)]
+B $76FC,$2 INK 7
+B $7701,$1 UDG 46 - ADDR = $8BA0 - AT $09,$0F - ATTRIBUTES $07 - #HTML[<br/>#UDG$8BA0,7(8ba0_07)]
+B $7702,$2 INK 6
+B $7704,$1 UDG 47 - ADDR = $8BA8 - AT $09,$10 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8BA8,6(8ba8_06)]
+B $7705,$1 UDG 48 - ADDR = $8BB0 - AT $09,$11 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8BB0,6(8bb0_06)]
+B $7706,$3 AT - X = 10, Y = 9
+B $7709,$1 UDG 32 - ADDR = $8B00 - AT $0A,$09 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8B00,6(8b00_06)]
+B $770A,$1 UDG 33 - ADDR = $8B08 - AT $0A,$0A - ATTRIBUTES $06 - #HTML[<br/>#UDG$8B08,6(8b08_06)]
+B $770B,$2 INK 7
+B $770D,$1 UDG 34 - ADDR = $8B10 - AT $0A,$0B - ATTRIBUTES $07 - #HTML[<br/>#UDG$8B10,7(8b10_07)]
+B $770E,$2 INK 6
+B $7710,$2 PAPER 7
+B $7712,$2 INK 2
+B $7714,$1 UDG 35 - ADDR = $8B18 - AT $0A,$0C - ATTRIBUTES $3A - #HTML[<br/>#UDG$8B18,58(8b18_3a)]
+B $7715,$1 UDG 36 - ADDR = $8B20 - AT $0A,$0D - ATTRIBUTES $3A - #HTML[<br/>#UDG$8B20,58(8b20_3a)]
+B $7717,$2 INK 7
+B $7719,$2 PAPER 0
+B $771B,$1 UDG 49 - ADDR = $8BB8 - AT $0A,$0F - ATTRIBUTES $07 - #HTML[<br/>#UDG$8BB8,7(8bb8_07)]
+B $771D,$2 INK 6
+B $771F,$1 UDG 4A - ADDR = $8BC0 - AT $0A,$11 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8BC0,6(8bc0_06)]
+B $7720,$1 UDG 4B - ADDR = $8BC8 - AT $0A,$12 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8BC8,6(8bc8_06)]
+B $7721,$3 AT - X = 11, Y = 14
+B $7724,$2 INK 7
+B $7728,$2 INK 6
+B $772A,$1 UDG 4C - ADDR = $8BD0 - AT $0B,$10 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8BD0,6(8bd0_06)]
+B $772B,$1 UDG 4D - ADDR = $8BD8 - AT $0B,$11 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8BD8,6(8bd8_06)]
+B $772C,$1 UDG 4E - ADDR = $8BE0 - AT $0B,$12 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8BE0,6(8be0_06)]
+B $772D,$3 AT - X = 12, Y = 14
+B $7730,$2 PAPER 3
+B $7733,$1 UDG 4F - ADDR = $8BE8 - AT $0C,$0F - ATTRIBUTES $1E - #HTML[<br/>#UDG$8BE8,30(8be8_1e)]
+B $7734,$1 UDG 50 - ADDR = $8BF0 - AT $0C,$10 - ATTRIBUTES $1E - #HTML[<br/>#UDG$8BF0,30(8bf0_1e)]
+B $7735,$1 UDG 51 - ADDR = $8BF8 - AT $0C,$11 - ATTRIBUTES $1E - #HTML[<br/>#UDG$8BF8,30(8bf8_1e)]
+B $7736,$3 AT - X = 13, Y = 10
+B $7739,$1 UDG 37 - ADDR = $8B28 - AT $0D,$0A - ATTRIBUTES $1E - #HTML[<br/>#UDG$8B28,30(8b28_1e)]
+B $773B,$1 UDG 38 - ADDR = $8B30 - AT $0D,$0C - ATTRIBUTES $1E - #HTML[<br/>#UDG$8B30,30(8b30_1e)]
+B $773C,$1 UDG 39 - ADDR = $8B38 - AT $0D,$0D - ATTRIBUTES $1E - #HTML[<br/>#UDG$8B38,30(8b38_1e)]
+B $773E,$1 UDG 52 - ADDR = $8C00 - AT $0D,$0F - ATTRIBUTES $1E - #HTML[<br/>#UDG$8C00,30(8c00_1e)]
+B $773F,$1 UDG 53 - ADDR = $8C08 - AT $0D,$10 - ATTRIBUTES $1E - #HTML[<br/>#UDG$8C08,30(8c08_1e)]
+B $7740,$3 AT - X = 14, Y = 9
+B $7743,$1 UDG 3A - ADDR = $8B40 - AT $0E,$09 - ATTRIBUTES $1E - #HTML[<br/>#UDG$8B40,30(8b40_1e)]
+B $7745,$1 UDG 3B - ADDR = $8B48 - AT $0E,$0B - ATTRIBUTES $1E - #HTML[<br/>#UDG$8B48,30(8b48_1e)]
+B $7746,$1 UDG 3C - ADDR = $8B50 - AT $0E,$0C - ATTRIBUTES $1E - #HTML[<br/>#UDG$8B50,30(8b50_1e)]
+B $7747,$1 UDG 3D - ADDR = $8B58 - AT $0E,$0D - ATTRIBUTES $1E - #HTML[<br/>#UDG$8B58,30(8b58_1e)]
+B $7748,$1 UDG 5D - ADDR = $8C58 - AT $0E,$0E - ATTRIBUTES $1E - #HTML[<br/>#UDG$8C58,30(8c58_1e)]
+B $774A,$1 UDG 5E - ADDR = $8C60 - AT $0E,$10 - ATTRIBUTES $1E - #HTML[<br/>#UDG$8C60,30(8c60_1e)]
+B $774B,$3 AT - X = 15, Y = 9
+B $774E,$1 UDG 3E - ADDR = $8B60 - AT $0F,$09 - ATTRIBUTES $1E - #HTML[<br/>#UDG$8B60,30(8b60_1e)]
+B $774F,$1 UDG 3F - ADDR = $8B68 - AT $0F,$0A - ATTRIBUTES $1E - #HTML[<br/>#UDG$8B68,30(8b68_1e)]
+B $7750,$1 UDG 40 - ADDR = $8B70 - AT $0F,$0B - ATTRIBUTES $1E - #HTML[<br/>#UDG$8B70,30(8b70_1e)]
+B $7753,$1 UDG 5F - ADDR = $8C68 - AT $0F,$0E - ATTRIBUTES $1E - #HTML[<br/>#UDG$8C68,30(8c68_1e)]
+B $7754,$1 UDG 60 - ADDR = $8C70 - AT $0F,$0F - ATTRIBUTES $1E - #HTML[<br/>#UDG$8C70,30(8c70_1e)]
+B $7755,$1 UDG 54 - ADDR = $8C10 - AT $0F,$10 - ATTRIBUTES $1E - #HTML[<br/>#UDG$8C10,30(8c10_1e)]
+B $7756,$3 AT - X = 16, Y = 9
+B $7759,$2 PAPER 0
+B $775B,$1 UDG 3E - ADDR = $8B60 - AT $10,$09 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8B60,6(8b60_06)]
+B $775C,$1 UDG 54 - ADDR = $8C10 - AT $10,$0A - ATTRIBUTES $06 - #HTML[<br/>#UDG$8C10,6(8c10_06)]
+B $7761,$1 UDG 3E - ADDR = $8B60 - AT $10,$0F - ATTRIBUTES $06 - #HTML[<br/>#UDG$8B60,6(8b60_06)]
+B $7762,$1 UDG 54 - ADDR = $8C10 - AT $10,$10 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8C10,6(8c10_06)]
+B $7763,$3 AT - X = 17, Y = 9
+B $7766,$1 UDG 3E - ADDR = $8B60 - AT $11,$09 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8B60,6(8b60_06)]
+B $7767,$1 UDG 55 - ADDR = $8C18 - AT $11,$0A - ATTRIBUTES $06 - #HTML[<br/>#UDG$8C18,6(8c18_06)]
+B $776C,$1 UDG 3E - ADDR = $8B60 - AT $11,$0F - ATTRIBUTES $06 - #HTML[<br/>#UDG$8B60,6(8b60_06)]
+B $776D,$1 UDG 55 - ADDR = $8C18 - AT $11,$10 - ATTRIBUTES $06 - #HTML[<br/>#UDG$8C18,6(8c18_06)]
+B $776E,$3 AT - X = 18, Y = 9
+B $7771,$2 PAPER 2
+B $7773,$1 UDG 3E - ADDR = $8B60 - AT $12,$09 - ATTRIBUTES $16 - #HTML[<br/>#UDG$8B60,22(8b60_16)]
+B $7774,$1 UDG 56 - ADDR = $8C20 - AT $12,$0A - ATTRIBUTES $16 - #HTML[<br/>#UDG$8C20,22(8c20_16)]
+B $7779,$1 UDG 61 - ADDR = $8C78 - AT $12,$0F - ATTRIBUTES $16 - #HTML[<br/>#UDG$8C78,22(8c78_16)]
+B $777A,$1 UDG 62 - ADDR = $8C80 - AT $12,$10 - ATTRIBUTES $16 - #HTML[<br/>#UDG$8C80,22(8c80_16)]
+B $777B,$3 AT - X = 19, Y = 9
+B $777E,$1 UDG 3E - ADDR = $8B60 - AT $13,$09 - ATTRIBUTES $16 - #HTML[<br/>#UDG$8B60,22(8b60_16)]
+B $777F,$1 UDG 57 - ADDR = $8C28 - AT $13,$0A - ATTRIBUTES $16 - #HTML[<br/>#UDG$8C28,22(8c28_16)]
+B $7784,$1 UDG 63 - ADDR = $8C88 - AT $13,$0F - ATTRIBUTES $16 - #HTML[<br/>#UDG$8C88,22(8c88_16)]
+B $7785,$1 UDG 64 - ADDR = $8C90 - AT $13,$10 - ATTRIBUTES $16 - #HTML[<br/>#UDG$8C90,22(8c90_16)]
+B $7786,$3 AT - X = 20, Y = 8
+B $7789,$1 UDG 5B - ADDR = $8C48 - AT $14,$08 - ATTRIBUTES $16 - #HTML[<br/>#UDG$8C48,22(8c48_16)]
+B $778A,$1 UDG 58 - ADDR = $8C30 - AT $14,$09 - ATTRIBUTES $16 - #HTML[<br/>#UDG$8C30,22(8c30_16)]
+B $778B,$1 UDG 59 - ADDR = $8C38 - AT $14,$0A - ATTRIBUTES $16 - #HTML[<br/>#UDG$8C38,22(8c38_16)]
+B $7791,$1 UDG 65 - ADDR = $8C98 - AT $14,$10 - ATTRIBUTES $16 - #HTML[<br/>#UDG$8C98,22(8c98_16)]
+B $7792,$1 UDG 66 - ADDR = $8CA0 - AT $14,$11 - ATTRIBUTES $16 - #HTML[<br/>#UDG$8CA0,22(8ca0_16)]
+B $7793,$3 AT - X = 21, Y = 8
+B $7796,$1 UDG 5C - ADDR = $8C50 - AT $15,$08 - ATTRIBUTES $16 - #HTML[<br/>#UDG$8C50,22(8c50_16)]
+B $7797,$1 UDG 5A - ADDR = $8C40 - AT $15,$09 - ATTRIBUTES $16 - #HTML[<br/>#UDG$8C40,22(8c40_16)]
+E $75E2 #HTML[#CALL:decode_data($8970,$75E2)]
 
 b $7799 Canhola - Frame 1
   $7799 #HTML[#CALL:decode_data($8C30,$7799)]
@@ -27,7 +243,7 @@ b $77D5 The End
 z $77E4
 
 c $77EA Inicio do codigo!
-  $77EA,$13 Espera que se pressione uma tecla
+  $77EA,$f Espera que se pressione uma tecla
   $7854,2 Começa-se sem arma
   $787D,3 Guarda o valor do FRAMES (contador de tempo +-)
   $7880,2 Subtrai $80
@@ -485,22 +701,29 @@ b $B0A9
   $B0A9 #HTML[#CALL:decode_data($C538,$B0A9)]
 E $B0A9 Esta frame é usada com CHARS a: $C538, $c328, $C420, $C538
 
-b $B0E4 Animacao Pernas (?) - Frame 1
+b $B0E4 Animacao Pernas - Frame 1
   $B0E4 #HTML[#CALL:decode_data($C250,$B0E4)]
 
-b $B14C Animacao Pernas (?) - Frame 2
+b $B14C Animacao Pernas - Frame 2
   $B14C #HTML[#CALL:decode_data($C328,$B14C)]
 
-b $B1B5
+b $B1B5 Animacao Pernas - Frame 3
+  $B1B5 #HTML[#CALL:decode_data($C420,$B1B5)]
 
-b $B226
-b $B299
+b $B226 Animacao Pernas - Frame 4
+  $B226 #HTML[#CALL:decode_data($C538,$B226)]
+
+b $B299 Animacao Pernas - Frame 5
+  $B299 #HTML[#CALL:decode_data($C638,$B299)]
+
 z $B309
 c $B30A
 
-b $B353
+b $B353 Entrar na porta - Frame 1
+  $B353 #HTML[#CALL:decode_data($C740,$B353)]
 
-b $B3DF
+b $B3DF Entrar na porta - Frame 2
+  $B3DF #HTML[#CALL:decode_data($C740,$B3DF)]
 
 c $B46C
 c $B477
@@ -515,9 +738,15 @@ z $B4EF
 ; @label:$B4F1=fechaPorta
 c $B4F1 Animação da porta a fechar
 
-b $B551
-b $B55F
-b $B56B
+b $B551 Porta a abrir - Frame 1
+  $B551 #HTML[#CALL:decode_data($CA7A,$B551)]
+
+b $B55F Porta a abrir - Frame 2
+  $B55F #HTML[#CALL:decode_data($CA7A,$B55F)]
+
+b $B56B Porta a abrir - Frame 3
+  $B56B #HTML[#CALL:decode_data($CA7A,$B56B)]
+
 c $B579
 c $B583
 c $B594
@@ -579,7 +808,10 @@ c $B775 Espera que se pressione uma tecla e guarda em #R$C34C
 
 z $B784
 c $B785
-b $B7A4
+
+b $B7A4 Barra do Highscore?
+  $B7A4 #HTML[#CALL:decode_data($3C00,$B7A4)] 
+
 c $B7CC
 c $B7D3
 
@@ -658,7 +890,9 @@ c $B8E9
 c $B914
 
 c $B93C Recusar a puta
-b $B967
+
+b $B967 Balão - Maricas
+  $B967 #HTML[#CALL:decode_data($CE59,$B967)]
 
 ; @label:$B97E=charsCB2A
 c $B97E CHARS = $CB2A
@@ -676,8 +910,13 @@ c $B99F Delay conta de $FFFF ate 0
 
 z $B9A9
 c $B9AF Calcular variaveis/Refresh delas no ecrã
-b $B9F1
-b $BA00
+
+b $B9F1 SCORE= 
+  $B9F1 #HTML[#CALL:decode_data($3C00,$B9F1)]
+
+b $BA00 DINHEIRO:
+  $BA00 #HTML[#CALL:decode_data($3C00,$BA00)]
+
 c $BA0D
 c $BA21
 c $BA2C
@@ -793,20 +1032,36 @@ b $BFCF
 b $BFE0 Animação Ladrão (???)
 B $BFE0 #HTML[#CALL:decode_data($D089,$BFE0)]
 
-b $BFE7
-b $BFFA
-b $C00F
-b $C026
+b $BFE7 Ladrão - Saca a pistola
+  $BFE7 #HTML[#CALL:decode_data($D389,$BFE7)]
+
+b $BFFA Ladrão - Tem lume? - Frame 1
+  $BFFA #HTML[#CALL:decode_data($D3A9,$BFFA)]  
+
+b $C00F Balão - Tem lume?
+  $C00F #HTML[#CALL:decode_data($D519,$C00F)]
+
+b $C026 Limpa balão @ #R$C00F
+  $C026 #HTML[#CALL:decode_data($D6E9,$C026)]
 
 b $C03B Balão - Não tenho pistola
   $C03B #HTML[#CALL:decode_data($D689,$C03B)]
 
-b $C052
+b $C052 Limpa balão @ #R$C03B
   $C052 #HTML[#CALL:decode_data($D689,$C052)]
-b $C067
-b $C07C
-b $C093
-b $C0B3
+
+b $C067 Balão - Não fumo
+  $C067 #HTML[#CALL:decode_data($D6E9,$C067)]
+
+b $C07C Balão - Mãezinha
+  $C07C #HTML[#CALL:decode_data($D5D9,$C07C)]
+
+b $C093 Ladrão - Tem lume? - Frame 2
+  $C093 #HTML[#CALL:decode_data($D3A9,$C093)]
+
+b $C0B3 Balão - Eu só queria lume!
+  $C0B3 #HTML[#CALL:decode_data($D579,$C0B3)]
+
 c $C0F8
 c $C192
 
@@ -842,14 +1097,19 @@ D $C27A Provavelmente define alguma variavel, pq é executado antes de mostrar o
 z $C2A9
 c $C2AA
 
-b $C2CE Despesa(?)
+b $C2CE DESPESA
+  $C2CE #HTML[#CALL:decode_data($3C00,$C2CE)]
+
 z $C2DE
 
 c $C2DF
 
-b $C302
+b $C302 HISCORE =
+  $C302 #HTML[#CALL:decode_data($3C00,$C302)]
 
 z $C314
+
+b $C336
 
 b $C337
 
