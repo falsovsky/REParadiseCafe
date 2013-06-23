@@ -5,7 +5,7 @@ D $4000,$1b00 #UDGTABLE { #SCR(loading) | Ecrã de entrada - screen$. } TABLE#
 ;b $5CB6 Channel infomation (?)
 
 ;b $5CCB Program data (Basic?)
-;  $5CCB,$15c
+;B  $5CCB,$15c zbr
 
 ;b $5E27 Basic stacks (novo)
 
@@ -30,7 +30,7 @@ z $77E4
 c $77EA Inicio do codigo!
   $77EA,$f Espera que se pressione uma tecla
   $77F9,$4 No Operation
-  $77FD,8 Define mete $C34F (usado apenas pelo fade?) com $10 e chama o fadeOut
+  $77FD,8 Define atributos para o fadeOut a $10 e chama-o
   $7805,4 Faz um beep?
   $7809,6 Define CHARS em $3C00 
   $780F,6 Desenha #R$788D
@@ -506,6 +506,8 @@ z $AFD0
 
 ; @label:$AFD1=fadeOut
 c $AFD1 Limpa o ecra (genero de fade)
+  $AFD1,$1e Limpa o ecra a fazer SHIFT RIGHT LOGICAL aos graficos "na memoria grafica" de $4000 a $57ff
+  $AFEF,$11 Define os atributos a partir do endereço $5800 com o valor definido em #R$C34F
 
 c $B001
 c $B01D
@@ -591,15 +593,17 @@ b $B5F0 Puta a sair - Frame 1
 b $B688 Puta a sair - Frame 2
   $B688 #HTML[#CALL:decode_data($C8E0,$B688)]
 
+; @label:$B721=random1
 c $B721 Random que define quem vai aparecer na porta - 1
   $B721 Carrega o valor do endereço #R$C34D (?) em A
   $B724 Incrementa
   $B725 Compara com $07
-  $B727 Se for igual chama #R$B734 que mete A a $01
+  $B727 Se for igual - #R$B734
   $B72A Guarda o valor de A no endereço #R$C34D (?)
   $B72D Copia o valor de A para B
   $B731,2 Decrementa B, se B > 0 salta para o CALL acima 
 
+; @label:$B734=defineAa0
 c $B734 Define A = $01
 
 c $B737
@@ -656,6 +660,7 @@ B $B83F #HTML[#CALL:decode_data($CE2A,$B83F)]
 
 z $B858
 
+; @label:$B85A=random2
 c $B85A Random que define quem vai aparecer na porta - 2
   $B85A Carrega o valor do endereço #R$C34A (?) em A
   $B85D Incrementa
@@ -962,6 +967,8 @@ b $C34C Ultima tecla pressionada
 
 b $C34D ??
 b $C34E ??
-b $C34F ??
+
+; @label:$C34F=variavel_atributos_fadeOut
+b $C34F Atributos a serem usados no fadeOut
 
 b $C350 CHARS
