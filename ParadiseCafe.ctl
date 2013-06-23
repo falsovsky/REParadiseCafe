@@ -9,8 +9,8 @@ D $4000,$1b00 #UDGTABLE { #SCR(loading) | Ecrã de entrada - screen$. } TABLE#
 
 ;b $5E27 Basic stacks (novo)
 
-;c $7530 Game over(?)
-;c $75CF
+c $7530 Game over(?)
+c $75CF
 
 b $75E2 Prisão
 E $75E2 #HTML[#CALL:decode_data($8970,$75E2)]
