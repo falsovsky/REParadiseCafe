@@ -1,11 +1,11 @@
 b $4000 screen$
-D $4000,$1b00 #UDGTABLE { #SCR(loading) | Ecrã de entrada - screen$. } TABLE#
+  $4000,$1b00 #UDGTABLE { #SCR(loading) | Ecrã de entrada - screen$. } TABLE#
 
 ;b $5B00 System variables (?)
 ;b $5CB6 Channel infomation (?)
 
-;b $5CCB Program data (Basic?)
-;B  $5CCB,$15c zbr
+b $5CCB Program data (Basic?)
+B  $5CCB,$15c zbr
 
 ;b $5E27 Basic stacks (novo)
 
@@ -67,6 +67,7 @@ b $788D Ecrã de entrada
 z $79EA
 
 c $7CF0
+  $7CF0,7 No Operation
 
 c $7D2B Delay(?)
 
@@ -624,12 +625,25 @@ c $B775 Espera que se pressione uma tecla e guarda em #R$C34C
   $B780,3 Guarda a tecla pressionada em #R$C34C
 
 z $B784
-c $B785
 
-b $B7A4 Barra do Highscore?
+; @label:$B785=desenhaChaoHighscore
+c $B785 Desenha o chão a linha de highscore e o azul do fundo do ecrã
+  $B785,8 Define atributos para o fadeOut a $10 e chama-o
+  $B78D,8 Desenha o chão (a $18 - 00|011|000 - roxo). $5A20 é um endereço de atributos de cor na memoria
+  $B795,6 Desenha #R$B7A4
+  $B79B,8 Desenha fundo do ecrã (a $08 - 00|001|000 - azul). $5AA0 é um endereço de atributos de cor na memoria
+
+; @label:$B7A4=frame_linha_highscore
+b $B7A4 Linha do Highscore
   $B7A4 #HTML[#CALL:decode_data($3C00,$B7A4)] 
 
-c $B7CC
+; @label:$B7CC=prencheAtributos
+c $B7CC Preenche desde (HL) até (HL+$60) o valor em A
+  $B7CC,2 Numero de vezes que vai executar
+  $B7CE,1 (HL) = A
+  $B7CF,1 HL+1
+  $B7D0,2 B--; Se !0 salta
+  
 c $B7D3
 
 b $B7E6
