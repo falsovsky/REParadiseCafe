@@ -206,7 +206,7 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
             elif (self.snapshot[addr] >= 0x90 and self.snapshot[addr] <= 0xa4):
                 v = ( self.snapshot[addr] - 0x90)
                 ad = ( 0xFF58 ) + (v*8)
-                udg_array[x][y] = Udg(ad, self.snapshot[ad:ad+8])
+                udg_array[x][y] = Udg(attr, self.snapshot[ad:ad+8])
                 #if comment == True:
                 #    print "B $%04X,$1 UDG %02X - ADDR = %04X - AT %d,%d - INK %d - PAPER %d - #HTML[#UDG$%04X,%d(%04x)]" % (addr, self.snapshot[addr], ad, x, y, ink, paper, ad, attr, ad)
             else:
