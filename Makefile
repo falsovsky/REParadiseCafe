@@ -1,6 +1,6 @@
 OUTPUT?=/home/falso/public_html/p
 SNA2SKOOL_OPTIONS=-h -H
-SKOOL2HTML_OPTIONS=-d $(OUTPUT) -a
+SKOOL2HTML_OPTIONS=-d $(OUTPUT) -a -C
 
 PARADISECAFE=ParadiseCafe
 

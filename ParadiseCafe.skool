@@ -3847,7 +3847,11 @@ c$B01D LD A,($C34E)  ;
  $B036 JP Z,$B039    ;
 *$B039 LD A,$01      ;
  $B03B LD ($C34E),A  ;
+; @bfix-begin
  $B03E LD HL,$B0A9   ;
+; @bfix+else
+ $B03E LD HL,frame_heroi_tronco
+; @bfix+end
  $B041 CALL $AFC8    ;
  $B044 LD HL,$5C36   ;
  $B047 LD A,$28      ;
@@ -3860,7 +3864,11 @@ c$B01D LD A,($C34E)  ;
  $B054 RET           ;
 *$B055 LD A,$02      ;
  $B057 LD ($C34E),A  ;
+; @bfix-begin
  $B05A LD HL,$B0A9   ;
+; @bfix+else
+ $B05A LD HL,frame_heroi_tronco
+; @bfix+end
  $B05D CALL $AFC8    ;
  $B060 LD HL,$5C36   ;
  $B063 LD A,$20      ;
@@ -3873,7 +3881,11 @@ c$B01D LD A,($C34E)  ;
  $B070 RET           ;
 *$B071 LD A,$03      ;
  $B073 LD ($C34E),A  ;
+; @bfix-begin
  $B076 LD HL,$B0A9   ;
+; @bfix+else
+ $B076 LD HL,frame_heroi_tronco
+; @bfix+end
  $B079 CALL $AFC8    ;
  $B07C LD HL,$5C36   ;
  $B07F LD A,$38      ;
@@ -3886,7 +3898,11 @@ c$B01D LD A,($C34E)  ;
  $B08C RET           ;
 *$B08D LD A,$04      ;
  $B08F LD ($C34E),A  ;
+; @bfix-begin
  $B092 LD HL,$B0A9   ;
+; @bfix+else
+ $B092 LD HL,frame_heroi_tronco
+; @bfix+end
  $B095 CALL $AFC8    ;
  $B098 LD HL,$5C36   ;
  $B09B LD A,$38      ;
@@ -4495,7 +4511,11 @@ c$B785 LD A,$10      ; {Define atributos para o fadeOut a $10 e chama-o
  $B78D LD HL,$5A20   ; {Desenha o chão (a $18 - 00|011|000 - roxo). $5A20 é
  $B790 LD A,$18      ; um endereço de atributos de cor na memoria
  $B792 CALL $B7CC    ; }
+; @bfix-begin
  $B795 LD HL,$B7A4   ; {Desenha #R$B7A4
+; @bfix+else
+ $B795 LD HL,frame_linha_highscore
+; @bfix+end
  $B798 CALL $AFC8    ; }
  $B79B LD HL,$5AA0   ; {Desenha fundo do ecrã (a $08 - 00|001|000 - azul).
  $B79E LD A,$08      ; $5AA0 é um endereço de atributos de cor na memoria
