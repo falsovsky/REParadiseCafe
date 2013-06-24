@@ -192,7 +192,11 @@ c$77EA LD A,$00      ; {Espera que se pressione uma tecla
  $77FC NOP           ; }
 ; This entry point is used by the routine at #R$7530.
 *$77FD LD A,$10      ; {Define atributos para o fadeOut a $10 e chama-o
+; @bfix-begin
  $77FF LD ($C34F),A  ;
+; @bfix+else
+ $77FF LD (variavel_atributos_fadeOut),A
+; @bfix+end
  $7802 CALL $AFD1    ; }
  $7805 LD A,$02      ; {Faz um beep?
  $7807 OUT ($FE),A   ; }
@@ -2541,7 +2545,11 @@ z$A1EF DEFS 1
 ;
 ; Used by the routine at #R$A7A0.
 c$A1F0 LD A,$00      ;
+; @bfix-begin
  $A1F2 LD ($C34F),A  ;
+; @bfix+else
+ $A1F2 LD (variavel_atributos_fadeOut),A
+; @bfix+end
  $A1F5 CALL $AFD1    ;
  $A1F8 LD HL,$5960   ;
  $A1FB LD A,$10      ;
@@ -3711,7 +3719,11 @@ c$AFD1 LD A,$08      ; {Limpa o ecra a fazer SHIFT RIGHT LOGICAL aos graficos
  $AFEC DEC A         ;
  $AFED JR NZ,$AFD3   ; }
  $AFEF LD HL,$5800   ; {Define os atributos a partir de $5800 com o
+; @bfix-begin
  $AFF2 LD A,($C34F)  ; valor em #R$C34F
+; @bfix+else
+ $AFF2 LD A,(variavel_atributos_fadeOut)
+; @bfix+end
  $AFF5 LD C,$18      ;
 *$AFF7 LD B,$20      ;
 *$AFF9 LD (HL),A     ;
@@ -4388,7 +4400,11 @@ z$B784 DEFS 1
 ; Used by the routine at #R$7CF0.
 ; @label=desenhaChaoHighscore
 c$B785 LD A,$10      ; {Define atributos para o fadeOut a $10 e chama-o
+; @bfix-begin
  $B787 LD ($C34F),A  ;
+; @bfix+else
+ $B787 LD (variavel_atributos_fadeOut),A
+; @bfix+end
  $B78A CALL $AFD1    ; }
  $B78D LD HL,$5A20   ; {Desenha o chão (a $18 - 00|011|000 - roxo). $5A20 é
  $B790 LD A,$18      ; um endereço de atributos de cor na memoria
