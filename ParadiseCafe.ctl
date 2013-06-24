@@ -962,7 +962,7 @@ b $C33D Inventorio: Arma
 
 ; @label:$C33E=variavel_dinheiro
 b $C33E Dinheiro
-t $C33E Dinheiro (Little endian - 3081 -> 0318) -> 031800$00
+;t $C33E Dinheiro (Little endian - 3081 -> 0318) -> 031800$00
 
 b $C342
 ;t $C342 Highscore (Little endian - 0005 -> 0050) -> 005000 Pontos
@@ -974,7 +974,7 @@ b $C346 Score
 D $C346 Quatro bytes ASCII em Little Endian.
 D $C346 Exemplo: 0041 fica 0014 ou seja 0014 + 00 pontos.
 
-b $C348
+;b $C348
 
 b $C34A
 

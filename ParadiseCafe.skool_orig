@@ -53,7 +53,11 @@ c$7530 LD A,$11      ;
  $758D CALL $BD0C    ;
  $7590 LD HL,$77D5   ;
  $7593 CALL $AFC8    ;
- $7596 LD DE,chars2+$1c0   ;
+; @bfix-begin
+ $7596 LD DE,$8C30   ;
+; @bfix+else
+ $7596 LD DE,chars1+$1c0
+; @bfix+end
  $7599 CALL $BD0C    ;
  $759C LD HL,$7799   ;
  $759F CALL $AFC8    ;
@@ -154,21 +158,18 @@ b$75E2 DEFB $16,$12,$00,$11,$00,$10,$02,$80
 ; #HTML[#CALL:decode_data($8970,$75E2)]
 
 ; Canhola - Frame 1
-; @label=frame_canhola_1
 b$7799 DEFB $16,$0B,$09,$10,$06,$11,$00,$20 ; {#HTML[#CALL:decode_data($8C30,$7799)]
  $77A1 DEFB $21,$10,$07,$22,$10,$06,$11,$07
  $77A9 DEFB $23,$24,$16,$0C,$09,$11,$03,$25
  $77B1 DEFB $26,$27,$28,$29,$FF             ; }
 
 ; Canhola - Frame 2
-; @label=frame_canhola_2
 b$77B6 DEFB $16,$0B,$09,$10,$06,$11,$00,$2A ; {#HTML[#CALL:decode_data($8C30,$77B6)]
  $77BE DEFB $2B,$10,$07,$11,$00,$85,$10,$06
  $77C6 DEFB $11,$07,$2C,$2D,$16,$0C,$09,$11
  $77CE DEFB $03,$2E,$2F,$30,$31,$32,$FF     ; }
 
 ; The End
-; @label=frame_the_end
 b$77D5 DEFB $16,$14,$18,$11,$02,$10,$07,$54 ; {#HTML[#CALL:decode_data($3C00,$77D5)]
  $77DD DEFB $48,$45,$20,$45,$4E,$44,$FF     ; }
 
@@ -191,16 +192,28 @@ c$77EA LD A,$00      ; {Espera que se pressione uma tecla
  $77FC NOP           ; }
 ; This entry point is used by the routine at #R$7530.
 *$77FD LD A,$10      ; {Define atributos para o fadeOut a $10 e chama-o
- $77FF LD (variavel_atributos_fadeOut),A  ;
+; @bfix-begin
+ $77FF LD ($C34F),A  ;
+; @bfix+else
+ $77FF LD (variavel_atributos_fadeOut),A
+; @bfix+end
  $7802 CALL $AFD1    ; }
  $7805 LD A,$02      ; {Faz um beep?
  $7807 OUT ($FE),A   ; }
  $7809 LD DE,$3C00   ; {Define CHARS em $3C00
  $780C CALL $BD0C    ; }
- $780F LD HL,frame_ecra_entrada   ; {Desenha #R$788D
+; @bfix-begin
+ $780F LD HL,$788D   ; {Desenha #R$788D
+; @bfix+else
+ $780F LD HL,frame_ecra_entrada
+; @bfix+end
  $7812 CALL $AFC8    ; }
- $7815 LD HL,string_recordista   ; HL com #R$89A6
- $7818 LD B,$20      ; Inutil(?) é repetida abaixo
+; @bfix-begin
+ $7815 LD HL,$89A6   ; HL com #R$89A6
+; @bfix+else
+ $7815 LD HL,string_recordista
+; @bfix+end
+ $7818 LD B,$20      ; Inutil(?) é repetida abaixo em $7835
  $781A LD A,$16      ; {AT
  $781C RST $10       ; }
  $781D LD A,$09      ; {X = $09
@@ -238,20 +251,44 @@ c$77EA LD A,$00      ; {Espera que se pressione uma tecla
  $7850 LD A,$01      ; {Faz um beep?
  $7852 OUT ($FE),A   ; }
  $7854 LD A,$00      ;
- $7856 LD (variavel_arma),A  ; #R$C33D a 0
- $7859 LD (variavel_droga),A  ; #R$C337 a 0
+; @bfix-begin
+ $7856 LD ($C33D),A  ; #R$C33D a 0
+ $7859 LD ($C337),A  ; #R$C337 a 0
+; @bfix+else
+ $7856 LD (variavel_arma),A
+ $7859 LD (variavel_droga),A
+; @bfix+end
  $785C LD A,$01      ;
- $785E LD (variavel_carteira),A  ; #R$C33C a 1
+; @bfix-begin
+ $785E LD ($C33C),A  ; #R$C33C a 1
+; @bfix+else
+ $785E LD (variavel_carteira),A
+; @bfix+end
  $7861 LD A,$30      ;
- $7863 LD (variavel_score),A  ; {#R$C346 a "0000" $30 é "0" em ASCII
- $7866 LD (variavel_score+1),A  ;
- $7869 LD (variavel_score+2),A  ;
- $786C LD (variavel_score+3),A  ; }
- $786F LD (variavel_dinheiro+2),A  ; {#R$C33E a "3000" - 030000$
- $7872 LD (variavel_dinheiro+3),A  ;
- $7875 LD (variavel_dinheiro+1),A  ;
+; @bfix-begin
+ $7863 LD ($C346),A  ; {#R$C346 a "0000" $30 é "0" em ASCII
+ $7866 LD ($C347),A  ;
+ $7869 LD ($C348),A  ;
+ $786C LD ($C349),A  ; }
+; @bfix+else
+ $7863 LD (variavel_score),A
+ $7866 LD (variavel_score+1),A
+ $7869 LD (variavel_score+2),A
+ $786C LD (variavel_score+3),A
+; @bfix+end
+; @bfix-begin
+ $786F LD ($C340),A  ; {#R$C33E a "3000" - 030000$
+ $7872 LD ($C341),A  ;
+ $7875 LD ($C33F),A  ;
  $7878 LD A,$33      ;
- $787A LD (variavel_dinheiro),A  ; }
+ $787A LD ($C33E),A  ; }
+; @bfix+else
+ $786F LD (variavel_dinheiro+2),A
+ $7872 LD (variavel_dinheiro+3),A
+ $7875 LD (variavel_dinheiro+1),A
+ $7878 LD A,$33    
+ $787A LD (variavel_dinheiro),A
+; @bfix+end
  $787D LD A,($5C78)  ; Guarda o valor do FRAMES (contador de tempo +-)
  $7880 SUB $80       ; Subtrai $80
  $7882 LD B,A        ; {Corre o "randomizer" o numero de vezes que estiver em
@@ -311,9 +348,10 @@ b$788D DEFB $16,$10,$02,$11,$02,$10,$04,$8F ; {#HTML[#CALL:decode_data($3C00,$78
 ; Unused
 z$79EA DEFS $0306
 
-; Routine at 7CF0
+; Loop principal
 ;
 ; Used by the routine at #R$A7A0.
+; @label=main_loop
 c$7CF0 NOP           ; {No Operation
  $7CF1 NOP           ;
  $7CF2 NOP           ;
@@ -511,7 +549,11 @@ c$7DEA CALL $B001    ;
  $7E54 CALL $BD0C    ;
  $7E57 LD HL,$7EE9   ;
  $7E5A CALL $AFC8    ;
- $7E5D LD A,(variavel_carteira)  ;
+; @bfix-begin
+ $7E5D LD A,($C33C)  ;
+; @bfix+else
+ $7E5D LD A,(variavel_carteira)
+; @bfix+end
  $7E60 CP $00        ;
  $7E62 JP Z,$7EB4    ;
  $7E65 LD A,$05      ;
@@ -586,7 +628,6 @@ b$7F41 DEFB $16,$11,$0B,$11,$03,$80,$80,$80 ; {#HTML[#CALL:decode_data($F701,$7F
  $7F51 DEFB $FF                             ; }
 
 ; CHARS
-; @label=chars2
 b$7F52 DEFB $00,$00,$00,$00,$00,$00,$00,$00
  $7F5A DEFB $00,$00,$00,$00,$00,$01,$06,$08
  $7F62 DEFB $00,$00,$00,$1F,$60,$80,$00,$00
@@ -978,7 +1019,11 @@ z$88FF DEFS 1
 ; Routine at 8900
 ;
 ; Used by the routine at #R$7530.
-c$8900 LD HL,(variavel_score) ;
+; @bfix-begin
+c$8900 LD HL,($C346) ;
+; @bfix+else
+c$8900 LD HL,(variavel_score)
+; @bfix+end
  $8903 LD DE,($C342) ;
  $8907 LD A,H        ;
  $8908 SUB D         ;
@@ -992,7 +1037,11 @@ c$8900 LD HL,(variavel_score) ;
  $8912 LD A,L        ;
  $8913 CP E          ;
  $8914 JP NZ,$892F   ;
- $8917 LD HL,(variavel_score+2) ;
+; @bfix-begin
+ $8917 LD HL,($C348) ;
+; @bfix+else
+ $8917 LD HL,(variavel_score+2)
+; @bfix+end
  $891A LD DE,($C344) ;
  $891E LD A,H        ;
  $891F SUB D         ;
@@ -1011,7 +1060,7 @@ c$8900 LD HL,(variavel_score) ;
  $8932 CALL $BD0C    ;
  $8935 LD HL,$89D2   ;
  $8938 CALL $AFC8    ;
-*$893B LD HL,string_recordista   ;
+*$893B LD HL,$89A6   ;
  $893E LD A,$16      ;
  $8940 RST $10       ;
  $8941 LD A,$0C      ;
@@ -1058,9 +1107,17 @@ c$8900 LD HL,(variavel_score) ;
  $8987 LD (HL),A     ;
  $8988 INC HL        ;
  $8989 DJNZ $8985    ;
- $898B LD HL,(variavel_score) ;
+; @bfix-begin
+ $898B LD HL,($C346) ;
+; @bfix+else
+ $898B LD HL,(variavel_score)
+; @bfix+end
  $898E LD ($C342),HL ;
- $8991 LD HL,(variavel_score+2) ;
+; @bfix-begin
+ $8991 LD HL,($C348) ;
+; @bfix+else
+ $8991 LD HL,(variavel_score+2)
+; @bfix+end
  $8994 LD ($C344),HL ;
  $8997 LD A,$05      ;
  $8999 CALL $C259    ;
@@ -1102,7 +1159,7 @@ b$8A29 DEFB $16,$0C,$00,$80,$80,$80,$80,$80 ; {#HTML[#CALL:decode_data($3C00,$8A
  $8A69 DEFB $80,$80,$80,$80,$80,$80,$FF     ; }
 
 ; CHARS
-; @label=chars2
+; @label=chars1
 b$8A70 DEFB $01,$02,$0C,$10,$10,$20,$20,$21
  $8A78 DEFB $FF,$00,$00,$00,$00,$00,$00,$FF
  $8A80 DEFB $80,$40,$30,$08,$08,$04,$04,$84
@@ -1811,7 +1868,7 @@ b$97FA DEFB $16,$07,$0C,$10,$00,$11,$04,$8F ; {#HTML[#CALL:decode_data($FB41,$98
 ; Routine at 9826
 ;
 ; Used by the routines at #R$8800 and #R$999A.
-c$9826 LD DE,chars2-$C16   ;
+c$9826 LD DE,$7E5A   ;
  $9829 CALL $BD0C    ;
  $982C LD HL,$9833   ;
  $982F CALL $AFC8    ;
@@ -1835,7 +1892,7 @@ b$9833 DEFB $16,$05,$08,$11,$00,$10,$06,$20 ; {#HTML[#CALL:decode_data($7E5A,$98
 ; Routine at 9899
 ;
 ; Used by the routine at #R$999A.
-c$9899 LD DE,chars1+$F8   ;
+c$9899 LD DE,$804A   ;
  $989C CALL $BD0C    ;
  $989F LD HL,$98A6   ;
  $98A2 CALL $AFC8    ;
@@ -1860,7 +1917,7 @@ b$98A6 DEFB $16,$00,$17,$11,$04,$10,$00,$20 ; {#HTML[#CALL:decode_data($804A,$98
 ; Routine at 9912
 ;
 ; Used by the routines at #R$8800 and #R$999A.
-c$9912 LD DE,chars1+$250   ;
+c$9912 LD DE,$81A2   ;
  $9915 CALL $BD0C    ;
  $9918 LD HL,$991F   ;
  $991B CALL $AFC8    ;
@@ -2266,7 +2323,11 @@ c$9F31 LD DE,$D739   ;
 c$9F54 CALL $B48F    ;
  $9F57 CALL $9E2F    ;
 *$9F5A CALL $B775    ;
- $9F5D LD A,(variavel_arma)  ;
+; @bfix-begin
+ $9F5D LD A,($C33D)  ;
+; @bfix+else
+ $9F5D LD A,(variavel_arma)
+; @bfix+end
  $9F60 CP $00        ;
  $9F62 JP Z,$A014    ;
  $9F65 LD A,($C34C)  ;
@@ -2532,7 +2593,11 @@ z$A1EF DEFS 1
 ;
 ; Used by the routine at #R$A7A0.
 c$A1F0 LD A,$00      ;
- $A1F2 LD (variavel_atributos_fadeOut),A  ;
+; @bfix-begin
+ $A1F2 LD ($C34F),A  ;
+; @bfix+else
+ $A1F2 LD (variavel_atributos_fadeOut),A
+; @bfix+end
  $A1F5 CALL $AFD1    ;
  $A1F8 LD HL,$5960   ;
  $A1FB LD A,$10      ;
@@ -3004,13 +3069,25 @@ c$A7A0 CALL $A1F0    ;
  $A7FC CALL $A6FE    ;
  $A7FF LD HL,$ABC3   ;
  $A802 CALL $AFC8    ;
- $A805 LD A,(variavel_carteira)  ;
+; @bfix-begin
+ $A805 LD A,($C33C)  ;
+; @bfix+else
+ $A805 LD A,(variavel_carteira)
+; @bfix+end
  $A808 CP $00        ;
  $A80A JP Z,$A8ED    ;
- $A80D LD A,(variavel_arma)  ;
+; @bfix-begin
+ $A80D LD A,($C33D)  ;
+; @bfix+else
+ $A80D LD A,(variavel_arma)
+; @bfix+end
  $A810 CP $00        ;
  $A812 JP Z,$A98D    ;
- $A815 LD A,(variavel_droga)  ;
+; @bfix-begin
+ $A815 LD A,($C337)  ;
+; @bfix+else
+ $A815 LD A,(variavel_droga)
+; @bfix+end
  $A818 CP $00        ;
  $A81A JP Z,$AA2B    ;
  $A81D LD A,$03      ;
@@ -3047,7 +3124,11 @@ c$A7A0 CALL $A1F0    ;
  $A870 LD HL,$ABCE   ;
  $A873 CALL $AFC8    ;
  $A876 LD A,$00      ;
- $A878 LD (variavel_droga),A  ;
+; @bfix-begin
+ $A878 LD ($C337),A  ;
+; @bfix+else
+ $A878 LD (variavel_droga),A
+; @bfix+end
  $A87B POP BC        ;
  $A87C CALL $BA4E    ;
 *$A87F CALL $B721    ;
@@ -3137,7 +3218,11 @@ c$A7A0 CALL $A1F0    ;
  $A950 LD HL,$ABCE   ;
  $A953 CALL $AFC8    ;
  $A956 LD A,$01      ;
- $A958 LD (variavel_carteira),A  ;
+; @bfix-begin
+ $A958 LD ($C33C),A  ;
+; @bfix+else
+ $A958 LD (variavel_carteira),A
+; @bfix+end
  $A95B POP BC        ;
  $A95C CALL $BA8F    ;
  $A95F CALL $A770    ;
@@ -3204,7 +3289,11 @@ c$A7A0 CALL $A1F0    ;
  $A9F1 LD HL,$ABCE   ;
  $A9F4 CALL $AFC8    ;
  $A9F7 LD A,$01      ;
- $A9F9 LD (variavel_arma),A  ; {Activar a arma!
+; @bfix-begin
+ $A9F9 LD ($C33D),A  ; {Activar a arma!
+; @bfix+else
+ $A9F9 LD (variavel_arma),A
+; @bfix+end
  $A9FC POP BC        ;
  $A9FD CALL $BA8F    ;
  $AA00 JP $A87F      ;
@@ -3278,7 +3367,11 @@ c$A7A0 CALL $A1F0    ;
  $AAA5 POP BC        ;
  $AAA6 CALL $BA8F    ;
  $AAA9 LD A,$01      ;
- $AAAB LD (variavel_droga),A  ;
+; @bfix-begin
+ $AAAB LD ($C337),A  ;
+; @bfix+else
+ $AAAB LD (variavel_droga),A
+; @bfix+end
  $AAAE JP $A87F      ;
 *$AAB1 LD A,$16      ;
  $AAB3 RST $10       ;
@@ -3701,8 +3794,12 @@ c$AFD1 LD A,$08      ; {Limpa o ecra a fazer SHIFT RIGHT LOGICAL aos graficos
  $AFEA JR NZ,$AFE9   ;
  $AFEC DEC A         ;
  $AFED JR NZ,$AFD3   ; }
- $AFEF LD HL,$5800   ; {Atributos a partir de $5800 com o
- $AFF2 LD A,(variavel_atributos_fadeOut)  ; valor em #R$C34F
+ $AFEF LD HL,$5800   ; {Define os atributos a partir de $5800 com o
+; @bfix-begin
+ $AFF2 LD A,($C34F)  ; valor em #R$C34F
+; @bfix+else
+ $AFF2 LD A,(variavel_atributos_fadeOut)
+; @bfix+end
  $AFF5 LD C,$18      ;
 *$AFF7 LD B,$20      ;
 *$AFF9 LD (HL),A     ;
@@ -3716,14 +3813,18 @@ c$AFD1 LD A,$08      ; {Limpa o ecra a fazer SHIFT RIGHT LOGICAL aos graficos
 ;
 ; Used by the routines at #R$7CF0, #R$7DEA, #R$9F54, #R$A014, #R$A03A, #R$A0D4,
 ; #R$AC90, #R$BF17, #R$C1C2 and #R$C266.
-c$B001 LD HL,frame_heroi_tronco   ;
- $B004 CALL $AFC8    ;
- $B007 LD HL,$5C36   ;
- $B00A LD A,$50      ;
- $B00C LD (HL),A     ;
- $B00D INC HL        ;
- $B00E LD A,$C2      ;
- $B010 LD (HL),A     ;
+; @bfix-begin
+c$B001 LD HL,$B0A9   ; {Desenha #R$B0A9
+; @bfix+else
+c$B001 LD HL,frame_heroi_tronco
+; @bfix+end
+ $B004 CALL $AFC8    ; }
+ $B007 LD HL,$5C36   ; {Define atributos $5C36 com valor $50 - 01|010|000 -
+ $B00A LD A,$50      ; Ink Black, Paper Red, Brightness 1
+ $B00C LD (HL),A     ; }
+ $B00D INC HL        ; {E em $5C37 mete a $C2 - 11|000|010 -
+ $B00E LD A,$C2      ; Ink Red, Paper Black, Brigthness 1, Flash 1(?)
+ $B010 LD (HL),A     ; }
  $B011 LD HL,$B0E4   ;
  $B014 CALL $AFC8    ;
  $B017 LD A,$00      ;
@@ -3746,7 +3847,11 @@ c$B01D LD A,($C34E)  ;
  $B036 JP Z,$B039    ;
 *$B039 LD A,$01      ;
  $B03B LD ($C34E),A  ;
- $B03E LD HL,frame_heroi_tronco   ;
+; @bfix-begin
+ $B03E LD HL,$B0A9   ;
+; @bfix+else
+ $B03E LD HL,frame_heroi_tronco
+; @bfix+end
  $B041 CALL $AFC8    ;
  $B044 LD HL,$5C36   ;
  $B047 LD A,$28      ;
@@ -3759,7 +3864,11 @@ c$B01D LD A,($C34E)  ;
  $B054 RET           ;
 *$B055 LD A,$02      ;
  $B057 LD ($C34E),A  ;
- $B05A LD HL,frame_heroi_tronco   ;
+; @bfix-begin
+ $B05A LD HL,$B0A9   ;
+; @bfix+else
+ $B05A LD HL,frame_heroi_tronco
+; @bfix+end
  $B05D CALL $AFC8    ;
  $B060 LD HL,$5C36   ;
  $B063 LD A,$20      ;
@@ -3772,7 +3881,11 @@ c$B01D LD A,($C34E)  ;
  $B070 RET           ;
 *$B071 LD A,$03      ;
  $B073 LD ($C34E),A  ;
- $B076 LD HL,frame_heroi_tronco   ;
+; @bfix-begin
+ $B076 LD HL,$B0A9   ;
+; @bfix+else
+ $B076 LD HL,frame_heroi_tronco
+; @bfix+end
  $B079 CALL $AFC8    ;
  $B07C LD HL,$5C36   ;
  $B07F LD A,$38      ;
@@ -3785,7 +3898,11 @@ c$B01D LD A,($C34E)  ;
  $B08C RET           ;
 *$B08D LD A,$04      ;
  $B08F LD ($C34E),A  ;
- $B092 LD HL,frame_heroi_tronco   ;
+; @bfix-begin
+ $B092 LD HL,$B0A9   ;
+; @bfix+else
+ $B092 LD HL,frame_heroi_tronco
+; @bfix+end
  $B095 CALL $AFC8    ;
  $B098 LD HL,$5C36   ;
  $B09B LD A,$38      ;
@@ -4300,8 +4417,13 @@ c$B734 LD A,$01      ;
 ;
 ; Used by the routine at #R$BB03.
 c$B737 LD HL,$3030   ;
- $B73A LD (variavel_score+2),HL ;
- $B73D LD (variavel_score),HL ;
+; @bfix-begin
+ $B73A LD ($C348),HL ;
+ $B73D LD ($C346),HL ;
+; @bfix+else
+ $B73A LD (variavel_score+2),HL
+ $B73D LD (variavel_score),HL
+; @bfix+end
  $B740 POP BC        ;
  $B741 POP BC        ;
  $B742 POP BC        ;
@@ -4312,8 +4434,13 @@ c$B737 LD HL,$3030   ;
 ;
 ; Used by the routine at #R$BAC2.
 c$B745 LD HL,$3030   ;
- $B748 LD (variavel_dinheiro+2),HL ;
- $B74B LD (variavel_dinheiro),HL ;
+; @bfix-begin
+ $B748 LD ($C340),HL ;
+ $B74B LD ($C33E),HL ;
+; @bfix+else
+ $B748 LD (variavel_dinheiro+2),HL
+ $B74B LD (variavel_dinheiro),HL
+; @bfix+end
  $B74E POP BC        ;
  $B74F POP BC        ;
  $B750 POP BC        ;
@@ -4375,12 +4502,20 @@ z$B784 DEFS 1
 ; Used by the routine at #R$7CF0.
 ; @label=desenhaChaoHighscore
 c$B785 LD A,$10      ; {Define atributos para o fadeOut a $10 e chama-o
- $B787 LD (variavel_atributos_fadeOut),A  ;
+; @bfix-begin
+ $B787 LD ($C34F),A  ;
+; @bfix+else
+ $B787 LD (variavel_atributos_fadeOut),A
+; @bfix+end
  $B78A CALL $AFD1    ; }
  $B78D LD HL,$5A20   ; {Desenha o chão (a $18 - 00|011|000 - roxo). $5A20 é
  $B790 LD A,$18      ; um endereço de atributos de cor na memoria
  $B792 CALL $B7CC    ; }
- $B795 LD HL,frame_linha_highscore   ; {Desenha #R$B7A4
+; @bfix-begin
+ $B795 LD HL,$B7A4   ; {Desenha #R$B7A4
+; @bfix+else
+ $B795 LD HL,frame_linha_highscore
+; @bfix+end
  $B798 CALL $AFC8    ; }
  $B79B LD HL,$5AA0   ; {Desenha fundo do ecrã (a $08 - 00|001|000 - azul).
  $B79E LD A,$08      ; $5AA0 é um endereço de atributos de cor na memoria
@@ -4692,12 +4827,20 @@ c$B9AF LD HL,$5C36   ;
  $B9B8 LD (HL),A     ;
  $B9B9 LD HL,$B9F1   ;
  $B9BC CALL $AFC8    ;
- $B9BF LD HL,(variavel_score) ;
+; @bfix-begin
+ $B9BF LD HL,($C346) ;
+; @bfix+else
+ $B9BF LD HL,(variavel_score)
+; @bfix+end
  $B9C2 LD A,H        ;
  $B9C3 RST $10       ;
  $B9C4 LD A,L        ;
  $B9C5 RST $10       ;
- $B9C6 LD HL,(variavel_score+2) ;
+; @bfix-begin
+ $B9C6 LD HL,($C348) ;
+; @bfix+else
+ $B9C6 LD HL,(variavel_score+2)
+; @bfix+end
  $B9C9 LD A,H        ;
  $B9CA RST $10       ;
  $B9CB LD A,L        ;
@@ -4708,12 +4851,20 @@ c$B9AF LD HL,$5C36   ;
  $B9D2 RST $10       ;
  $B9D3 LD HL,$BA00   ;
  $B9D6 CALL $AFC8    ;
- $B9D9 LD HL,(variavel_dinheiro) ;
+; @bfix-begin
+ $B9D9 LD HL,($C33E) ;
+; @bfix+else
+ $B9D9 LD HL,(variavel_dinheiro)
+; @bfix+end
  $B9DC LD A,H        ;
  $B9DD RST $10       ;
  $B9DE LD A,L        ;
  $B9DF RST $10       ;
- $B9E0 LD HL,(variavel_dinheiro+2) ;
+; @bfix-begin
+ $B9E0 LD HL,($C340) ;
+; @bfix+else
+ $B9E0 LD HL,(variavel_dinheiro+2)
+; @bfix+end
  $B9E3 LD A,H        ;
  $B9E4 RST $10       ;
  $B9E5 LD A,L        ;
@@ -4737,13 +4888,21 @@ b$BA00 DEFB $16,$15,$10,$44,$49,$4E,$48,$45 ; {#HTML[#CALL:decode_data($3C00,$BA
 ; Routine at BA0D
 ;
 ; Used by the routines at #R$8800, #R$A03A and #R$C1C2.
-c$BA0D LD HL,(variavel_score+2) ;
+; @bfix-begin
+c$BA0D LD HL,($C348) ;
+; @bfix+else
+c$BA0D LD HL,(variavel_score+2)
+; @bfix+end
  $BA10 LD A,L        ;
  $BA11 INC A         ;
  $BA12 CP $3A        ;
  $BA14 CALL Z,$BA21  ;
  $BA17 LD L,A        ;
- $BA18 LD (variavel_score+2),HL ;
+; @bfix-begin
+ $BA18 LD ($C348),HL ;
+; @bfix+else
+ $BA18 LD (variavel_score+2),HL
+; @bfix+end
  $BA1B DJNZ $BA0D    ;
  $BA1D CALL $B9AF    ;
  $BA20 RET           ;
@@ -4762,14 +4921,23 @@ c$BA21 LD A,H        ;
 ; Routine at BA2C
 ;
 ; Used by the routine at #R$BA21.
-c$BA2C LD HL,(variavel_score) ;
+; @bfix-begin
+c$BA2C LD HL,($C346) ;
+; @bfix+else
+c$BA2C LD HL,(variavel_score)
+; @bfix+end
  $BA2F LD A,L        ;
  $BA30 INC A         ;
  $BA31 CP $3A        ;
  $BA33 CALL Z,$BA40  ;
  $BA36 LD L,A        ;
- $BA37 LD (variavel_score),HL ;
+; @bfix-begin
+ $BA37 LD ($C346),HL ;
+ $BA3A LD HL,($C348) ;
+; @bfix+else
+ $BA37 LD (variavel_score),HL
  $BA3A LD HL,(variavel_score+2) ;
+; @bfix+end
  $BA3D LD A,$30      ;
  $BA3F RET           ;
 
@@ -4793,13 +4961,21 @@ c$BA4B LD A,$30      ;
 ; Routine at BA4E
 ;
 ; Used by the routines at #R$9F54 and #R$A7A0.
-c$BA4E LD HL,(variavel_dinheiro+2) ;
+; @bfix-begin
+c$BA4E LD HL,($C340) ;
+; @bfix+else
+c$BA4E LD HL,(variavel_dinheiro+2)
+; @bfix+end
  $BA51 LD A,L        ;
  $BA52 INC A         ;
  $BA53 CP $3A        ;
  $BA55 CALL Z,$BA62  ;
  $BA58 LD L,A        ;
- $BA59 LD (variavel_dinheiro+2),HL ;
+; @bfix-begin
+ $BA59 LD ($C340),HL ;
+; @bfix+else
+  $BA59 LD (variavel_dinheiro+2),HL
+; @bfix+end
  $BA5C DJNZ $BA4E    ;
  $BA5E CALL $B9AF    ;
  $BA61 RET           ;
@@ -4818,14 +4994,23 @@ c$BA62 LD A,H        ;
 ; Routine at BA6D
 ;
 ; Used by the routine at #R$BA62.
-c$BA6D LD HL,(variavel_dinheiro) ;
+; @bfix-begin
+c$BA6D LD HL,($C33E) ;
+; @bfix+else
+c$BA6D LD HL,(variavel_dinheiro)
+; @bfix+end
  $BA70 LD A,L        ;
  $BA71 INC A         ;
  $BA72 CP $3A        ;
  $BA74 CALL Z,$BA81  ;
  $BA77 LD L,A        ;
- $BA78 LD (variavel_dinheiro),HL ;
- $BA7B LD HL,(variavel_dinheiro+2) ;
+; @bfix-begin
+ $BA78 LD ($C33E),HL ;
+ $BA7B LD HL,($C340) ;
+; @bfix+else
+ $BA78 LD (variavel_dinheiro),HL
+ $BA7B LD HL,(variavel_dinheiro+2)
+; @bfix+end
  $BA7E LD A,$30      ;
  $BA80 RET           ;
 
@@ -4849,13 +5034,21 @@ c$BA8C LD A,$30      ;
 ; Aceitar comprar algo no café
 ;
 ; Used by the routines at #R$8800 and #R$A7A0.
-c$BA8F LD HL,(variavel_dinheiro+2) ;
+; @bfix-begin
+c$BA8F LD HL,($C340) ;
+; @bfix+else
+c$BA8F LD HL,(variavel_dinheiro+2)
+; @bfix+end
  $BA92 LD A,L        ;
  $BA93 DEC A         ;
  $BA94 CP $2F        ;
  $BA96 CALL Z,$BAA3  ;
  $BA99 LD L,A        ;
- $BA9A LD (variavel_dinheiro+2),HL ;
+; @bfix-begin
+ $BA9A LD ($C340),HL ;
+; @bfix+else
+ $BA9A LD (variavel_dinheiro+2),HL
+; @bfix+end
  $BA9D DJNZ $BA8F    ;
  $BA9F CALL $B9AF    ;
  $BAA2 RET           ;
@@ -4874,14 +5067,23 @@ c$BAA3 LD A,H        ;
 ; Routine at BAAE
 ;
 ; Used by the routine at #R$BAA3.
-c$BAAE LD HL,(variavel_dinheiro) ;
+; @bfix-begin
+c$BAAE LD HL,($C33E) ;
+; @bfix+else
+c$BAAE LD HL,(variavel_dinheiro)
+; @bfix+end
  $BAB1 LD A,L        ;
  $BAB2 DEC A         ;
  $BAB3 CP $2F        ;
  $BAB5 CALL Z,$BAC2  ;
  $BAB8 LD L,A        ;
- $BAB9 LD (variavel_dinheiro),HL ;
- $BABC LD HL,(variavel_dinheiro+2) ;
+; @bfix-begin
+ $BAB9 LD ($C33E),HL ;
+ $BABC LD HL,($C340) ;
+; @bfix+else
+ $BAB9 LD (variavel_dinheiro),HL
+ $BABC LD HL,(variavel_dinheiro+2)
+; @bfix+end
  $BABF LD A,$39      ;
  $BAC1 RET           ;
 
@@ -4902,13 +5104,21 @@ z$BACD DEFS 3
 ; Routine at BAD0
 ;
 ; Used by the routines at #R$A410, #R$AFB0 and #R$C192.
-c$BAD0 LD HL,(variavel_score+2) ;
+; @bfix-begin
+c$BAD0 LD HL,($C348) ;
+; @bfix+else
+c$BAD0 LD HL,(variavel_score+2)
+; @bfix+end
  $BAD3 LD A,L        ;
  $BAD4 DEC A         ;
  $BAD5 CP $2F        ;
  $BAD7 CALL Z,$BAE4  ;
  $BADA LD L,A        ;
- $BADB LD (variavel_score+2),HL ;
+; @bfix-begin
+ $BADB LD ($C348),HL ;
+; @bfix+else
+ $BADB LD (variavel_score+2),HL
+; @bfix+end
  $BADE DJNZ $BAD0    ;
  $BAE0 CALL $B9AF    ;
  $BAE3 RET           ;
@@ -4927,14 +5137,23 @@ c$BAE4 LD A,H        ;
 ; Routine at BAEF
 ;
 ; Used by the routine at #R$BAE4.
-c$BAEF LD HL,(variavel_score) ;
+; @bfix-begin
+c$BAEF LD HL,($C346) ;
+; @bfix+else
+c$BAEF LD HL,(variavel_score)
+; @bfix+end
  $BAF2 LD A,L        ;
  $BAF3 DEC A         ;
  $BAF4 CP $2F        ;
  $BAF6 CALL Z,$BB03  ;
  $BAF9 LD L,A        ;
- $BAFA LD (variavel_score),HL ;
+; @bfix-begin
+ $BAFA LD ($C346),HL ;
+ $BAFD LD HL,($C348) ;
+; @bfix+else
+ $BAFA LD (variavel_score),HL
  $BAFD LD HL,(variavel_score+2) ;
+; @bfix+end
  $BB00 LD A,$39      ;
  $BB02 RET           ;
 
@@ -5115,8 +5334,13 @@ z$BD94 DEFS 1
 ;
 ; Used by the routine at #R$BF17.
 c$BD95 LD HL,$3030   ;
- $BD98 LD (variavel_dinheiro+2),HL ;
- $BD9B LD (variavel_dinheiro),HL ;
+; @bfix-begin
+ $BD98 LD ($C340),HL ;
+ $BD9B LD ($C33E),HL ;
+; @bfix+else
+ $BD98 LD (variavel_dinheiro+2),HL
+ $BD9B LD (variavel_dinheiro),HL
+; @bfix+end
  $BD9E RET           ;
 
 ; Unused
@@ -5284,7 +5508,11 @@ c$BF17 CALL $B48F    ; Abre a porta
  $BF6F CALL $AFC8    ;
  $BF72 CALL $BD95    ;
  $BF75 LD A,$00      ;
- $BF77 LD (variavel_carteira),A  ;
+; @bfix-begin
+ $BF77 LD ($C33C),A  ;
+; @bfix+else
+ $BF77 LD (variavel_carteira),A
+; @bfix+end
  $BF7A LD A,$08      ;
  $BF7C CALL $C259    ;
  $BF7F LD HL,$C026   ;
@@ -5298,7 +5526,11 @@ c$BF17 CALL $B48F    ; Abre a porta
  $BF96 LD A,$02      ;
  $BF98 CALL $C259    ;
  $BF9B CALL $B82E    ; }
- $BF9E LD A,(variavel_arma)  ; {Ve se tem pistola(????)
+; @bfix-begin
+ $BF9E LD A,($C33D)  ; {Ve se tem pistola(????)
+; @bfix+else
+ $BF9E LD A,(variavel_arma)
+; @bfix+end
  $BFA1 CP $00        ;
  $BFA3 JP Z,$BFC4    ; }
  $BFA6 CALL $A410    ; {Não tens pistola?
@@ -5435,10 +5667,18 @@ c$C0F8 LD A,$00      ;
 ; This entry point is used by the routine at #R$A425.
 *$C17A LD A,$00      ;
  $C17C LD ($5C08),A  ;
- $C17F LD A,(variavel_arma)  ;
+; @bfix-begin
+ $C17F LD A,($C33D)  ;
+; @bfix+else
+ $C17F LD A,(variavel_arma)
+; @bfix+end
  $C182 CP $00        ;
  $C184 CALL Z,$C23B  ;
- $C187 LD A,(variavel_arma)  ;
+; @bfix-begin
+ $C187 LD A,($C33D)  ;
+; @bfix+else
+ $C187 LD A,(variavel_arma)
+; @bfix+end
  $C18A CP $00        ;
  $C18C JP Z,$C11A    ;
  $C18F JP $C1E7      ;
@@ -5467,19 +5707,35 @@ c$C192 LD HL,$C026   ;
 ; Disparar contra o ladrão
 ;
 ; Used by the routine at #R$BF17.
-c$C1C2 LD A,(variavel_arma)  ; {Se não tiver pistola chama #R$C23B
+; @bfix-begin
+c$C1C2 LD A,($C33D)  ; {Se não tiver pistola chama #R$C23B
+; @bfix+else
+c$C1C2 LD A,(variavel_arma)
+; @bfix+end
  $C1C5 CP $00        ;
  $C1C7 CALL Z,$C23B  ; }
- $C1CA LD A,(variavel_arma)  ;
+; @bfix-begin
+ $C1CA LD A,($C33D)  ;
+; @bfix+else
+ $C1CA LD A,(variavel_arma)
+; @bfix+end
  $C1CD CP $00        ;
  $C1CF JP Z,$BF3C    ;
  $C1D2 LD A,$00      ;
  $C1D4 LD ($C34A),A  ;
 ; This entry point is used by the routine at #R$BF17.
-*$C1D7 LD A,(variavel_arma)  ;
+; @bfix-begin
+*$C1D7 LD A,($C33D)  ;
+; @bfix+else
+*$C1D7 LD A,(variavel_arma)
+; @bfix+end
  $C1DA CP $00        ;
  $C1DC CALL Z,$C23B  ;
- $C1DF LD A,(variavel_arma)  ;
+; @bfix-begin
+ $C1DF LD A,($C33D)  ;
+; @bfix+else
+ $C1DF LD A,(variavel_arma)
+; @bfix+end
  $C1E2 CP $00        ;
  $C1E4 JP Z,$BF66    ;
 ; This entry point is used by the routine at #R$C0F8.
@@ -5575,7 +5831,11 @@ z$C273 DEFS 7
 ; .
 ; Provavelmente define alguma variavel, pq é executado antes de mostrar o
 ; preço
-c$C27A LD HL,(variavel_dinheiro) ;
+; @bfix-begin
+c$C27A LD HL,($C33E) ;
+; @bfix+else
+c$C27A LD HL,(variavel_dinheiro)
+; @bfix+end
  $C27D LD A,H        ;
  $C27E CP $30        ;
  $C280 JR NZ,$C29D   ;
@@ -5583,13 +5843,25 @@ c$C27A LD HL,(variavel_dinheiro) ;
  $C283 CP $30        ;
  $C285 JR NZ,$C29D   ;
  $C287 ADD A,$00     ;
- $C289 LD A,(variavel_dinheiro+3)  ;
+; @bfix-begin
+ $C289 LD A,($C341)  ;
+; @bfix+else
+ $C289 LD A,(variavel_dinheiro+3)
+; @bfix+end
  $C28C SUB D         ;
  $C28D JP C,$C2A3    ;
- $C290 LD A,(variavel_dinheiro+3)  ;
+; @bfix-begin
+ $C290 LD A,($C341)  ;
+; @bfix+else
+ $C290 LD A,(variavel_dinheiro+3)
+; @bfix+end
  $C293 CP D          ;
  $C294 JP NZ,$C29D   ;
- $C297 LD A,(variavel_dinheiro+2)  ;
+; @bfix-begin
+ $C297 LD A,($C340)  ;
+; @bfix+else
+ $C297 LD A,(variavel_dinheiro+2)
+; @bfix+end
  $C29A SUB E         ;
  $C29B JR C,$C2A3    ;
 *$C29D LD A,$01      ; {Mete o preço a 1000$00
@@ -5685,9 +5957,9 @@ b$C33C DEFB $00
 ; @label=variavel_arma
 b$C33D DEFB $01
 
-; Dinheiro
+; Dinheiro (Little endian - 3081 -> 0318) -> 031800$00
 ; @label=variavel_dinheiro
-b$C33E DEFB $30,$30,$38,$31
+t$C33E DEFB $30,$30,$38,$31
 
 ; Data block at C342
 b$C342 DEFB $30,$30
@@ -5718,12 +5990,11 @@ b$C34D DEFB $05
 ; ??
 b$C34E DEFB $00
 
-; Atributos a serem usados no fadeOut
+; Atributos do fadeOut
 ; @label=variavel_atributos_fadeOut
 b$C34F DEFB $10
 
 ; CHARS
-; @label=chars3
 b$C350 DEFB $1F,$1F,$1F,$1F,$1F,$1F,$0F,$0F
  $C358 DEFB $E0,$E0,$E0,$E0,$E0,$F0,$F0,$F0
  $C360 DEFB $07,$07,$07,$03,$03,$01,$01,$01
