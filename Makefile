@@ -14,7 +14,7 @@ install:
 	cp $(PARADISECAFE).py `skool2html.py -p`
 
 asm:
-	skool2asm.py -D -c ParadiseCafe.skool > ParadiseCafe.asm
+	skool2asm.py -c ParadiseCafe.skool > ParadiseCafe.asm
 	pasmo ParadiseCafe.asm ParadiseCafe.bin
 	python gentap.py
 
