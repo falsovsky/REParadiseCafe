@@ -7,14 +7,14 @@ PARADISECAFE=ParadiseCafe
 all:
 	rm -rf $(OUTPUT)
 	mkdir -p $(OUTPUT)
-	sna2skool.py $(SNA2SKOOL_OPTIONS) -c $(PARADISECAFE).ctl $(PARADISECAFE).z80 > $(PARADISECAFE).skool 
+	#sna2skool.py $(SNA2SKOOL_OPTIONS) -c $(PARADISECAFE).ctl $(PARADISECAFE).z80 > $(PARADISECAFE).skool 
 	skool2html.py $(SKOOL2HTML_OPTIONS) -H $(PARADISECAFE).skool
 
 install:
 	cp $(PARADISECAFE).py `skool2html.py -p`
 
 asm:
-	skool2asm.py -c ParadiseCafe.skool > ParadiseCafe.asm
+	skool2asm.py -f 2 -c ParadiseCafe.skool > ParadiseCafe.asm
 	pasmo ParadiseCafe.asm ParadiseCafe.bin
 	python gentap.py
 

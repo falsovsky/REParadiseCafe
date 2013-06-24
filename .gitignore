@@ -1,1 +1,6 @@
-*.skool
+*.pyc
+*.swp
+*.asm
+*.bin
+*.tzx
+*.tap
