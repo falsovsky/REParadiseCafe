@@ -16,9 +16,7 @@ install:
 asm:
 	skool2asm.py -D -c ParadiseCafe.skool > ParadiseCafe.asm
 	pasmo ParadiseCafe.asm ParadiseCafe.bin
-	#bin2tap.py -o 16384 -s 30698 ParadiseCafe.bin
-	#bin2tap.py --org 30000 --start 30698 ParadiseCafe.bin
-	bin2tap.py ParadiseCafe.bin
+	python gentap.py
 
 clean:
 	rm -f ParadiseCafe.asm ParadiseCafe.bin ParadiseCafe.tap

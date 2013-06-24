@@ -1,11 +1,13 @@
-b $4000 screen$
-  $4000,$1b00 #UDGTABLE { #SCR(loading) | Ecrã de entrada - screen$. } TABLE#
+;b $4000 screen$
+;  $4000,$1b00 #UDGTABLE { #SCR(loading) | Ecrã de entrada - screen$. } TABLE#
+
+;i $5b00
 
 ;b $5B00 System variables (?)
 ;b $5CB6 Channel infomation (?)
 
-b $5CCB Program data (Basic?)
-B  $5CCB,$15c zbr
+;b $5CCB Program data (Basic?)
+;B  $5CCB,$15c zbr
 
 ;b $5E27 Basic stacks (novo)
 
