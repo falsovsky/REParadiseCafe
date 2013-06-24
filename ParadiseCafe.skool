@@ -569,7 +569,7 @@ c$7DEA CALL $B001    ;
  $7E81 CALL $BD0C    ;
  $7E84 LD HL,$94DE   ;
  $7E87 CALL $AFC8    ;
- 
+ $7E8A LD A,$03      ;
  $7E8C CALL $C259    ;
  $7E8F LD DE,$F821   ;
  $7E92 CALL $BD0C    ;
@@ -4986,7 +4986,7 @@ c$BA6D LD HL,(variavel_dinheiro)
  $BA77 LD L,A        ;
 ; @bfix-begin
  $BA78 LD ($C33E),HL ;
- $BA7B LD HL,($C340)
+ $BA7B LD HL,($C340) ;
 ; @bfix+else
  $BA78 LD (variavel_dinheiro),HL
  $BA7B LD HL,(variavel_dinheiro+2)
@@ -5025,9 +5025,9 @@ c$BA8F LD HL,(variavel_dinheiro+2)
  $BA96 CALL Z,$BAA3  ;
  $BA99 LD L,A        ;
 ; @bfix-begin
-$BA9A LD ($C340),HL ;
+ $BA9A LD ($C340),HL ;
 ; @bfix+else
-$BA9A LD (variavel_dinheiro+2),HL
+ $BA9A LD (variavel_dinheiro+2),HL
 ; @bfix+end
  $BA9D DJNZ $BA8F    ;
  $BA9F CALL $B9AF    ;
