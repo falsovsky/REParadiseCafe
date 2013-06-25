@@ -1,8 +1,6 @@
 ;b $4000 screen$
 ;  $4000,$1b00 #UDGTABLE { #SCR(loading) | Ecrã de entrada - screen$. } TABLE#
 
-;i $5b00
-
 ;b $5B00 System variables (?)
 ;b $5CB6 Channel infomation (?)
 
@@ -11,18 +9,24 @@
 
 ;b $5E27 Basic stacks (novo)
 
-c $7530 Game over(?)
+; @label:$7530=game_over
+c $7530 Game over
+
 c $75CF
 
+; @label:$75E2=frame_prisao
 b $75E2 Prisão
 E $75E2 #HTML[#CALL:decode_data($8970,$75E2)]
 
+; @label:$7799=frame_canhola_1
 b $7799 Canhola - Frame 1
   $7799 #HTML[#CALL:decode_data($8C30,$7799)]
 
+; @label:$77B6=frame_canhola_2
 b $77B6 Canhola - Frame 2
   $77B6 #HTML[#CALL:decode_data($8C30,$77B6)]
 
+; @label:$77D5=frame_the_end
 b $77D5 The End
   $77D5 #HTML[#CALL:decode_data($3C00,$77D5)]
 
@@ -37,7 +41,7 @@ c $77EA Inicio do codigo!
   $7809,6 Define CHARS em $3C00 
   $780F,6 Desenha #R$788D
   $7815,3 HL com #R$89A6
-  $7818,2 Inutil(?) é repetida abaixo em #R$7835
+  $7818,2 Inutil(?) é repetida abaixo
   $781A,3 AT
   $781D,3 X = $09
   $7820,3 Y = 00
@@ -62,7 +66,7 @@ c $77EA Inicio do codigo!
   $7880,2 Subtrai $80
   $7882,8 Corre o "randomizer" o numero de vezes que estiver em A
 
-; @label:$788D=frame_ecra_entrada
+; @label:$788D=frame_inicio
 b $788D Ecrã de entrada
   $788D #HTML[#CALL:decode_data($3C00,$788D)]
 
@@ -101,18 +105,23 @@ c $7DAB Verifica colisao com a porta(main loop)
 z $7DE1
 c $7DEA Policia
 
+; @label:$7EE9=frame_balao_esta_tudo_bem
 b $7EE9 Então está tudo bem?
   $7EE9 #HTML[#CALL:decode_data($F641,$7EE9)]
 
+; @label:$7F15=frame_balao_esta_sim_seu_guarda
 b $7F15 Está sim seu guarda
   $7F15 #HTML[#CALL:decode_data($F6A1,$7F15)]
 
+; @label:$7F2C=frame_limpa_balao_esquerdo
 b $7F2C Limpa balão - esquerdo
   $7F2C #HTML[#CALL:decode_data($F6A1,$7F2C)]
 
+; @label:$7F41=frame_limpa_chao
 b $7F41 Limpa chão
   $7F41 #HTML[#CALL:decode_data($F701,$7F41)]
 
+; @label:$7F52=chars1
 b $7F52 CHARS
 
 ;t $826A
@@ -150,6 +159,7 @@ b $8A09 Esta correcto o seu nome ?
 b $8A29 Duas linhas pretas
   $8A29 #HTML[#CALL:decode_data($3C00,$8A29)]
 
+; @label:$8A70=chars2
 b $8A70 CHARS
 
 c $9088
@@ -987,4 +997,5 @@ b $C34E ??
 ; @label:$C34F=variavel_atributos_fadeOut
 b $C34F Atributos a serem usados no fadeOut
 
+; @label:$C350=chars3
 b $C350 CHARS

@@ -7,7 +7,9 @@ PARADISECAFE=ParadiseCafe
 all:
 	rm -rf $(OUTPUT)
 	mkdir -p $(OUTPUT)
-	#sna2skool.py $(SNA2SKOOL_OPTIONS) -c $(PARADISECAFE).ctl $(PARADISECAFE).z80 > $(PARADISECAFE).skool 
+	sna2skool.py $(SNA2SKOOL_OPTIONS) -c $(PARADISECAFE).ctl $(PARADISECAFE).z80 > $(PARADISECAFE).skool 
+	python labeler.py > $(PARADISECAFE)2.skool
+	mv $(PARADISECAFE)2.skool $(PARADISECAFE).skool
 	skool2html.py $(SKOOL2HTML_OPTIONS) -H $(PARADISECAFE).skool
 
 install:
