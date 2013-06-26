@@ -27,6 +27,10 @@ labels = {
         'C33F': 'variavel_dinheiro+1',
         'C340': 'variavel_dinheiro+2',
         'C341': 'variavel_dinheiro+3',
+        'C342': 'variavel_highscore',
+        'C343': 'variavel_highscore+1',
+        'C344': 'variavel_highscore+2',
+        'C345': 'variavel_highscore+3',
         'B7A4': 'frame_linha_highscore',
         '8970': 'chars2-$0100',
         '8C30': 'chars2+$01C0',
@@ -111,7 +115,11 @@ labels = {
         'FCA1': 'chars3+$3951',
         'FD01': 'chars3+$39B1',
         'FD61': 'chars3+$3A11',
-        'FDA1': 'chars3+$3A51',        
+        'FDA1': 'chars3+$3A51',
+        '89D2': 'frame_record_introduza_nome',
+        '8A09': 'frame_esta_correcto_o_seu_nome',
+        '8A29': 'frame_duas_linhas',
+        'C34C': 'variavel_ultima_tecla_pressionada',
         }
 
 regex = [

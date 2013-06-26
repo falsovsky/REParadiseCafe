@@ -11,8 +11,35 @@
 
 ; @label:$7530=game_over
 c $7530 Game over
+  $7530,$6 Paper 0 Preto
+  $7536,$d Imprime 32 ($20) espaços ($80) em 18 linhas ($12) - Na posicao 0,0 - Parede preta
+  $7543,$6 Paper 2 Vermelho
+  $7549,$b Imprime 29 ($1D) espaços ($80) em 4 linhas ($04) - Na posicao 18,3 - Chão vermelho
+  $7554,$6 Paper 3 Roxo
+  $755A,$b Imprime 16 ($10) espaços ($80) em 4 linhas ($04) - Na posicao 12,5 - Banco Roxo
+  $756B,$6 Ink 0 Preto
+  $7571,$6 Paper 7 Branco
+  $7577,$d Imprime 1 ($01) char $3E em 18 linhas ($12) - Na posicao 0,3 - Risca branca da parede
+  $7584,$6 Desenha #R$75E2 
+  $7590,$6 Desenha #R$77D5
+  $759C,$6 Desenha #R$7799
+  $75A2,$5 Limpa a ultima tecla pressionada
+  $75A7,$5 Faz uma pausa
+  $75AC,$6 Desenha #R$77B6
+  $75B2,$7 Se pressionou alguma tecla salta para #R$75C6
+  $75B9,$5 Faz uma pausa
+  $75BE,$6 Desenha #R$7799
 
-c $75CF
+; @label:$75CF=preenche_com_char
+c $75CF Preenche L colunas e C linhas com o caracter H na posicao D,E
+  $75CF,$3 AT
+  $75D2,$2 X está em D
+  $75D4,$2 Y está em E
+  $75D6,$1 B contem o numero de vezes a printar
+  $75D7,$6 Imprime o que está em H, B vezes
+  $75DD,$1 Incrementa a linha
+  $75De,$1 Decrementa o numero de linhas a imprimir
+  $75DF,$2 Se ainda houverem linhas para imprimir volta ao inicio
 
 ; @label:$75E2=frame_prisao
 b $75E2 Prisão
@@ -150,12 +177,15 @@ c $8900
 ; @label:$89A6=string_recordista
 t $89A6 Recordista do jogo
 
+; @label:$89D2=frame_record_introduza_nome
 b $89D2 Novo record - Introduza o seu nome .
   $89D2 #HTML[#CALL:decode_data($3C00,$89D2)]
 
+; @label:$8A09=frame_esta_correcto_o_seu_nome
 b $8A09 Esta correcto o seu nome ?
   $8A09 #HTML[#CALL:decode_data($3C00,$8A09)]
 
+; @label:$8A29=frame_duas_linhas
 b $8A29 Duas linhas pretas
   $8A29 #HTML[#CALL:decode_data($3C00,$8A29)]
 
@@ -929,7 +959,10 @@ c $C259 Delay (rotina corre o numero de vezes que o valor em A)
 
 
 c $C266
-c $C26A
+
+; @label:$C26A=fadeOut_azul
+c $C26A Faz um fadeOut a azul
+
 z $C273
 
 c $C27A Tentativa de venda de algo no café
@@ -972,12 +1005,9 @@ b $C33D Inventorio: Arma
 
 ; @label:$C33E=variavel_dinheiro
 b $C33E Dinheiro
-;t $C33E Dinheiro (Little endian - 3081 -> 0318) -> 031800$00
 
-b $C342
-;t $C342 Highscore (Little endian - 0005 -> 0050) -> 005000 Pontos
-
-b $C344
+; @label:$C342=variavel_highscore
+b $C342 Highscore
 
 ; @label:$C346=variavel_score
 b $C346 Score
@@ -989,6 +1019,8 @@ D $C346 Exemplo: 0041 fica 0014 ou seja 0014 + 00 pontos.
 b $C34A
 
 b $C34B Distancia para a porta?
+
+; @label:$C34C=variavel_ultima_tecla_pressionada
 b $C34C Ultima tecla pressionada
 
 b $C34D ??
