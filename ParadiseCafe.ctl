@@ -113,20 +113,31 @@ c $7D3B pontuação e o dinheiro na status(?) / calcula distancia pra porta
   $7D3B,6 INK = Azul
   $7D41,6 PAPER = Amarelo
   $7D47,6 Carrega o valor de #R$C34B e mete-o em #R$7D35
+  $7D4D,2 Caracter a imprimir - Porta
+  $7D4F,2 Contador C = 7
+  $7D51,3 Valor de #R$7D35 em A
+  $7D57,7 Incrementa valor de #R$7D35
+  $7D5E,1 Decrementa Contador C
+  $7D5F,2 Se não for zero salta
+  $7D61,7 Decrementa #R$C34B
 
-c $7D8D
-  $7D8D,2 Adiciona 9 a A
-  $7D8F,1 Return se Carry estiver SET
-  $7D90,3 Le o valor de #R$7D35 para A
-  $7D93,2 Subrai 32 a A
-  $7D95,1 Return se Carry estiver NOT SET
+; @label:$7D8D=imprimeColunaPorta
+c $7D8D Imprime coluna da porta na posicao A
+; $7D8D,2 Adiciona 9 a A
+; $7D8F,1 Return se Carry estiver SET
+  $7D8D,3 Se estiver fora do ecra na esquerda, salta fora
+; $7D90,3 Le o valor de #R$7D35 para A
+; $7D93,2 Subrai 32 a A
+; $7D95,1 Return se Carry estiver NOT SET
+  $7D90,6 Se estiver fora do ecra na direita, salta fora
   $7D96,3 Le o valor de #R$7D35 para A
   $7D99,1 E = A
   $7D9A,2 D = 0
   $7D9C,2 B = 17
   $7D9E,3 A = 22 (PRINT AT)
-  $7DA1,2 X = D
-  $7DA3,2 Y = E
+  $7DA1,2 Y = D
+  $7DA3,2 X = E
+  $7DA5,2 Imprime valor em L
   $7DA7,1 Incrementa D
   $7DA8,2 Se Zero estiver NOT SET salta
 
@@ -1075,8 +1086,10 @@ D $C346 Exemplo: 0041 fica 0014 ou seja 0014 + 00 pontos.
 
 b $C34A
 
-b $C34B Distancia para a porta?
-
+; @label:$C34B=posicaoPorta
+b $C34B Posicao da Porta
+  $C34B A posicao da vai de: f8 - 09 - 1f. 09 e' quando esta em posicao para ser "aberta"
+ 
 ; @label:$C34C=variavel_ultima_tecla_pressionada
 b $C34C Ultima tecla pressionada
 
