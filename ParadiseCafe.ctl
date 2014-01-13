@@ -112,8 +112,25 @@ b $7D36
 c $7D3B pontuação e o dinheiro na status(?) / calcula distancia pra porta
   $7D3B,6 INK = Azul
   $7D41,6 PAPER = Amarelo
+  $7D47,6 Carrega o valor de #R$C34B e mete-o em #R$7D35
 
 c $7D8D
+  $7D8D,2 Adiciona 9 a A
+  $7D8F,1 Return se Carry estiver SET
+  $7D90,3 Le o valor de #R$7D35 para A
+  $7D93,2 Subrai 32 a A
+  $7D95,1 Return se Carry estiver NOT SET
+  $7D96,3 Le o valor de #R$7D35 para A
+  $7D99,1 E = A
+  $7D9A,2 D = 0
+  $7D9C,2 B = 17
+  $7D9E,3 A = 22 (PRINT AT)
+  $7DA1,2 X = D
+  $7DA3,2 Y = E
+  $7DA7,1 Incrementa D
+  $7DA8,2 Se Zero estiver NOT SET salta
+
+
 
 c $7DAB Verifica colisao com a porta(main loop)
   $7DAB Le a distancia para a porta
