@@ -105,7 +105,14 @@ c $7CF0
 c $7D2B Delay(?)
 
 b $7D35
+
+; ???????
+b $7D36
+
 c $7D3B pontuação e o dinheiro na status(?) / calcula distancia pra porta
+  $7D3B,6 INK = Azul
+  $7D41,6 PAPER = Amarelo
+
 c $7D8D
 
 c $7DAB Verifica colisao com a porta(main loop)
@@ -542,8 +549,6 @@ z $AFC3
 
 ; @label:$AFC8=desenhaFrameHL
 c $AFC8 Escreve o valor de HL no ecrã até achar FF
-;D $AFC8 Percorre a memoria desde o endereço em HL até achar o valor FF
-;D $AFC8 Escreve no ecrã o CHR$ do valor encontrado
 
 z $AFD0
 
@@ -552,25 +557,37 @@ c $AFD1 Limpa o ecra (genero de fade)
   $AFD1,$1e Limpa o ecra a fazer SHIFT RIGHT LOGICAL aos graficos "na memoria grafica" de $4000 a $57ff
   $AFEF,$11 Define os atributos a partir do endereço $5800 com o valor definido em #R$C34F
 
-c $B001
+
+; @label:$B001=desenhaCorpo
+c $B001 Desenha o corpo do heroi
+  $B001,6 Define HL com #R$B0A9 e desenha
+  $B007,$a Define $CHARS a $C250
+  $B011,6 Define HL com #R$B0E4 e desenha
+  $B017,5 Mete #R$C34E a 0
+
 c $B01D
 
-b $B0A9
+; @label:$B0A9=frameTorso
+b $B0A9 Frame do Torso
   $B0A9 #HTML[#CALL:decode_data($C538,$B0A9)]
-E $B0A9 Esta frame é usada com CHARS a: $C538, $c328, $C420, $C538
 
+; @label:$B0E4=framePernas1
 b $B0E4 Animacao Pernas - Frame 1
   $B0E4 #HTML[#CALL:decode_data($C250,$B0E4)]
 
+; @label:$B14C=framePernas2
 b $B14C Animacao Pernas - Frame 2
   $B14C #HTML[#CALL:decode_data($C328,$B14C)]
 
+; @label:$B1B5=framePernas3
 b $B1B5 Animacao Pernas - Frame 3
   $B1B5 #HTML[#CALL:decode_data($C420,$B1B5)]
 
+; @label:$B226=framePernas4
 b $B226 Animacao Pernas - Frame 4
   $B226 #HTML[#CALL:decode_data($C538,$B226)]
 
+; @label:$B299=framePernas5
 b $B299 Animacao Pernas - Frame 5
   $B299 #HTML[#CALL:decode_data($C638,$B299)]
 
@@ -668,7 +685,7 @@ c $B775 Espera que se pressione uma tecla e guarda em #R$C34C
 
 z $B784
 
-; @label:$B785=desenhaChaoHighscore
+; @label:$B785=desenhaChao
 c $B785 Desenha o chão a linha de highscore e o azul do fundo do ecrã
   $B785,8 Define atributos para o fadeOut a $10 e chama-o
   $B78D,8 Desenha o chão (a $18 - 00|011|000 - roxo). $5A20 é um endereço de atributos de cor na memoria
@@ -783,11 +800,33 @@ c $B994 CHARS = $CCAA
 c $B99F Delay conta de $FFFF ate 0
 
 z $B9A9
-c $B9AF Calcular variaveis/Refresh delas no ecrã
 
+; @label:$B9AF=desenhaScoreDinheiro
+c $B9AF Calcular variaveis/Refresh delas no ecrã
+  $B9AF,$a $CHARS = $3C00
+  $B9B9,6 Desenha frame #R$B9F1
+  $B9BF,3 Carrega os dois primeiros caracteres do SCORE para HL
+  $B9C2,2 Imprime o primeiro caracter
+  $B9C4,2 Imprime o segundo caracter
+  $B9C6,3 Carrega o terceiro a quarto caracter do SCORE para HL
+  $B9C9,2 Imprime o terceiro caracter
+  $B9CB,2 Imprime o quarto caracter
+  $B9CD,6 Imprime dois espaços
+  $B9D3,6 Desenha frame #R$BA00
+  $B9D9,3 Carrega os dois primeiros caracteres do DINHEIRO para HL
+  $B9DC,2 Imprime o primeiro caracter
+  $B9DE,2 Imprime o segundo caracter
+  $B9E0,3 Carrega o terceiro a quarto caracter do DINHEIRO para HL
+  $B9E3,2 Imprime o terceiro caracter
+  $B9E5,2 Imprime o quarto caracter
+  $B9E7,6 Imprime dois espaços
+  $B9ED,3 Imprime um cifrao
+
+; @label:$B9F1=frameScore
 b $B9F1 SCORE= 
   $B9F1 #HTML[#CALL:decode_data($3C00,$B9F1)]
 
+; @label:$BA00=frameDinheiro
 b $BA00 DINHEIRO:
   $BA00 #HTML[#CALL:decode_data($3C00,$BA00)]
 
@@ -979,6 +1018,7 @@ b $C2CE DESPESA
 
 z $C2DE
 
+; @label:$C2DF=desenhaHighscore
 c $C2DF
 
 b $C302 HISCORE =

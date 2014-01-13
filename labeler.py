@@ -32,6 +32,7 @@ labels = {
         'C344': 'variavel_highscore+2',
         'C345': 'variavel_highscore+3',
         'B7A4': 'frame_linha_highscore',
+"""
         '8970': 'chars2-$0100',
         '8C30': 'chars2+$01C0',
         'F641': 'chars3+$32F1',
@@ -116,6 +117,7 @@ labels = {
         'FD01': 'chars3+$39B1',
         'FD61': 'chars3+$3A11',
         'FDA1': 'chars3+$3A51',
+"""       
         '89D2': 'frame_record_introduza_nome',
         '8A09': 'frame_esta_correcto_o_seu_nome',
         '8A29': 'frame_duas_linhas',
