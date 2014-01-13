@@ -120,6 +120,10 @@ c $7D3B pontuação e o dinheiro na status(?) / calcula distancia pra porta
   $7D5E,1 Decrementa Contador C
   $7D5F,2 Se não for zero salta
   $7D61,7 Decrementa #R$C34B
+  $7D74,2 Caracter a imprimr - Normalmente em branco
+  $7D76,6 Paper = Vermelho
+  $7D7C,6 Limpa a ultima coluna da porta, para dar o efeito de movimento
+  $7D85,5 Define #R$C34B a $1F, o maximo 'a direita
 
 ; @label:$7D8D=imprimeColunaPorta
 c $7D8D Imprime coluna da porta na posicao A
