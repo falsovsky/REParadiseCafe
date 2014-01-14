@@ -698,7 +698,10 @@ c $B721 Random que define quem vai aparecer na porta - 1
 ; @label:$B734=defineAa0
 c $B734 Define A = $01
 
-c $B737
+c $B737 Define o #R$C346 a 0
+  $B737,9 Mete a #R$C346 a 0
+  $B740,4 Retira 4 valores da stack e mete em BC
+
 c $B745
 z $B753
 c $B755
@@ -877,10 +880,38 @@ c $BAA3
 c $BAAE
 c $BAC2
 z $BACD
-c $BAD0
-c $BAE4
-c $BAEF
-c $BB03
+
+c $BAD0 Trata do 3º valor de #R$C346
+  $BAD0,3 Copia o 4º e 3º valores do #R$C346 para HL
+  $BAD3,2 Copia o 3º valor para A e decrementa 1
+  $BAD5,2 Compara com $2F (valor ASCII '/' logo atras do 0)
+  $BAD7,3 Se for, salta para #R$BAEF (Verifica se o 4 º valor da pontuacao e' < 0)
+  $BADA,1 Copia o valor de A para L
+  $BADB,3 Escreve o 4º e 3º valor de #R$C346 a partir de HL
+
+c $BAE4 Trata do 4º valor de #R$C346
+  $BAE4,2 Copia o valor de H para A e decrementa 1
+  $BAE6,2 Compara com $2F (valor ASCII '/' logo atras do 0)
+  $BAE8,3 Se for, salta para #R$BAEF (Verifica se o 1º valor da pontuacao e' < 0)
+  $BAEB,1 Copia o valor de A para H
+  $BAEC,2 Define o valor de A a $39 - '9' em ASCII
+
+c $BAEF Trata do 1º valor de #R$C346
+  $BAEF,5 Copia o 1º valor do #R$C346 para A e decrementa 1
+  $BAF4,2 Compara com $2F (valor ASCII '/' logo atras do 0)
+  $BAF6,3 Se for, salta para #R$BB03 (Verifica se o 2º valor da pontuacao e' < 0)
+  $BAF9,1 Copia o valor de A para H
+  $BAFA,3 Copia o valor de HL para #R$C346
+  $BAFD,3 Copia para HL o quarto e terceiro valor do #R$C346
+  $BB00,2 Define A com $39 (valor ASCII '9')
+
+c $BB03 Trata do 2º valor de #R$C346
+  $BB03,2 Copia o valor de H para A e decrementa 1
+  $BB05,2 Compara com $2F (valor ASCII '/' logo atras do 0)
+  $BB07,3 Se for, salta para #R$B737 (Mete a pontuacao a 0)
+  $BB0A,1 Copia o valor de A para H
+  $BB0B,2 Define o valor de A a $39 - '9' em ASCII
+
 z $BB0E
 
 ; @label:$BB11=ladraoAnimSai
@@ -1008,7 +1039,14 @@ b $C0B3 Balão - Eu só queria lume!
   $C0B3 #HTML[#CALL:decode_data($D579,$C0B3)]
 
 c $C0F8
+
 c $C192
+  $C192,6 Imprime #R$C026 - Limpa balao lado direito
+  $C198,6 Imprime #R$C052 - Limpa balao lado esquerdo
+  $C1A6,5 Faz um delay de 3
+  $C1AB,6 CHARS = $D579
+  $C1B1,6 Imprime #R$C0B3 - Ladrao: Eu só queria lume !
+  $C1B7,5 Faz um delay de 11
 
 ; Rotina executada quando se tenta disparar contra o ladrão
 c $C1C2 Disparar contra o ladrão
@@ -1028,8 +1066,8 @@ z $C258
 ; @label:$C259=delayEmA
 c $C259 Delay (rotina corre o numero de vezes que o valor em A)
 
-
-c $C266
+; @label:$C266=chama_desenhaCorpo
+c $C266 Chama o #R$B001
 
 ; @label:$C26A=fadeOut_azul
 c $C26A Faz um fadeOut a azul
@@ -1041,17 +1079,26 @@ D $C27A Seja a arma, droga ou a conta
 D $C27A Provavelmente define alguma variavel, pq é executado antes de mostrar o preço
   $C29D Mete o preço a 1000$00
 
-
 z $C2A9
-c $C2AA
 
-b $C2CE DESPESA
+; @label:$C2AA=desenhaDespesa
+c $C2AA Desenha a despesa
+  $C2AA,6 Define CHARS a $3C00
+  $C2B0,6 Imprime a frame #R$C2CE
+  $C2B6,4 Imprime o 1º caracter da despesa - #R$C338 + 1
+  $C2BA,4 Imprime o 2º caracter da despesa - #R$C338
+  $C2BE,6 Imprime dois 0 (zeros)
+  $C2C4,3 Imprime um $ (cifrao)
+  $C2C7,6 Imprime dois 0 (zeros)
+
+; @label:$C2CE=frame_despesa 
+b $C2CE Frame Despesa
   $C2CE #HTML[#CALL:decode_data($3C00,$C2CE)]
 
 z $C2DE
 
 ; @label:$C2DF=desenhaHighscore
-c $C2DF
+c $C2DF Desenha o Highscore
 
 b $C302 HISCORE =
   $C302 #HTML[#CALL:decode_data($3C00,$C302)]
@@ -1063,7 +1110,8 @@ b $C336
 ; @label:$C337=variavel_droga
 b $C337 Inventorio: Droga
 
-b $C338
+; @label:$C338=variavel_despesa
+b $C338 Despesa
 
 b $C33A
 
