@@ -243,6 +243,34 @@ c $8900
   $892A Compara com E (XXXy) do highscore
   $892B Se for diferente salta para #R$892F
   $892E Sai
+  $892F,6 Define CHARS em $3C00
+  $8935,6 Desenha #R$89D2
+  $893B Endereço do #R$89A6(recordista) em HL
+  $893E,3 (PRINT AT)
+  $8941,3 Y = 12
+  $8944,3 X = 0
+  $8947,3 INK
+  $894A,3 Amarelo
+  $894D Mete B = $20 (32) - Numero de letras permitidas
+  $894F,2 Guarda BC e HL na Stack
+  $8954,2 Tira HL e BC da Stack
+  $8956 Carrega ultima tecla pressionada em A
+  $8959,5 Se pressionou ENTER salta para #R$8967
+  $895F Escreve o valor de A na posicao de memoria de HL
+  $8960,1 Printa a letra pressionada
+  $8963,1 Incrementa HL
+  $8965,2 Decrementa B se for diferente de 0 salta para #R$894F
+  $8969,6 Desenha #R$8A09
+  $8972,3 Carrega ultima tecla pressionada em A
+  $8975,2 Compara com $6E - "n" em ASCII
+  $8979,3 Se for igual salta para #R$899D
+  $897C,2 Compara com $73 - "s" em ASCII
+  $897E,3 Se for igual salta para #R$8985
+  $8983,2 Se carregar noutra qualquer salta para #R$896F
+  $8985,6 Define com $20 - um espaço, o que faltar da #R$89A6(recordista) ate que B seja 0
+  $898B,12 Mete o highscore com o valor de score
+  $8997,5 Delay de 5
+  $899D,6 Desenha #R$8A29
 
 ; @label:$89A6=string_recordista
 t $89A6 Recordista do jogo
@@ -741,7 +769,7 @@ s $B76A
 
 c $B76D Paradise Café
 
-; @label:$B775=inputC34C
+; @label:$B775=espera_por_keypress
 c $B775 Espera que se pressione uma tecla e guarda em #R$C34C
   $B777 Endereço da ultima tecla pressionada
   $B77A Mete a 00 (limpar?)
@@ -1176,13 +1204,13 @@ b $C34A
 b $C34B Posicao da Porta
   $C34B A posicao da vai de: f8 - 09 - 1f. 09 e' quando esta em posicao para ser "aberta"
  
-; @label:$C34C=variavel_ultima_tecla_pressionada
+; @label:$C34C=ultima_tecla_pressionada
 b $C34C Ultima tecla pressionada
 
 b $C34D ??
 b $C34E ??
 
-; @label:$C34F=variavel_atributos_fadeOut
+; @label:$C34F=atributos_fadeOut
 b $C34F Atributos a serem usados no fadeOut
 
 ; @label:$C350=chars3
