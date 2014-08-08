@@ -99,17 +99,20 @@ b $788D Ecrã de entrada
 
 s $79EA
 
-c $7CF0
+; @label:$7CF0=main
+c $7CF0 Main do jogo
   $7CF0,7 No Operation
 
 c $7D2B Delay(?)
 
-b $7D35
+; @label:$7D35=posicaoColuna
+b $7D35 ??
 
 ; ???????
 b $7D36
 
-c $7D3B pontuação e o dinheiro na status(?) / calcula distancia pra porta
+; @label:$7D3B=desenhaPorta
+c $7D3B Desenha a porta
   $7D3B,6 INK = Azul
   $7D41,6 PAPER = Amarelo
   $7D47,6 Carrega o valor de #R$C34B e mete-o em #R$7D35
@@ -120,6 +123,9 @@ c $7D3B pontuação e o dinheiro na status(?) / calcula distancia pra porta
   $7D5E,1 Decrementa Contador C
   $7D5F,2 Se não for zero salta
   $7D61,7 Decrementa #R$C34B
+  $7D68,3 Valor de #R$7D35 em A
+  $7D6B,5 Se for $20 (32) salta para #R$7DAB
+  $7D70,4 Se for $FF (255) - vai dar a volta - salta para #R$7D85
   $7D74,2 Caracter a imprimr - Normalmente em branco
   $7D76,6 Paper = Vermelho
   $7D7C,6 Limpa a ultima coluna da porta, para dar o efeito de movimento
@@ -146,7 +152,7 @@ c $7D8D Imprime coluna da porta na posicao A
   $7DA8,2 Se Zero estiver NOT SET salta
 
 
-
+; @label:$7DAB=colisaoPorta
 c $7DAB Verifica colisao com a porta(main loop)
   $7DAB Le a distancia para a porta
   $7DAE Está em cima?
@@ -656,7 +662,35 @@ c $B001 Desenha o corpo do heroi
   $B011,6 Define HL com #R$B0E4 e desenha
   $B017,5 Mete #R$C34E a 0
 
-c $B01D
+; @label:$B01D=desenhaPernas
+c $B01D Desenha as pernas do heroi
+  $B01D Le o valor de #R$C34E para A
+  $B020,5 Se for 0 salta para #R$B039
+  $B025,5 Se for 1 salta para #R$B055
+  $B02A,5 Se for 2 salta para #R$B071
+  $B02F,5 Se for 3 salta para #R$B08D
+  $B034,5 Se for 4 salta para #R$B039
+  $B039,5 Mete #R$C34E a 1
+  $B03E,6 Desenha #R$B0A9
+  $B044,10 Define CHARS a C328
+  $B04E,6 Desenha #R$B14C
+  $B054,1 Sai
+  $B055,5 Mete #R$C34E a 2
+  $B05A,6 Desenha #R$B0A9
+  $B060,10 Define CHARS a C420
+  $B06A,6 Desenha #R$B1B5
+  $B070,1 Sai
+  $B071,5 Mete #R$C34E a 3
+  $B076,6 Desenha #R$B0A9
+  $B07C,10 Define CHARS a C538
+  $B086,6 Desenha #R$B226
+  $B08C,1 Sai
+  $B08D,5 Mete #R$C34E a 4
+  $B092,6 Desenha #R$B0A9
+  $B098,10 Define CHARS a C638
+  $B0A2,6 Desenha #R$B299
+  $B0A8,1 Sai
+  
 
 ; @label:$B0A9=frameTorso
 b $B0A9 Frame do Torso
@@ -1208,7 +1242,9 @@ b $C34B Posicao da Porta
 b $C34C Ultima tecla pressionada
 
 b $C34D ??
-b $C34E ??
+
+; @label:$C34E=frameAnimacaoPernas
+b $C34E Numero da frame actual da animacao das pernas - Usado em #R$B01D
 
 ; @label:$C34F=atributos_fadeOut
 b $C34F Atributos a serem usados no fadeOut
