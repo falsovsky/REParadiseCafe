@@ -57,7 +57,7 @@ b $77B6 Canhola - Frame 2
 b $77D5 The End
   $77D5 #HTML[#CALL:decode_data($3C00,$77D5)]
 
-z $77E4
+s $77E4
 
 ; @label:$77EA=start 
 c $77EA Inicio do codigo!
@@ -97,7 +97,7 @@ c $77EA Inicio do codigo!
 b $788D Ecrã de entrada
   $788D #HTML[#CALL:decode_data($3C00,$788D)]
 
-z $79EA
+s $79EA
 
 c $7CF0
   $7CF0,7 No Operation
@@ -168,7 +168,7 @@ c $7DAB Verifica colisao com a porta(main loop)
   $7DDB É igual a 2?
   $7DDD Então é o senhor Policia!
 
-z $7DE1
+s $7DE1
 c $7DEA Policia
 
 ; @label:$7EE9=frame_balao_esta_tudo_bem
@@ -210,8 +210,39 @@ b $7F52 CHARS
 ;b $87D8
 
 c $8800
-z $88FF
+s $88FF
+
+; @label:$8900=highscore_check
 c $8900
+  $8900 Le primeiros dois valores (yyXX) do score em HL
+  $8903 Le primeiros dois valores (yyXX) do highscore em DE
+  $8907 Le o primeiro valor (yXXX) do score em A
+  $8908 Subtrai com D - primeiro valor (XyXX) do highscore
+  $8909 Se der a volta (D > A -  Carry = 1) sai
+  $890A A = (yXXX) do score
+  $890B Compara com D (yXXX) do highscore
+  $890C Se for diferente salta para #R$892F
+  $890F A = (XyXX) do score
+  $8910 Subtrai E - (XyXX) do highscore
+  $8911 Se der a volta (E > A - Carry = 1) sai
+  $8912 A = (XyXX) do score
+  $8913 Compara com E (XyXX) do highscore
+  $8914 Se for diferente salta para #R$892F
+  $8917 Le os segundos dois valores (XXyy) do score em HL
+  $891A Le os segundos dois valores (XXyy) do highscore em DE
+  $891E Le o terceiro valor (XXyX) do score em A
+  $891F Subtrai com D - terceiro valor (XXyX) do highscore
+  $8920 Se der a volta (D > A - Carry = 1) sai
+  $8921 A = (XXyX) do score
+  $8922 Compara com D (XXyX) do highscore
+  $8923 Se for diferente salta para #R$892F
+  $8926 A = (XXXy) do score
+  $8927 Subtrai com E - (XXXy) do highscore
+  $8928 Se der a volta (E > A - Carry = 1) sai
+  $8929 A = (XXXy) do score
+  $892A Compara com E (XXXy) do highscore
+  $892B Se for diferente salta para #R$892F
+  $892E Sai
 
 ; @label:$89A6=string_recordista
 t $89A6 Recordista do jogo
@@ -238,12 +269,12 @@ c $90D2
 b $90E7 Puta - Vaginal
   $90E7 #HTML[#CALL:decode_data($EB31,$90E7)]
 
-z $9197
+s $9197
 
 b $919B Puta - Vaginal - Frame 1
   $919B #HTML[#CALL:decode_data($EDB9,$919B)]
 
-z $91DF
+s $91DF
 
 b $91E1 Puta - Vaginal - Frame 2
   $91E1 #HTML[#CALL:decode_data($EDB9,$91E1)]
@@ -263,17 +294,17 @@ c $92C1
 b $92D6 Puta - Anal
   $92D6 #HTML[#CALL:decode_data($EF39,$92D6)]
 
-z $938E
+s $938E
 
 b $9392 Puta - Anal - Frame 1
   $9392 #HTML[#CALL:decode_data($F151,$9392)]
 
-z $93C5
+s $93C5
 
 b $93C9 Puta - Anal - Frame 2
   $93C9 #HTML[#CALL:decode_data($F151,$93C9)]
 
-z $93F8
+s $93F8
 
 b $93FC Balão - Ahhh tão grosso
   $93FC #HTML[#CALL:decode_data($F201,$93FC)]
@@ -287,21 +318,21 @@ b $9428 Balão - AAAA...
 b $943F Limpa balão @ #R$9428
   $943F #HTML[#CALL:decode_data($F151,$943F)]
 
-z $9454
+s $9454
 
 c $9455
 
-z $9476
+s $9476
 
 b $9479 Policia a sair - Frame 1
   $9479 #HTML[#CALL:decode_data($F2C1,$9479)]
 
-z $94DA
+s $94DA
 
 b $94DE Policia a sair - Frame 2
   $94DE #HTML[#CALL:decode_data($F2C1,$94DE)]
 
-z $959D
+s $959D
 
 c $959F
 c $95B7
@@ -322,12 +353,12 @@ c $96F4
 b $9709 Puta - Oral
   $9709 #HTML[#CALL:decode_data($F8B1,$9709)]
 
-z $97C4
+s $97C4
 
 b $97C8 Puta - Oral - Frame 1
   $97C8 #HTML[#CALL:decode_data($FB41,$97C8)]
 
-z $97F6
+s $97F6
 
 b $97FA Puta - Oral - Frame 2
   $97FA #HTML[#CALL:decode_data($FB41,$9800)]
@@ -347,7 +378,7 @@ c $9912
 b $991F Heroi na casa da puta
   $991F #HTML[#CALL:decode_data($81A2,$991F)]
 
-z $9998
+s $9998
 
 c $999A
 
@@ -373,7 +404,7 @@ b $9C15 Balão - Ai que caralhinho
   $9C15 #HTML[#CALL:decode_data($868A,$9C15)]
 
 c $9C30
-z $9C3C
+s $9C3C
 c $9C40
 
 b $9C4D Velha - Vergada
@@ -404,7 +435,7 @@ c $9E2F
 b $9E4A Velha a sair - Frame 1
   $9E4A #HTML[#CALL:decode_data($D739,$9E4A)]
 
-z $9E8E
+s $9E8E
 
 b $9E92 Velha a sair - Frame 2
   $9E92 #HTML[#CALL:decode_data($D739,$9E92)]
@@ -436,31 +467,31 @@ b $A163 Limpa balão @ #R$A14C
 b $A178
   $A178 #HTML[#CALL:decode_data($99D8,$A178)]
 
-z $A194
+s $A194
 
 c $A195
 
 b $A1A2
   $A1A2 #HTML[#CALL:decode_data($E111,$A1A2)]
 
-z $A1EF
+s $A1EF
 
 c $A1F0
 c $A20A
-z $A214
+s $A214
 c $A215
 
 b $A222 Café - Sentado
   $A222 #HTML[#CALL:decode_data($DE31,$A222)]
 
-z $A35E
+s $A35E
 
 c $A360
 
 b $A38B Café - Beber - Frame 1
   $A38B #HTML[#CALL:decode_data($DE31,$A38B)]
 
-z $A3D0
+s $A3D0
 
 b $A3D2 Café - Beber - Frame 2
   $A3D2 #HTML[#CALL:decode_data($DE31,$A3D2)]
@@ -468,7 +499,7 @@ b $A3D2 Café - Beber - Frame 2
 c $A410
 c $A416
 
-z $A423
+s $A423
 
 c $A425
 
@@ -477,17 +508,17 @@ c $A430
 b $A465 Café - Mafioso - Frame 1
   $A465 #HTML[#CALL:decode_data($E279,$A465)]
 
-z $A4A7
+s $A4A7
 
 b $A4AB Café - Mafioso - Frame 2
   $A4AB #HTML[#CALL:decode_data($E279,$A4AB)]
 
-z $A51A
+s $A51A
 
 b $A51E Café - Mafioso - Frame 3
   $A51E #HTML[#CALL:decode_data($E279,$A51E)]
 
-z $A586
+s $A586
 
 c $A589
 c $A5B5
@@ -495,12 +526,12 @@ c $A5B5
 b $A5D6 Café - Empregado - Frame 1
   $A5D6 #HTML[#CALL:decode_data($E441,$A5D6)]
 
-z $A620
+s $A620
 
 b $A625 Café - Empregado - Frame 2
   $A625 #HTML[#CALL:decode_data($E441,$A625)]
 
-z $A6B3
+s $A6B3
 
 c $A6B7
 c $A6FE
@@ -509,14 +540,14 @@ c $A710
 b $A728 Café - Empregado a servir bebida - Frame 1
   $A728 #HTML[#CALL:decode_data($E441,$A728)]
 
-z $A74A
+s $A74A
 
 b $A74E Café - Empregado a servir bebida - Frame 2
   $A74E #HTML[#CALL:decode_data($E441,$A74E)]
 
 c $A770
 c $A799
-z $A79C
+s $A79C
 c $A7A0 Café
 C $A9F9 Activar a arma!
 
@@ -548,19 +579,19 @@ b $AC3D Limpa balão @ #R$AC26
 b $AC52
   $AC52 #HTML[#CALL:decode_data($DE31,$AC52)]
 
-z $AC8F
+s $AC8F
 
 c $AC90 Café (Porta)
 c $ACD3
 
 b $ACD6
 
-z $ACD7
+s $ACD7
 
 b $ACD8 Café - quando a porta abre
   $ACD8 #HTML[#CALL:decode_data($EA59,$ACD8)]
 
-z $ACF4
+s $ACF4
 
 c $ACF6
 
@@ -577,12 +608,12 @@ b $AF9B Limpa balão @ #R$AF84
 
 c $AFB0
 c $AFB8
-z $AFC3
+s $AFC3
 
 ; @label:$AFC8=desenhaFrameHL
 c $AFC8 Escreve o valor de HL no ecrã até achar FF
 
-z $AFD0
+s $AFD0
 
 ; @label:$AFD1=fadeOut
 c $AFD1 Limpa o ecra (genero de fade)
@@ -623,7 +654,7 @@ b $B226 Animacao Pernas - Frame 4
 b $B299 Animacao Pernas - Frame 5
   $B299 #HTML[#CALL:decode_data($C638,$B299)]
 
-z $B309
+s $B309
 c $B30A
 
 b $B353 Entrar na porta - Frame 1
@@ -635,12 +666,12 @@ b $B3DF Entrar na porta - Frame 2
 c $B46C
 c $B477
 c $B486
-z $B48E
+s $B48E
 
 ; @label:$B48F=abrePorta
 c $B48F Animação da porta a abrir
 
-z $B4EF
+s $B4EF
 
 ; @label:$B4F1=fechaPorta
 c $B4F1 Animação da porta a fechar
@@ -703,10 +734,10 @@ c $B737 Define o #R$C346 a 0
   $B740,4 Retira 4 valores da stack e mete em BC
 
 c $B745
-z $B753
+s $B753
 c $B755
 c $B766
-z $B76A
+s $B76A
 
 c $B76D Paradise Café
 
@@ -718,7 +749,7 @@ c $B775 Espera que se pressione uma tecla e guarda em #R$C34C
   $B77D,2 Se for igual volta a comparar
   $B780,3 Guarda a tecla pressionada em #R$C34C
 
-z $B784
+s $B784
 
 ; @label:$B785=desenhaChao
 c $B785 Desenha o chão a linha de highscore e o azul do fundo do ecrã
@@ -745,7 +776,7 @@ b $B7E6
 b $B7E8
 
 c $B7E9
-z $B7FF
+s $B7FF
 
 ; @label:$B800=viraCaraPuta
 c $B800 Vira a cara para a puta
@@ -766,7 +797,7 @@ c $B82E Heroi vira a cara para o ecrã
 b $B83F Cara virada para o ecrã
 B $B83F #HTML[#CALL:decode_data($CE2A,$B83F)]
 
-z $B858
+s $B858
 
 ; @label:$B85A=random2
 c $B85A Random que define quem vai aparecer na porta - 2
@@ -834,7 +865,7 @@ c $B994 CHARS = $CCAA
 ; @label:$B99F=delay1
 c $B99F Delay conta de $FFFF ate 0
 
-z $B9A9
+s $B9A9
 
 ; @label:$B9AF=desenhaScoreDinheiro
 c $B9AF Calcular variaveis/Refresh delas no ecrã
@@ -879,7 +910,7 @@ c $BA8F Aceitar comprar algo no café
 c $BAA3
 c $BAAE
 c $BAC2
-z $BACD
+s $BACD
 
 c $BAD0 Trata do 3º valor de #R$C346
   $BAD0,3 Copia o 4º e 3º valores do #R$C346 para HL
@@ -912,7 +943,7 @@ c $BB03 Trata do 2º valor de #R$C346
   $BB0A,1 Copia o valor de A para H
   $BB0B,2 Define o valor de A a $39 - '9' em ASCII
 
-z $BB0E
+s $BB0E
 
 ; @label:$BB11=ladraoAnimSai
 ; Animação do ladrão a saír da porta
@@ -946,7 +977,7 @@ b $BBA1 Ladrão a sair - Frame 2
 ;B $BBA1 #CALL:comment_frame($CEB9,$BBA1)
 B $BBA1 #HTML[#CALL:decode_data($CEB9,$BBA1)]
 
-z $BC67
+s $BC67
 
 ; @label:$BC6A=ladraoViradoEsq
 ; Animação do ladrão a virar-se para a esquerda
@@ -966,10 +997,10 @@ c $BD15
 
 b $BD22
 
-z $BD94
+s $BD94
 
 c $BD95
-z $BD9F
+s $BD9F
 c $BDA0
 c $BDBF Ladrão: animação a entrar na porta
 c $BDDE
@@ -1061,7 +1092,7 @@ c $C23B Não tenho pistola
   $C24A,5 Delay com a duracao do valor em A 
   $C24F,6 Esconde o balão #R$C052
 
-z $C258
+s $C258
 
 ; @label:$C259=delayEmA
 c $C259 Delay (rotina corre o numero de vezes que o valor em A)
@@ -1072,14 +1103,14 @@ c $C266 Chama o #R$B001
 ; @label:$C26A=fadeOut_azul
 c $C26A Faz um fadeOut a azul
 
-z $C273
+s $C273
 
 c $C27A Tentativa de venda de algo no café
 D $C27A Seja a arma, droga ou a conta
 D $C27A Provavelmente define alguma variavel, pq é executado antes de mostrar o preço
   $C29D Mete o preço a 1000$00
 
-z $C2A9
+s $C2A9
 
 ; @label:$C2AA=desenhaDespesa
 c $C2AA Desenha a despesa
@@ -1095,7 +1126,7 @@ c $C2AA Desenha a despesa
 b $C2CE Frame Despesa
   $C2CE #HTML[#CALL:decode_data($3C00,$C2CE)]
 
-z $C2DE
+s $C2DE
 
 ; @label:$C2DF=desenhaHighscore
 c $C2DF Desenha o Highscore
@@ -1103,36 +1134,39 @@ c $C2DF Desenha o Highscore
 b $C302 HISCORE =
   $C302 #HTML[#CALL:decode_data($3C00,$C302)]
 
-z $C314
+s $C314
 
 b $C336
 
-; @label:$C337=variavel_droga
+; @label:$C337=tem_droga
 b $C337 Inventorio: Droga
 
-; @label:$C338=variavel_despesa
+; @label:$C338=despesa
 b $C338 Despesa
 
 b $C33A
 
 b $C33B
 
-; @label:$C33C=variavel_carteira
+; @label:$C33C=tem_carteira
 b $C33C Inventorio: Carteira
 
-; @label:$C33D=variavel_arma
+; @label:$C33D=tem_arma
 b $C33D Inventorio: Arma
 
-; @label:$C33E=variavel_dinheiro
+; @label:$C33E=dinheiro
 b $C33E Dinheiro
 
-; @label:$C342=variavel_highscore
+; @label:$C342=highscore
 b $C342 Highscore
+D $C342 O valor inicial é 0005 que passa a 0050 porque se tem de trocar a ordem dos bytes
+D $C342 (no jogo aparece 005000 mas os ultimos dois zeros sao fixos)
+D $C342 Para um highscore de 1234|00 tinha de estar 2143 ou seja $32 $31 $34 $33
 
-; @label:$C346=variavel_score
+; @label:$C346=score
 b $C346 Score
-D $C346 Quatro bytes ASCII em Little Endian.
-D $C346 Exemplo: 0041 fica 0014 ou seja 0014 + 00 pontos.
+D $C346 Quatro bytes ASCII do Spectrum com a ordem trocada
+D $C346 Ver mais em #R$C342(highscore)
 
 ;b $C348
 
