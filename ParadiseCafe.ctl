@@ -831,13 +831,43 @@ c $B7CC Preenche desde (HL) até (HL+$60) o valor em A
   $B7CF,1 HL+1
   $B7D0,2 B--; Se !0 salta
   
-c $B7D3
+; @label:$B7D3=scrollaHighscore
+c $B7D3 Chama a rotina #R$B7E9 com $5080, 5180, $5280 .. $5780 
+  $B7D3 HL = $5080
+  $B7D6 C = $8
+  $B7D8,3 Guarda o valor de HL em #R$B7E6
+  $B7DE Guarda o valor de #R$B7E6 em HL
+  $B7E1 Incrementa H
+  $B7E2 Decrementa C
+  $B7E3 Se C != 0 salta para #R$B7D8
+  $B7E5 Sai
 
-b $B7E6
+; @label:$B7E6=tmpScroll1
+b $B7E6 Variavel temporaria usada para guardar o endereço inicial da memoria grafica ao scrollar
+  $B7E6 Usado nas rotinas #R$B7D3 e #R$B7E9
 
-b $B7E8
+; @label:$B7E8=tmpScroll2
+b $B7E8 Variavel temporaria usada para guardar o valor do grafico tudo a esquerda para ser passado tudo pra direita
+  $B7E8 Usado na rotina #R$B7E9
 
-c $B7E9
+; @label:$B7E9=scrollaHighscore2
+c $B7E9 Scrolla da esquerda pra direita a partir do valor guardado em #R$B7E6
+  $B7E9 Le o valor no endereço #R$B7E6 em HL
+  $B7EC B = $1F (31) Numero de vezes a correr a rotina
+  $B7EE D = H
+  $B7EF E = L
+  $B7F0 A = (HL)
+  $B7F1 Guarda o valor de A em #R$B7E8 (Primeira coluna para passar pra direita)
+  $B7F4 Copia o valor de (HL+1) para (HL)
+;  $B7F4 Incrementa HL
+;  $B7F5 A = (HL)
+;  $B7F6 Le para (DE) o valor de A
+;  $B7F7 Incrementa DE
+  $B7F8 Decrementa B, se B != 0 salta para #R$B7F4
+  $B7FA Guarda o valor de #R$B7E8 em A
+  $B7FD (DE) = A
+  $B7FE Sai
+
 s $B7FF
 
 ; @label:$B800=viraCaraPuta
