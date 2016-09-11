@@ -5,7 +5,7 @@
 ;
 
 [Config]
-HtmlWriterClass=skoolkit.ParadiseCafe.ParadiseCafeHtmlWriter
+HtmlWriterClass=/home/falso/src/z80/ParadiseCafe:ParadiseCafe.ParadiseCafeHtmlWriter
 
 [Info]
 Release=The incomplete Paradise Café disassembly
