@@ -340,14 +340,16 @@ b $93C9 Puta - Anal - Frame 2
 
 s $93F8
 
-b $93FC Balão - Ahhh tão grosso
-  $93FC #HTML[#CALL:decode_data($F201,$93FC)]
+b $93FC Baloes Puta no Quarto
+E $93FC CHARS $F201 #HTML[#CALL:decode_data($F201,$93FC)]
+E $93FC CHARS $8D94 #HTML[#CALL:decode_data($8D94,$93FC)]
 
 b $9413 Limpa balão @ #R$93FC
   $9413 #HTML[#CALL:decode_data($F201,$9413)]
 
-b $9428 Balão - AAAA...
-  $9428 #HTML[#CALL:decode_data($F261,$9428)]
+b $9428 Baloes - Heroi no quarto da Puta
+E $9428 CHARS $F261 #HTML[#CALL:decode_data($F261,$9428)]
+E $9428 CHARS $FBE1 #HTML[#CALL:decode_data($FBE1,$9428)]
 
 b $943F Limpa balão @ #R$9428
   $943F #HTML[#CALL:decode_data($F151,$943F)]
@@ -395,7 +397,7 @@ b $97C8 Puta - Oral - Frame 1
 s $97F6
 
 b $97FA Puta - Oral - Frame 2
-  $97FA #HTML[#CALL:decode_data($FB41,$9800)]
+  $97FA #HTML[#CALL:decode_data($FB41,$97FA)]
 
 c $9826
 
@@ -598,8 +600,13 @@ b $ABCE Balão - Aceito
 b $ABE5 Limpa balão @ #R$ABCE
   $ABE5 #HTML[#CALL:decode_data($E659,$ABE5)]
 
-b $ABFA Balão - Sei que tem aí droga
-  $ABFA #HTML[#CALL:decode_data($E9F9,$ABFA)]
+b $ABFA Baloes - Malandro no Cafe
+E $ABFA CHARS $E9F9 #HTML[#CALL:decode_data($E9F9,$ABFA)]
+E $ABFA CHARS $E899 #HTML[#CALL:decode_data($E899,$ABFA)]
+E $ABFA CHARS $E7D9 #HTML[#CALL:decode_data($E7D9,$ABFA)]
+E $ABFA CHARS $E909 #HTML[#CALL:decode_data($E909,$ABFA)]
+E $ABFA CHARS $E839 #HTML[#CALL:decode_data($E839,$ABFA)]
+E $ABFA CHARS $E979 #HTML[#CALL:decode_data($E979,$ABFA)]
 
 b $AC11 Limpa balão @ #R$ABFA
   $AC11 #HTML[#CALL:decode_data($E659,$AC11)]
@@ -634,8 +641,10 @@ b $AD05 Puta - Quarto
 
 c $AF6B
 
-b $AF84 Balão - Ir-te a' cona
-  $AF84 #HTML[#CALL:decode_data($8DF4,$AF84)]
+b $AF84 Baloes - Escolher pirafo
+E $AF84 CHARS $8DF4 #HTML[#CALL:decode_data($8DF4,$AF84)]
+E $AF84 CHARS $8E54 #HTML[#CALL:decode_data($8E54,$AF84)]
+E $AF84 CHARS $8EB4 #HTML[#CALL:decode_data($8EB4,$AF84)]
 
 b $AF9B Limpa balão @ #R$AF84
   $AF9B #HTML[#CALL:decode_data($FD01,$AF9B)]
