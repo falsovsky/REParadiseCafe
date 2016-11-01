@@ -5,7 +5,7 @@
 ;b $5CB6 Channel infomation (?)
 
 ;b $5CCB Program data (Basic?)
-;B  $5CCB,$15c zbr
+;B $5CCB,$15c zbr
 
 ;b $5E27 Basic stacks (novo)
 
@@ -57,7 +57,7 @@ b $77B6 Canhola - Frame 2
 b $77D5 The End
   $77D5 #HTML[#CALL:decode_data($3C00,$77D5)]
 
-s $77E4
+;s $77E4
 
 ; @label:$77EA=start 
 c $77EA Inicio do codigo!
@@ -97,13 +97,22 @@ c $77EA Inicio do codigo!
 b $788D Ecrã de entrada
   $788D #HTML[#CALL:decode_data($3C00,$788D)]
 
-s $79EA
+;s $79EA
 
 ; @label:$7CF0=main
 c $7CF0 Main do jogo
   $7CF0,7 No Operation
 
-c $7D2B Delay(?)
+; @label:$7D2B=sleep
+c $7D2B Delay
+N $7D2B Numero de vezes que o loop B vai correr
+  $7D2B C = 80
+N $7D2D [loop b] Define valor de B, e decrementa ate voltar a 0
+  $7D2D B = 0
+  $7D2F Decrementa B enquanto nao for 0
+N $7D31 Enquanto o valor de C não for 0, repete o loop B
+  $7D31 Decrementa C
+  $7D32,2 Se C <> 0 salta para o loop do B
 
 ; @label:$7D35=posicaoColuna
 b $7D35 ??
@@ -172,18 +181,23 @@ c $7DAB Verifica colisao com a porta(main loop)
   $7DD5 Então é o ladrão!
   $7DD8 Knock Knock3?
   $7DDB É igual a 2?
-  $7DDD Então é o senhor Policia!
+  $7DDD Então é o senhor Guarda!
 
 s $7DE1
 c $7DEA Policia
 
-; @label:$7EE9=frame_balao_esta_tudo_bem
-b $7EE9 Então está tudo bem?
-  $7EE9 #HTML[#CALL:decode_data($F641,$7EE9)]
+; @label:$7EE9=frame_balao_guarda
+b $7EE9 Balões do Guarda
+E $7EE9 #HTML[#CALL:decode_data($F641,$7EE9)]
+E $7EE9 #HTML[#CALL:decode_data($F7C1,$7EE9)]
 
-; @label:$7F15=frame_balao_esta_sim_seu_guarda
-b $7F15 Está sim seu guarda
-  $7F15 #HTML[#CALL:decode_data($F6A1,$7F15)]
+b $7F00 Limpa balão guarda
+  $7F00 #HTML[#CALL:decode_data($F821,$7F00)]
+
+; @label:$7F15=frame_balao_falar_guarda
+b $7F15 Balões a falar com o guarda
+E $7F15 #HTML[#CALL:decode_data($F6A1,$7F15)]
+E $7F15 #HTML[#CALL:decode_data($F761,$7F15)]
 
 ; @label:$7F2C=frame_limpa_balao_esquerdo
 b $7F2C Limpa balão - esquerdo
@@ -343,6 +357,9 @@ s $93F8
 b $93FC Baloes Puta no Quarto
 E $93FC CHARS $F201 #HTML[#CALL:decode_data($F201,$93FC)]
 E $93FC CHARS $8D94 #HTML[#CALL:decode_data($8D94,$93FC)]
+E $93FC CHARS $FD01 #HTML[#CALL:decode_data($FD01,$93FC)]
+E $93FC CHARS $85CA #HTML[#CALL:decode_data($85CA,$93FC)]
+E $93FC CHARS $8F14 #HTML[#CALL:decode_data($8F14,$93FC)]
 
 b $9413 Limpa balão @ #R$93FC
   $9413 #HTML[#CALL:decode_data($F201,$9413)]
@@ -350,6 +367,7 @@ b $9413 Limpa balão @ #R$93FC
 b $9428 Baloes - Heroi no quarto da Puta
 E $9428 CHARS $F261 #HTML[#CALL:decode_data($F261,$9428)]
 E $9428 CHARS $FBE1 #HTML[#CALL:decode_data($FBE1,$9428)]
+E $9428 CHARS $FC41 #HTML[#CALL:decode_data($FC41,$9428)]
 
 b $943F Limpa balão @ #R$9428
   $943F #HTML[#CALL:decode_data($F151,$943F)]
@@ -424,8 +442,9 @@ b $9AAE Reinaldo a espreitar na porta
 b $9ACF Balão - Cu cu
   $9ACF #HTML[#CALL:decode_data($FD61,$9ACF)]
 
-b $9AE2 Balão - O que foi?
-  $9AE2 #HTML[#CALL:decode_data($FDA1,$9AE2)]
+b $9AE2 Balão - Reinaldo
+E $9AE2 CHARS $FDA1 #HTML[#CALL:decode_data($FDA1,$9AE2)]
+E $9AE2 CHARS $862A #HTML[#CALL:decode_data($862A,$9AE2)]
 
 b $9AF9 Reinaldo - Enrabadela
   $9AF9 #HTML[#CALL:decode_data($8322,$9AF9)]
@@ -594,8 +613,10 @@ c $AB88
 b $ABC3 Limpa algo, não sei o que
   $ABC3 #HTML[#CALL:decode_data($E279,$A74E)]
 
-b $ABCE Balão - Aceito
-  $ABCE #HTML[#CALL:decode_data($E659,$ABCE)]
+b $ABCE Balões Heroi no Café
+E $ABCE #HTML[#CALL:decode_data($E659,$ABCE)]
+E $ABCE #HTML[#CALL:decode_data($E6B9,$ABCE)]
+E $ABCE #HTML[#CALL:decode_data($E5F9,$ABCE)]                                                                                  
 
 b $ABE5 Limpa balão @ #R$ABCE
   $ABE5 #HTML[#CALL:decode_data($E659,$ABE5)]
@@ -611,8 +632,10 @@ E $ABFA CHARS $E979 #HTML[#CALL:decode_data($E979,$ABFA)]
 b $AC11 Limpa balão @ #R$ABFA
   $AC11 #HTML[#CALL:decode_data($E659,$AC11)]
 
-b $AC26 Balão - A sua conta
-  $AC26 #HTML[#CALL:decode_data($E779,$AC26)]
+b $AC26 Balões Empregado Café
+E $AC26 #HTML[#CALL:decode_data($E779,$AC26)]
+E $AC26 #HTML[#CALL:decode_data($E719,$AC26)]
+
 
 b $AC3D Limpa balão @ #R$AC26
   $AC3D #HTML[#CALL:decode_data($E779,$AC3D)]
@@ -645,6 +668,7 @@ b $AF84 Baloes - Escolher pirafo
 E $AF84 CHARS $8DF4 #HTML[#CALL:decode_data($8DF4,$AF84)]
 E $AF84 CHARS $8E54 #HTML[#CALL:decode_data($8E54,$AF84)]
 E $AF84 CHARS $8EB4 #HTML[#CALL:decode_data($8EB4,$AF84)]
+E $AF84 CHARS $FCA1 #HTML[#CALL:decode_data($FCA1,$AF84)]
 
 b $AF9B Limpa balão @ #R$AF84
   $AF9B #HTML[#CALL:decode_data($FD01,$AF9B)]
@@ -1096,7 +1120,8 @@ c $BD0C Define o valor de DE em $5C36 (Endereço CHARS)
 
 c $BD15
 
-b $BD22
+b $BD22 Ladrão no chão
+B $BD22 #HTML[#CALL:decode_data($D1F1,$BD22)]
 
 s $BD94
 
@@ -1105,8 +1130,13 @@ s $BD9F
 c $BDA0
 c $BDBF Ladrão: animação a entrar na porta
 c $BDDE
-b $BDE8
-b $BE65
+
+b $BDE8 Ladrão a entrar na porta - frame 1
+B $BDE8 #HTML[#CALL:decode_data($C740,$BDE8)]
+
+b $BE65 Ladrão a entrar na porta - frame 2
+B $BE65 #HTML[#CALL:decode_data($C740,$BE65)]
+
 c $BEC5
 
 ; @label:$BEDC=sacaAPistola 
@@ -1196,7 +1226,17 @@ c $C23B Não tenho pistola
 s $C258
 
 ; @label:$C259=delayEmA
-c $C259 Delay (rotina corre o numero de vezes que o valor em A)
+c $C259 Delay
+N $C259 A rotina corre o numero de vezes que o valor em A
+  $C259 C = 0
+N $C25B Inicio Loop B
+  $C25B B = 0
+  $C25D Decrementa B até ser 0
+N $C25F Fim Loop B
+  $C25F Decrementa C
+  $C260 Se C <> 0 salta para o loop B
+  $C262 Decrementa A
+  $C263,2 Se A <> 0 corre do inicio
 
 ; @label:$C266=chama_desenhaCorpo
 c $C266 Chama o #R$B001
