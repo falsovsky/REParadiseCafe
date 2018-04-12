@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*- 
 # SkoolKit extension for Paradise Café by DAMATTA.
 #
-# This file copyright (c) Pedro de Oliveira, 2013. <falsovsky@gmail.com>
+# This file copyright (c) Pedro de Oliveira, 2018. <falsovsky@gmail.com>
 #
-import string
 
-from skoolkit.skoolhtml import HtmlWriter, Udg
-from skoolkit.skoolasm import AsmWriter
+from skoolkit.skoolhtml import HtmlWriter
+from skoolkit.graphics import Udg
 
 class ParadiseCafeHtmlWriter(HtmlWriter):
 
@@ -112,19 +111,16 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
     def init(self):
         pass
 
-    def hello_world(self, cwd):
-        return "Hello, world!"
-
     def generate_block(self, cwd, char):
         
         blockbytes = [0, 0, 0, 0, 0, 0, 0, 0]
 
         if char == 0x80:
             blockbytes = [0, 0, 0, 0, 0, 0, 0, 0]
-	elif char == 0x81:
-	    blockbytes = [0xf, 0xf, 0xf, 0xf, 0x0, 0x0, 0x0, 0x0]
-	elif char == 0x82:
-	    blockbytes = [0xf0, 0xf0, 0xf0, 0xf0, 0x0, 0x0, 0x0, 0x0]
+        elif char == 0x81:
+            blockbytes = [0xf, 0xf, 0xf, 0xf, 0x0, 0x0, 0x0, 0x0]
+        elif char == 0x82:
+            blockbytes = [0xf0, 0xf0, 0xf0, 0xf0, 0x0, 0x0, 0x0, 0x0]
         elif char == 0x85:
             blockbytes = [0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf]
         elif char == 0x8A:
@@ -134,7 +130,7 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
         elif char == 0x8f:
             blockbytes = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff]
         else:
-            print "BLOCK %02X NOT IMPLEMENTED" % (char)
+            print("BLOCK %02X NOT IMPLEMENTED" % (char))
 
         return blockbytes
 
@@ -167,28 +163,28 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
                 x = self.snapshot[addr+1]
                 y = self.snapshot[addr+2]
                 if comment == True:
-                    print "B $%04X,$3 AT - X = %d, Y = %d" % (addr, x, y)
+                    print("B $%04X,$3 AT - X = %d, Y = %d" % (addr, x, y))
                 addr += 3
                 continue
             
             if self.snapshot[addr] == 0x10:
                 ink = self.snapshot[addr+1]
                 if comment == True:
-                    print "B $%04X,$2 INK %d" % (addr, ink)
+                    print("B $%04X,$2 INK %d" % (addr, ink))
                 addr += 2
                 continue
 
             if self.snapshot[addr] == 0x11:
                 paper = self.snapshot[addr+1]
                 if comment == True:
-                    print "B $%04X,$2 PAPER %d" % (addr, paper)
+                    print("B $%04X,$2 PAPER %d" % (addr, paper))
                 addr += 2
                 continue
 
             if self.snapshot[addr] == 0x12:
                 flash = self.snapshot[addr+1]
                 if comment == True:
-                    print "B $%04X,$2 FLASH %d" % (addr, flash)
+                    print("B $%04X,$2 FLASH %d" % (addr, flash))
                 addr += 2
                 continue
             
@@ -216,7 +212,7 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
                 else:
                     udg_array[x][y] = Udg(attr, self.snapshot[ad:ad+8])
                     if comment == True:
-                         print "B $%04X,$1 UDG %02X - ADDR = $%04X - AT $%02X,$%02X - ATTRIBUTES $%02X - #HTML[#UDG$%04X,%d(%04x_%02x)]" % (addr, self.snapshot[addr], ad, x, y, attr, ad, attr, ad, attr)
+                         print("B $%04X,$1 UDG %02X - ADDR = $%04X - AT $%02X,$%02X - ATTRIBUTES $%02X - #HTML[#UDG$%04X,%d(%04x_%02x)]" % (addr, self.snapshot[addr], ad, x, y, attr, ad, attr, ad, attr))
 
             addr += 1
             y += 1
@@ -229,6 +225,3 @@ class ParadiseCafeHtmlWriter(HtmlWriter):
         img_path = self.image_path(fname, img_path_id)
         self.write_image(img_path, udg_array)
         return self.img_element(cwd, img_path)
-
-#class ParadiseCafeHtmlWriter(AsmWriter):
-#   pass
