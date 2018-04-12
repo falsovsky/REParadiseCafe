@@ -9,18 +9,18 @@
 
 ;b $5E27 Basic stacks (novo)
 
-; @label:$7530=game_over
-c $7530 Game over
-  $7530,$6 Paper 0 Preto
+c $7530 The End
+@ $7530 label=the_end
+  $7530,$6 paper=0 (Preto)
   $7536,$d Imprime 32 ($20) espaços ($80) em 18 linhas ($12) - Na posicao 0,0 - Parede preta
-  $7543,$6 Paper 2 Vermelho
+  $7543,$6 paper=2 (Vermelho)
   $7549,$b Imprime 29 ($1D) espaços ($80) em 4 linhas ($04) - Na posicao 18,3 - Chão vermelho
-  $7554,$6 Paper 3 Roxo
+  $7554,$6 paper=3 (Roxo)
   $755A,$b Imprime 16 ($10) espaços ($80) em 4 linhas ($04) - Na posicao 12,5 - Banco Roxo
-  $756B,$6 Ink 0 Preto
-  $7571,$6 Paper 7 Branco
+  $756B,$6 ink=0 (Preto)
+  $7571,$6 paper=7 (Branco)
   $7577,$d Imprime 1 ($01) char $3E em 18 linhas ($12) - Na posicao 0,3 - Risca branca da parede
-  $7584,$6 Desenha #R$75E2 
+  $7584,$6 Desenha #R$75E2
   $7590,$6 Desenha #R$77D5
   $759C,$6 Desenha #R$7799
   $75A2,$5 Limpa a ultima tecla pressionada
@@ -30,37 +30,42 @@ c $7530 Game over
   $75B9,$5 Faz uma pausa
   $75BE,$6 Desenha #R$7799
 
-; @label:$75CF=preenche_com_char
 c $75CF Preenche L colunas e C linhas com o caracter H na posicao D,E
-  $75CF,$3 AT
-  $75D2,$2 X está em D
-  $75D4,$2 Y está em E
-  $75D6,$1 B contem o numero de vezes a printar
+R $75CF I:H Caracter
+R $75CF I:L Colunas
+R $75CF I:C Linhas
+R $75CF I:D Posição X
+R $75CF I:E Posição Y
+@ $75CF label=preenche_com_char
+  $75CF,$3 PRINT AT
+  $75D2,$2 X=D
+  $75D4,$2 Y=E
+  $75D6,$1 B=L (Numero de colunas)
   $75D7,$6 Imprime o que está em H, B vezes
-  $75DD,$1 Incrementa a linha
+  $75DD,$1 Incrementa a posição X
   $75De,$1 Decrementa o numero de linhas a imprimir
-  $75DF,$2 Se ainda houverem linhas para imprimir volta ao inicio
+  $75DF,$2 Se ainda existirem linhas para imprimir volta ao inicio
 
-; @label:$75E2=frame_prisao
 b $75E2 Prisão
+@ $75E2 label=frame_prisao
 E $75E2 #HTML[#CALL:decode_data($8970,$75E2)]
 
-; @label:$7799=frame_canhola_1
 b $7799 Canhola - Frame 1
+@ $7799 label=frame_canhola_1
   $7799 #HTML[#CALL:decode_data($8C30,$7799)]
 
-; @label:$77B6=frame_canhola_2
 b $77B6 Canhola - Frame 2
+@ $77B6 label=frame_canhola_2
   $77B6 #HTML[#CALL:decode_data($8C30,$77B6)]
 
-; @label:$77D5=frame_the_end
 b $77D5 The End
+@ $77D5 label=frame_the_end
   $77D5 #HTML[#CALL:decode_data($3C00,$77D5)]
 
 ;s $77E4
 
-; @label:$77EA=start 
 c $77EA Inicio do codigo!
+@ $77EA label=start
   $77EA,$f Espera que se pressione uma tecla
   $77F9,$4 No Operation
   $77FD,8 Define atributos para o fadeOut a $10 e chama-o
@@ -93,29 +98,29 @@ c $77EA Inicio do codigo!
   $7880,2 Subtrai $80
   $7882,8 Corre o "randomizer" o numero de vezes que estiver em A
 
-; @label:$788D=frame_inicio
 b $788D Ecrã de entrada
+@ $788D label=frame_inicio
   $788D #HTML[#CALL:decode_data($3C00,$788D)]
 
 ;s $79EA
 
-; @label:$7CF0=main
 c $7CF0 Main do jogo
+@ $7CF0 label=main
   $7CF0,7 No Operation
 
-; @label:$7D2B=sleep
 c $7D2B Delay
+@ $7D2B label=sleep
 N $7D2B Numero de vezes que o loop B vai correr
   $7D2B C = 80
-N $7D2D [loop b] Define valor de B, e decrementa ate voltar a 0
+N $7D2D [loop b] Define valor de B, e decrementa ate chegar a 0
   $7D2D B = 0
   $7D2F Decrementa B enquanto nao for 0
 N $7D31 Enquanto o valor de C não for 0, repete o loop B
   $7D31 Decrementa C
   $7D32,2 Se C <> 0 salta para o loop do B
 
-; @label:$7D35=posicaoColuna
 b $7D35 ??
+@ $7D35 label=posicaoColuna
 
 ; ???????
 b $7D36
@@ -186,16 +191,19 @@ c $7DAB Verifica colisao com a porta(main loop)
 s $7DE1
 c $7DEA Policia
 
-; @label:$7EE9=frame_balao_guarda
 b $7EE9 Balões do Guarda
+@ $7EE9 label=frames_balao_guarda
 E $7EE9 #HTML[#CALL:decode_data($F641,$7EE9)]
+E $7EE9 #HTML[#CALL:decode_data($F701,$7EE9)]
 E $7EE9 #HTML[#CALL:decode_data($F7C1,$7EE9)]
+E $7EE9 #HTML[#CALL:decode_data($F821,$7EE9)]
 
 b $7F00 Limpa balão guarda
+@ $7F00 label=frame_limpa_balao_guarda
   $7F00 #HTML[#CALL:decode_data($F821,$7F00)]
 
-; @label:$7F15=frame_balao_falar_guarda
 b $7F15 Balões a falar com o guarda
+@ $7F15 label=frames_balao_falar_guarda
 E $7F15 #HTML[#CALL:decode_data($F6A1,$7F15)]
 E $7F15 #HTML[#CALL:decode_data($F761,$7F15)]
 
@@ -532,6 +540,9 @@ b $A1A2
 s $A1EF
 
 c $A1F0
+C $A1F0,8 Define o endereço #R$C34F a 0 chama a rotina de fadeout #R$AFD1 que usa esse valor para definir os atributos
+
+
 c $A20A
 s $A214
 c $A215
@@ -604,7 +615,7 @@ c $A770
 c $A799
 s $A79C
 c $A7A0 Café
-C $A9F9 Activar a arma!
+C $A9F7,5 Activar a arma!
 
 b $AB87
 
@@ -622,12 +633,12 @@ b $ABE5 Limpa balão @ #R$ABCE
   $ABE5 #HTML[#CALL:decode_data($E659,$ABE5)]
 
 b $ABFA Baloes - Malandro no Cafe
-E $ABFA CHARS $E9F9 #HTML[#CALL:decode_data($E9F9,$ABFA)]
-E $ABFA CHARS $E899 #HTML[#CALL:decode_data($E899,$ABFA)]
 E $ABFA CHARS $E7D9 #HTML[#CALL:decode_data($E7D9,$ABFA)]
-E $ABFA CHARS $E909 #HTML[#CALL:decode_data($E909,$ABFA)]
 E $ABFA CHARS $E839 #HTML[#CALL:decode_data($E839,$ABFA)]
+E $ABFA CHARS $E899 #HTML[#CALL:decode_data($E899,$ABFA)]
+E $ABFA CHARS $E909 #HTML[#CALL:decode_data($E909,$ABFA)]
 E $ABFA CHARS $E979 #HTML[#CALL:decode_data($E979,$ABFA)]
+E $ABFA CHARS $E9F9 #HTML[#CALL:decode_data($E9F9,$ABFA)]
 
 b $AC11 Limpa balão @ #R$ABFA
   $AC11 #HTML[#CALL:decode_data($E659,$AC11)]
@@ -635,7 +646,6 @@ b $AC11 Limpa balão @ #R$ABFA
 b $AC26 Balões Empregado Café
 E $AC26 #HTML[#CALL:decode_data($E779,$AC26)]
 E $AC26 #HTML[#CALL:decode_data($E719,$AC26)]
-
 
 b $AC3D Limpa balão @ #R$AC26
   $AC3D #HTML[#CALL:decode_data($E779,$AC3D)]
@@ -677,13 +687,14 @@ c $AFB0
 c $AFB8
 s $AFC3
 
-; @label:$AFC8=desenhaFrameHL
 c $AFC8 Escreve o valor de HL no ecrã até achar FF
+R $AFC8 I:HL Endereço do inicio da frame
+@ $AFC8 label=desenhaFrameHL
 
 s $AFD0
 
-; @label:$AFD1=fadeOut
 c $AFD1 Limpa o ecra (genero de fade)
+@ $AFD1 label=fadeOut
   $AFD1,$1e Limpa o ecra a fazer SHIFT RIGHT LOGICAL aos graficos "na memoria grafica" de $4000 a $57ff
   $AFEF,$11 Define os atributos a partir do endereço $5800 com o valor definido em #R$C34F
 
@@ -992,8 +1003,8 @@ c $B99F Delay conta de $FFFF ate 0
 
 s $B9A9
 
-; @label:$B9AF=desenhaScoreDinheiro
-c $B9AF Calcular variaveis/Refresh delas no ecrã
+c $B9AF Imprime Score e Dinheiro
+@ $B9AF label=desenhaScoreDinheiro
   $B9AF,$a $CHARS = $3C00
   $B9B9,6 Desenha frame #R$B9F1
   $B9BF,3 Carrega os dois primeiros caracteres do SCORE para HL
@@ -1115,8 +1126,9 @@ C $BC77 Desenha a frame
 b $BC7B Ladrão virado para a esquerda - Frame
 B $BC7B #HTML[#CALL:decode_data($D089,$BC7B)]
 
-; @label:$BD0C=deToChars
 c $BD0C Define o valor de DE em $5C36 (Endereço CHARS)
+R $BD0C I:DE Valor para ser definido em CHARS
+@ $BD0C label=deToChars
 
 c $BD15
 
@@ -1166,6 +1178,7 @@ c $BF17 Ladrão
   $BFC4 Merda
 
 b $BFCF
+B $BFCF #HTML[#CALL:decode_data($D4B9,$BFCF)]
 
 b $BFE0 Animação Ladrão (???)
 B $BFE0 #HTML[#CALL:decode_data($D089,$BFE0)]
@@ -1176,14 +1189,46 @@ b $BFE7 Ladrão - Saca a pistola
 b $BFFA Ladrão - Tem lume? - Frame 1
   $BFFA #HTML[#CALL:decode_data($D3A9,$BFFA)]  
 
-b $C00F Balão - Tem lume?
-  $C00F #HTML[#CALL:decode_data($D519,$C00F)]
+b $C00F Varios Balões
+@ $C00F label=frame_balao_coluna_17
+  $C00F,3 AT 2,17
+  $C012,2 INK=2 (Vermelho)
+  $C014,2 PAPER=7 (Branco)
+  $C016,6 CHARS $20 até $25
+  $C01C,3 AT 3,17
+  $C01F,6 CHARS $26 até $2B
+  $C025,1 END
+E $C00F Ladrão - "Tem lume?" (CHARS=D519)
+E $C00F #HTML[#CALL:decode_data($D519,$C00F)]
+E $C00F Velha - "Óooh meu deus" (CHARS=DB51)
+E $C00F #HTML[#CALL:decode_data($DB51,$C00F)]
+E $C00F Velha - "Esta merece 100 pontos" (CHARS=DC11)
+E $C00F #HTML[#CALL:decode_data($DC11,$C00F)]
+E $C00F Velha - "Só tenho 100$00" (CHARS=DD21)
+E $C00F #HTML[#CALL:decode_data($DD21,$C00F)]
 
-b $C026 Limpa balão @ #R$C00F
-  $C026 #HTML[#CALL:decode_data($D6E9,$C026)]
+b $C026 Limpa balões @ #R$C00F
+@ $C026 label=frame_limpa_balao_coluna_17
+  $C026,3 AT 2,17
+  $C029,2 PAPER=2 (Vermelho)
+  $C02B,6 $80 seis vezes
+  $C031,3 AT 3,17
+  $C034,6 $80 seis vezes
+  $C03A,1 END
+E $C026 (CHARS=DD21)
+E $C026 #HTML[#CALL:decode_data($D6E9,$C026)]
 
 b $C03B Balão - Não tenho pistola
-  $C03B #HTML[#CALL:decode_data($D689,$C03B)]
+@ $C03B label=frame_balao_nao_tenho_pistola
+  $C03B,3 AT 1,1
+  $C03E,2 INK=2 (Vermelho)
+  $C040,2 PAPER=7 (Branco)
+  $C042,6 CHARS $20 até $25
+  $C048,3 AT 2,1
+  $C04B,6 CHARS $26 até $2B
+  $C051,1 END
+E $C03B (CHARS=D689)
+E $C03B #HTML[#CALL:decode_data($D689,$C03B)]
 
 b $C052 Limpa balão @ #R$C03B
   $C052 #HTML[#CALL:decode_data($D689,$C052)]
@@ -1225,9 +1270,10 @@ c $C23B Não tenho pistola
 
 s $C258
 
-; @label:$C259=delayEmA
 c $C259 Delay
-N $C259 A rotina corre o numero de vezes que o valor em A
+R $C259 I:A Numero de vezes que a rotina vai correr
+@ $C259 label=delayEmA
+N $C259 A rotina corre o numero de vezes que estiver em A
   $C259 C = 0
 N $C25B Inicio Loop B
   $C25B B = 0
@@ -1241,8 +1287,8 @@ N $C25F Fim Loop B
 ; @label:$C266=chama_desenhaCorpo
 c $C266 Chama o #R$B001
 
-; @label:$C26A=fadeOut_azul
 c $C26A Faz um fadeOut a azul
+@ $C26A label=fadeOut_azul
 
 s $C273
 
