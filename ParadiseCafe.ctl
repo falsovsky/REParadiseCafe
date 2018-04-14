@@ -47,29 +47,29 @@ R $75CF I:E Posição Y
   $75De,$1 Decrementa o numero de linhas a imprimir
   $75DF,$2 Se ainda existirem linhas para imprimir volta ao inicio
 
-b $75E2 Prisão
+b $75E2 FRAME: Prisão
 @ $75E2 label=frame_prisao
 D $75E2 CHARS = $8970
 D $75E2 #UDGTABLE { #CALL:decode_data($8970,$75E2) | Parte fixa da prisão } TABLE#
 
-b $7799 Prisão Canhola 1
+b $7799 FRAME: Prisão Canhola - f1
 @ $7799 label=frame_canhola_1
 D $7799 CHARS = $8C30
 D $7799 #UDGTABLE { #CALL:decode_data($8C30,$7799) | Canhola - Frame 1 } TABLE#
 
-b $77B6 Prisão Canhola 2
+b $77B6 FRAME: Prisão Canhola - f22
 @ $77B6 label=frame_canhola_2
 D $77B6 CHARS = $8C30
 D $77B6 #UDGTABLE { #CALL:decode_data($8C30,$77B6) | Canhola - Frame 2 } TABLE#
 
-b $77D5 The End
+b $77D5 FRAME: The End
 @ $77D5 label=frame_the_end
 D $77D5 CHARS = $3C00
 D $77D5 #UDGTABLE { #CALL:decode_data($3C00,$77D5) | The End } TABLE#
 
 i $77E4
 
-c $77EA Inicio do codigo!
+c $77EA Inicio do codigo
 @ $77EA label=start
   $77EA,$f Espera que se pressione uma tecla
   $77F9,$4 No Operation
@@ -103,7 +103,7 @@ c $77EA Inicio do codigo!
   $7880,2 Subtrai $80
   $7882,8 Corre o "randomizer" o numero de vezes que estiver em A
 
-b $788D Recordista e autor
+b $788D FRAME: Recordista e autor
 @ $788D label=frame_recordista
 D $788D CHARS = $3C00
 D $788D #UDGTABLE { #CALL:decode_data($3C00,$788D) | Recordista e autor } TABLE#
@@ -126,13 +126,13 @@ N $7D31 Enquanto o valor de C não for 0, repete o loop B
   $7D32,2 Se C <> 0 salta para o loop do B
 
 b $7D35 ??
-@ $7D35 label=posicaoColuna
+@ $7D35 label=posicao_coluna
 
 ;b $7D36
 i $7D36
 
 c $7D3B Desenha a porta
-@ $7D3B label=desenhaPorta
+@ $7D3B label=desenha_porta
   $7D3B,6 INK = Azul
   $7D41,6 PAPER = Amarelo
   $7D47,6 Carrega o valor de #R$C34B e mete-o em #R$7D35
@@ -152,7 +152,7 @@ c $7D3B Desenha a porta
   $7D85,5 Define #R$C34B a $1F, o maximo 'a direita
 
 c $7D8D Imprime coluna da porta na posicao A
-@ $7D8D label=imprimeColunaPorta
+@ $7D8D label=imprime_coluna_porta
 ; $7D8D,2 Adiciona 9 a A
 ; $7D8F,1 Return se Carry estiver SET
   $7D8D,3 Se estiver fora do ecra na esquerda, salta fora
@@ -172,7 +172,7 @@ c $7D8D Imprime coluna da porta na posicao A
   $7DA8,2 Se Zero estiver NOT SET salta
 
 c $7DAB Verifica colisao com a porta(main loop)
-@ $7DAB label=colisaoPorta
+@ $7DAB label=colisao_porta
   $7DAB Le a distancia para a porta
   $7DAE Está em cima?
   $7DB0 Nao, volta para tras
@@ -199,7 +199,7 @@ i $7DE1
 c $7DEA Guarda
 @ $7DEA label=guarda
 
-b $7EE9 Balões do Guarda
+b $7EE9 FRAME: Balões do Guarda
 @ $7EE9 label=frames_balao_guarda
 D $7EE9 CHARS = $F641
 D $7EE9 #UDGTABLE { #CALL:decode_data($F641,$7EE9) | Então está tudo bem? } TABLE#
@@ -210,24 +210,24 @@ D $7EE9 #UDGTABLE { #CALL:decode_data($F7C1,$7EE9) | Então venha comigo } TABLE
 D $7EE9 CHARS = $F821
 D $7EE9 #UDGTABLE { #CALL:decode_data($F821,$7EE9) | O.K. Pode seguir } TABLE#
 
-b $7F00 Limpa balão @ #R$7EE9
+b $7F00 FRAME: Limpa balão @ #R$7EE9
 @ $7F00 label=frame_limpa_balao_guarda
 D $7F00 CHARS = $F821
 D $7F00 #UDGTABLE { #CALL:decode_data($F821,$7F00) } TABLE#
 
-b $7F15 Balões a falar com o guarda
+b $7F15 FRAME: Balões a falar com o guarda
 @ $7F15 label=frames_balao_falar_guarda
 D $7F15 CHARS = $F6A1
 D $7F15 #UDGTABLE { #CALL:decode_data($F6A1,$7F15) | Está sim seu guarda } TABLE#
 D $7F15 CHARS = $F761
 D $7F15 #UDGTABLE { #CALL:decode_data($F761,$7F15) | Não tenho carteira! } TABLE#
 
-b $7F2C Limpa balão @ #R$7F15
+b $7F2C FRAME: Limpa balão @ #R$7F15
 @ $7F2C label=frame_limpa_balao_esquerdo
 D $7F2C CHARS = $F6A1
 D $7F2C #UDGTABLE { #CALL:decode_data($F6A1,$7F2C) } TABLE#
 
-b $7F41 Limpa chão
+b $7F41 FRAME: Limpa chão
 @ $7F41 label=frame_limpa_chao
 D $7F41 CHARS = $F701
 D $7F41 #UDGTABLE { #CALL:decode_data($F701,$7F41) } TABLE#
@@ -259,8 +259,8 @@ c $8800
 ;s $88FF
 i $88FF
 
-c $8900 Verifica se o Score é maior que o Highscore, e pede o nome do recordista se for
-@ $8900 label=highscore_check
+c $8900 Verifica se o Score é maior que o Highscore, e pede o nome ao recordista se for
+@ $8900 label=compara_score_com_highscore
   $8900 Le primeiros dois valores (yyXX) do score em HL
   $8903 Le primeiros dois valores (yyXX) do highscore em DE
   $8907 Le o primeiro valor (yXXX) do score em A
@@ -320,19 +320,19 @@ c $8900 Verifica se o Score é maior que o Highscore, e pede o nome do recordist
   $899D,6 Desenha #R$8A29
 
 t $89A6 Recordista do jogo
-@ $89A6 label=string_recordista
+@ $89A6 label=var_recordista
 
-b $89D2 Novo recorde - Introduza o seu nome
+b $89D2 FRAME: Novo recorde - Introduza o seu nome
 @ $89D2 label=frame_record_introduza_nome
 D $89D2 CHARS = $3C00
 D $89D2 #UDGTABLE { #CALL:decode_data($3C00,$89D2) | Novo Recorde - Introduza o seu nome } TABLE#
 
-b $8A09 Esta correcto o seu nome?
+b $8A09 FRAME: Esta correcto o seu nome?
 @ $8A09 label=frame_esta_correcto_o_seu_nome
 D $8A09 CHARS = $3C00
 D $8A09 #UDGTABLE { #CALL:decode_data($3C00,$8A09) | Esta correcto o seu nome? } TABLE#
 
-b $8A29 Duas linhas pretas
+b $8A29 FRAME: Duas linhas pretas
 @ $8A29 label=frame_duas_linhas
 D $8A29 CHARS = $3C00
 D $8A29 #UDGTABLE { #CALL:decode_data($3C00,$8A29) } TABLE#
@@ -346,15 +346,15 @@ c $90B1
 
 c $90D2
 
-b $90E7 Puta - Vaginal
-@ $90E7 label=frame_puta_vaginal_fixed
+b $90E7 FRAME: Puta - Vaginal
+@ $90E7 label=frame_puta_vaginal
 D $90E7 CHARS = $EB31
 D $90E7 #UDGTABLE { #CALL:decode_data($EB31,$90E7) | Parte fixa - Puta Vaginal } TABLE#
 
 ;s $9197
 i $9197
 
-b $919B Puta - Vaginal - Frame 1
+b $919B FRAME: Puta - Vaginal - f1
 @ $919B label=frame_puta_vaginal_1
 D $919B CHARS = $EDB9
 D $919B #UDGTABLE { #CALL:decode_data($EDB9,$919B) | Puta Vaginal - Frame 1 } TABLE#
@@ -362,17 +362,17 @@ D $919B #UDGTABLE { #CALL:decode_data($EDB9,$919B) | Puta Vaginal - Frame 1 } TA
 ;s $91DF
 i $91DF
 
-b $91E1 Puta - Vaginal - Frame 2
+b $91E1 FRAME: Puta - Vaginal - f2
 @ $91E1 label=frame_puta_vaginal_2
 D $91E1 CHARS = $EDB9
 D $91E1 #UDGTABLE { #CALL:decode_data($EDB9,$91E1) | Puta Vaginal - Frame 2 } TABLE#
 
-b $921A Balão - Venho-me haaaaaaa
+b $921A FRAME: Balão - Venho-me haaaaaaa
 @ $921A label=frame_balao_venho_me
 D $921A CHARS = $EED9
 D $921A #UDGTABLE { #CALL:decode_data($EED9,$921A) | Venho-me haaaaaaa } TABLE#
 
-b $9231 Limpa balão @ #R$921A
+b $9231 FRAME: Limpa balão @ #R$921A
 @ $9231 label=frame_limpa_balao_venho_me
 D $9231 CHARS = $EDB9
 D $9231 #UDGTABLE { #CALL:decode_data($EDB9,$9231) } TABLE#
@@ -387,33 +387,44 @@ c $92B8
 
 c $92C1
 
-b $92D6 Puta - Anal
-  $92D6 #HTML[#CALL:decode_data($EF39,$92D6)]
+b $92D6 FRAME: Puta - Anal
+@ $92D6 label=frame_puta_anal
+D $92D6 CHARS = $EF39
+D $92D6 #UDGTABLE { #CALL:decode_data($EF39,$92D6) } TABLE#
 
-;s $938E
 i $938E
 
-b $9392 Puta - Anal - Frame 1
-  $9392 #HTML[#CALL:decode_data($F151,$9392)]
+b $9392 FRAME: Puta - Anal - f1
+@ $9392 label=frame_puta_anal_1
+D $9392 CHARS = $F151
+D $9392 #UDGTABLE { #CALL:decode_data($F151,$9392) } TABLE#
 
-;s $93C5
 i $93C5
 
-b $93C9 Puta - Anal - Frame 2
-  $93C9 #HTML[#CALL:decode_data($F151,$93C9)]
+b $93C9 FRAME: Puta - Anal - f2
+@ $93C9 label=frame_puta_anal_2
+D $93C9 CHARS = $F151
+D $93C9 #UDGTABLE { #CALL:decode_data($F151,$93C9) } TABLE#
 
-;s $93F8
 i $93F8
 
-b $93FC Baloes Puta no Quarto
-E $93FC CHARS $F201 #HTML[#CALL:decode_data($F201,$93FC)]
-E $93FC CHARS $8D94 #HTML[#CALL:decode_data($8D94,$93FC)]
-E $93FC CHARS $FD01 #HTML[#CALL:decode_data($FD01,$93FC)]
-E $93FC CHARS $85CA #HTML[#CALL:decode_data($85CA,$93FC)]
-E $93FC CHARS $8F14 #HTML[#CALL:decode_data($8F14,$93FC)]
+b $93FC FRAME: Baloes puta no quarto
+@ $93FC label=frame_balao_puta_quarto
+D $93FC CHARS = $F201
+D $93FC #UDGTABLE { #CALL:decode_data($F201,$93FC) | AAAAA... Tão grosso } TABLE#
+D $93FC CHARS = $8D94
+D $93FC #UDGTABLE { #CALL:decode_data($8D94,$93FC) | Então o que queres } TABLE#
+D $93FC CHARS = $FD01
+D $93FC #UDGTABLE { #CALL:decode_data($FD01,$93FC) | Hó Reinaldo } TABLE#
+D $93FC CHARS = $85CA
+D $93FC #UDGTABLE { #CALL:decode_data($85CA,$93FC) | Este não quer pagar } TABLE#
+D $93FC CHARS = $8F14
+D $93FC #UDGTABLE { #CALL:decode_data($8F14,$93FC) | São 1000$00 } TABLE#
 
 b $9413 Limpa balão @ #R$93FC
-  $9413 #HTML[#CALL:decode_data($F201,$9413)]
+@ $9413 label=frame_limpa_balao_puta_quarto
+D $9413 CHARS = $F201
+D $9413 #UDGTABLE { #CALL:decode_data($F201,$9413) } TABLE#
 
 b $9428 Baloes - Heroi no quarto da Puta
 E $9428 CHARS $F261 #HTML[#CALL:decode_data($F261,$9428)]
@@ -782,15 +793,15 @@ c $AFD1 Limpa o ecra (genero de fade)
   $AFEF,$11 Define os atributos a partir do endereço $5800 com o valor definido em #R$C34F
 
 
-; @label:$B001=desenhaCorpo
 c $B001 Desenha o corpo do heroi
+@ $B001 label=desenhaCorpo
   $B001,6 Define HL com #R$B0A9 e desenha
   $B007,$a Define $CHARS a $C250
   $B011,6 Define HL com #R$B0E4 e desenha
   $B017,5 Mete #R$C34E a 0
 
-; @label:$B01D=desenhaPernas
 c $B01D Desenha as pernas do heroi
+@ $B01D label=desenhaPernas
   $B01D Le o valor de #R$C34E para A
   $B020,5 Se for 0 salta para #R$B039
   $B025,5 Se for 1 salta para #R$B055
@@ -818,29 +829,28 @@ c $B01D Desenha as pernas do heroi
   $B0A2,6 Desenha #R$B299
   $B0A8,1 Sai
   
-
-; @label:$B0A9=frameTorso
 b $B0A9 Frame do Torso
+@ $B0A9 label=frame_heroi_torso
   $B0A9 #HTML[#CALL:decode_data($C538,$B0A9)]
 
-; @label:$B0E4=framePernas1
 b $B0E4 Animacao Pernas - Frame 1
+@ $B0E4 label=frame_heroi_pernas_1
   $B0E4 #HTML[#CALL:decode_data($C250,$B0E4)]
 
-; @label:$B14C=framePernas2
 b $B14C Animacao Pernas - Frame 2
+@ $B14C label=frame_heroi_pernas_2
   $B14C #HTML[#CALL:decode_data($C328,$B14C)]
 
-; @label:$B1B5=framePernas3
 b $B1B5 Animacao Pernas - Frame 3
+@ $B1B5 label=frame_heroi_pernas_3
   $B1B5 #HTML[#CALL:decode_data($C420,$B1B5)]
 
-; @label:$B226=framePernas4
 b $B226 Animacao Pernas - Frame 4
+@ $B226 label=frame_heroi_pernas_4
   $B226 #HTML[#CALL:decode_data($C538,$B226)]
 
-; @label:$B299=framePernas5
 b $B299 Animacao Pernas - Frame 5
+@ $B299 label=frame_heroi_pernas_5
   $B299 #HTML[#CALL:decode_data($C638,$B299)]
 
 ;s $B309
@@ -863,29 +873,35 @@ c $B486
 ;s $B48E
 i $B48E
 
-; @label:$B48F=abrePorta
 c $B48F Animação da porta a abrir
+@ $B48F label=abre_a_porta
 
 ;s $B4EF
 i $B4EF
 
-; @label:$B4F1=fechaPorta
 c $B4F1 Animação da porta a fechar
+@ $B4F1 label=fecha_a_porta
 
 b $B551 Porta a abrir - Frame 1
+@ $B551 label=frame_porta_1
   $B551 #HTML[#CALL:decode_data($CA7A,$B551)]
 
 b $B55F Porta a abrir - Frame 2
+@ $B55F label=frame_porta_2
   $B55F #HTML[#CALL:decode_data($CA7A,$B55F)]
 
 b $B56B Porta a abrir - Frame 3
+@ $B56B label=frame_porta_3
   $B56B #HTML[#CALL:decode_data($CA7A,$B56B)]
 
 c $B579
+
 c $B583
+
 c $B594
 
 c $B59C Animacao da puta a sair
+@ $B59C label=puta_sai_porta
   $B59C,$a CHARS = $C8E0
   $B5A6 Endereço da frame #R$B5F0
   $B5A9 Desenha a frame
@@ -894,26 +910,29 @@ c $B59C Animacao da puta a sair
   $B5B2,3 Desenha a frame
 
 c $B5B6 Puta entra e porta é limpa
+@ $B5B6 label=puta_entra_porta
   $B5B6,$a CHARS = $C8E0
   $B5C0 Frame @ #R$B5F0 - Puta a entrar
   $B5C3,3 Desenha a frame
   $B5C6,3 Delay
   $B5C9,$16 Limpa a porta - Imprime 5 caracteres em branco desde a posicao x = 10 y = 2 até x = 10 y = 16 #HTML(<br>)O que é printado é: 16 02 0A 80 80 80 80 80 16 03 0A 80 80 80 80 80 16 04 0A 80 80 80 80 80 16 05 0A 80 80 80 80 80 16 06 0A 80 80 80 80 80 16 07 0A 80 80 80 80 80 16 08 0A 80 80 80 80 80 16 09 0A 80 80 80 80 80 16 0A 0A 80 80 80 80 80 16 0B 0A 80 80 80 80 80 16 0C 0A 80 80 80 80 80 16 0D 0A 80 80 80 80 80 16 0E 0A 80 80 80 80 80 16 0F 0A 80 80 80 80 80 16 10 0A 80 80 80 80 80
 
-; @label:$B5E0=imprimeEspacosB
 c $B5E0 Imprime um espaço o numero de vezes que estiver em B
+@ $B5E0 label=imprime_espacos_em_B
 
-; @label:$B5E6=delayPuta
 c $B5E6 Delay conta de $FFFF ate 0
+@ $B5E6 label=delay_puta
 
 b $B5F0 Puta a sair - Frame 1
+@ $B5F0 label=frame_puta_sair_1
   $B5F0 #HTML[#CALL:decode_data($C8E0,$B5F0)]
 
 b $B688 Puta a sair - Frame 2
+@ $B688 label=frame_puta_sair_2
   $B688 #HTML[#CALL:decode_data($C8E0,$B688)]
 
-; @label:$B721=random1
 c $B721 Random que define quem vai aparecer na porta - 1
+@ $B721 label=random1
   $B721 Carrega o valor do endereço #R$C34D (?) em A
   $B724 Incrementa
   $B725 Compara com $07
@@ -922,8 +941,8 @@ c $B721 Random que define quem vai aparecer na porta - 1
   $B72D Copia o valor de A para B
   $B731,2 Decrementa B, se B > 0 salta para o CALL acima 
 
-; @label:$B734=defineAa0
 c $B734 Define A = $01
+@ $B734 label=define_A_a_0
 
 c $B737 Define o #R$C346 a 0
   $B737,9 Mete a #R$C346 a 0
@@ -943,8 +962,8 @@ i $B76A
 
 c $B76D Paradise Café
 
-; @label:$B775=espera_por_keypress
 c $B775 Espera que se pressione uma tecla e guarda em #R$C34C
+@ $B775 label=espera_por_keypress
   $B777 Endereço da ultima tecla pressionada
   $B77A Mete a 00 (limpar?)
   $B77C Compara a ultima tecla pressionada a A (0)
@@ -954,26 +973,26 @@ c $B775 Espera que se pressione uma tecla e guarda em #R$C34C
 ;s $B784
 i $B784
 
-; @label:$B785=desenhaChao
 c $B785 Desenha o chão a linha de highscore e o azul do fundo do ecrã
+@ $B785 label=desenha_chao
   $B785,8 Define atributos para o fadeOut a $10 e chama-o
   $B78D,8 Desenha o chão (a $18 - 00|011|000 - roxo). $5A20 é um endereço de atributos de cor na memoria
   $B795,6 Desenha #R$B7A4
   $B79B,8 Desenha fundo do ecrã (a $08 - 00|001|000 - azul). $5AA0 é um endereço de atributos de cor na memoria
 
-; @label:$B7A4=frame_linha_highscore
 b $B7A4 Linha do Highscore
+@ $B7A4 label=frame_linha_highscore
   $B7A4 #HTML[#CALL:decode_data($3C00,$B7A4)] 
 
-; @label:$B7CC=prencheAtributos
 c $B7CC Preenche desde (HL) até (HL+$60) o valor em A
+@ $B7CC label=prenche_atributos
   $B7CC,2 Numero de vezes que vai executar
   $B7CE,1 (HL) = A
   $B7CF,1 HL+1
   $B7D0,2 B--; Se !0 salta
   
-; @label:$B7D3=scrollaHighscore
 c $B7D3 Chama a rotina #R$B7E9 com $5080, 5180, $5280 .. $5780 
+@ $B7D3 label=scrolla_highscore
   $B7D3 HL = $5080
   $B7D6 C = $8
   $B7D8,3 Guarda o valor de HL em #R$B7E6
@@ -983,16 +1002,16 @@ c $B7D3 Chama a rotina #R$B7E9 com $5080, 5180, $5280 .. $5780
   $B7E3 Se C != 0 salta para #R$B7D8
   $B7E5 Sai
 
-; @label:$B7E6=tmpScroll1
 b $B7E6 Variavel temporaria usada para guardar o endereço inicial da memoria grafica ao scrollar
+@ $B7E6 label=tmpScroll1
   $B7E6 Usado nas rotinas #R$B7D3 e #R$B7E9
 
-; @label:$B7E8=tmpScroll2
 b $B7E8 Variavel temporaria usada para guardar o valor do grafico tudo a esquerda para ser passado tudo pra direita
+@ $B7E8 label=tmpScroll2
   $B7E8 Usado na rotina #R$B7E9
 
-; @label:$B7E9=scrollaHighscore2
 c $B7E9 Scrolla da esquerda pra direita a partir do valor guardado em #R$B7E6
+@ $B7E9 label=scrolla_highscore_2
   $B7E9 Le o valor no endereço #R$B7E6 em HL
   $B7EC B = $1F (31) Numero de vezes a correr a rotina
   $B7EE D = H
@@ -1012,30 +1031,32 @@ c $B7E9 Scrolla da esquerda pra direita a partir do valor guardado em #R$B7E6
 ;s $B7FF
 i $B7FF
 
-; @label:$B800=viraCaraPuta
 c $B800 Vira a cara para a puta
+@ $B800 label=vira_cara_para_puta
   $B800,$a CHARS = $CAEA
   $B80A Endereço da frame #R$B811
   $B80D,3 Desenha a frame
 
 b $B811 Cara do gajo a olhar pra puta
+@ $B811 label=frame_vira_cara_para_puta
 B $B811 #HTML[#CALL:decode_data($CAEA,$B811)]
 
-; @label:$B82E=viraCaraFrente
 c $B82E Heroi vira a cara para o ecrã
+@ $B82E label=vira_cara_para_frente
   $B82E O endereço $5C36 CHARS define onde a Font(?) começa
   $B837 CHARS = $CE2A
   $B838 Endereço da frame - #R$B83F
   $B83B Desenha a frame
 
 b $B83F Cara virada para o ecrã
+@ $B83F label=frame_vira_cara_para_frente
 B $B83F #HTML[#CALL:decode_data($CE2A,$B83F)]
 
 ;s $B858
 i $B858
 
-; @label:$B85A=random2
 c $B85A Random que define quem vai aparecer na porta - 2
+@ $B85A label=random_2
   $B85A Carrega o valor do endereço #R$C34A (?) em A
   $B85D Incrementa
   $B85E Compara com $04
@@ -1043,8 +1064,10 @@ c $B85A Random que define quem vai aparecer na porta - 2
   $B863,3 Guarda o valor de A no endereço #R$C34A (?)
 
 c $B867 Define A = $00
+@ $B867 label=define_A_a_0_
 
 c $B86A Puta
+@ $B86A label=puta
   $B86A,3 Abre a porta
   $B86D,3 Vira a cara para a puta
   $B870,3 Delay
@@ -1066,6 +1089,7 @@ c $B86A Puta
   $B8AF Se não foi nenhuma delas volta a pedir input
 
 b $B8B1 Frases da puta na rua
+@ $B8B1 label=frame_balao_puta_rua
 E $B8B1 CHARS $CB2A #HTML[#CALL:decode_data($CB2A,$B8B1)]
 E $B8B1 CHARS $CBEA #HTML[#CALL:decode_data($CBEA,$B8B1)]
 E $B8B1 CHARS $CCAA #HTML[#CALL:decode_data($CCAA,$B8B1)]
@@ -1082,23 +1106,25 @@ c $B8E9
 c $B914
 
 c $B93C Recusar a puta
+@ $B93C label=recusar_puta
 
 b $B967 Balão - Maricas
+@ $B967 label=frame_balao_maricas
   $B967 #HTML[#CALL:decode_data($CE59,$B967)]
 
-; @label:$B97E=charsCB2A
 c $B97E CHARS = $CB2A
+@ $B97E label=chars_CB2A
   $B97e,10 CHARS = $CB2A
 
-; @label:$B989=charsCBEA
 c $B989 CHARS = $CBEA
+@ $B989 label=chars_CBEA
   $B98C,3 CHARS = DE
 
-; @label:$B994=charsCCAA
 c $B994 CHARS = $CCAA
+@ $B994 label=chars_CCAA
 
-; @label:$B99F=delay1
 c $B99F Delay conta de $FFFF ate 0
+@ $B99F label=delay_ffff_ate_0
 
 ;s $B9A9
 i $B9A9
@@ -1124,12 +1150,12 @@ c $B9AF Imprime Score e Dinheiro
   $B9E7,6 Imprime dois espaços
   $B9ED,3 Imprime um cifrao
 
-; @label:$B9F1=frameScore
 b $B9F1 SCORE= 
+@ $B9F1 label=frame_score
   $B9F1 #HTML[#CALL:decode_data($3C00,$B9F1)]
 
-; @label:$BA00=frameDinheiro
 b $BA00 DINHEIRO:
+@ $BA00 label=frame_dinheiro
   $BA00 #HTML[#CALL:decode_data($3C00,$BA00)]
 
 c $BA0D
@@ -1197,11 +1223,11 @@ c $BB03 Trata do 2º valor de #R$C346
 ;s $BB0E
 i $BB0E
 
-; @label:$BB11=ladraoAnimSai
 ; Animação do ladrão a saír da porta
 ; 1º Metade do corpo
 ; 2º Corpo todo virado pra frente
 c $BB11 Ladrão: Animação a saír
+@ $BB11 label=ladrao_sai_porta
 C $BB11 O endereço $5C36 CHARS define onde a Font(?) começa
 C $BB1A CHARS = $CEB9
 C $BB1B Endereço da frame 1 - #R$BB38
@@ -1211,8 +1237,8 @@ C $BB24 Endereço da frame 2 - #R$BBA1
 C $BB27 Desenha a frame
 C $BB2A Delay
 
-; @label:$BB2E=delayLadrao
 c $BB2E Delay
+@ $BB2E label=delay_ladrao
 E $BB2E Conta desde FFF0 até 0000
 C $BB2E C = F0
 C $BB30 B = 00
@@ -1222,34 +1248,38 @@ C $BB35 Se nao for 0, salta para $BB30
 
 ; Frame
 b $BB38 Ladrão a sair - Frame 1
+@ $BB38 label=frame_ladrao_sair_1
 B $BB38 #HTML[#CALL:decode_data($CEB9,$BB38)]
 
 ; Frame
 b $BBA1 Ladrão a sair - Frame 2
+@ $BBA1 label=frame_ladrao_sair_2
 ;B $BBA1 #CALL:comment_frame($CEB9,$BBA1)
 B $BBA1 #HTML[#CALL:decode_data($CEB9,$BBA1)]
 
 ;s $BC67
 i $BC67
 
-; @label:$BC6A=ladraoViradoEsq
 ; Animação do ladrão a virar-se para a esquerda
 c $BC6A Ladrão: Virado para a esquerda
+@ $BC6A label=ladrao_virar_esquerda
 C $BC73 CHARS = $D089
 C $BC74 Endereço da frame - #R$BC7B
 C $BC77 Desenha a frame
 
 ; Frame
 b $BC7B Ladrão virado para a esquerda - Frame
+@ $BC7B label=frame_ladrao_esquerda
 B $BC7B #HTML[#CALL:decode_data($D089,$BC7B)]
 
 c $BD0C Define o valor de DE em $5C36 (Endereço CHARS)
 R $BD0C I:DE Valor para ser definido em CHARS
-@ $BD0C label=deToChars
+@ $BD0C label=de_to_chars
 
 c $BD15
 
 b $BD22 Ladrão no chão
+@ $BD22 label=frame_ladrao_chao
 B $BD22 #HTML[#CALL:decode_data($D1F1,$BD22)]
 
 ;s $BD94
@@ -1263,26 +1293,30 @@ i $BD9F
 c $BDA0
 
 c $BDBF Ladrão: animação a entrar na porta
+@ $BDBF label=ladrao_entra_porta
 
 c $BDDE
 
 b $BDE8 Ladrão a entrar na porta - frame 1
+@ $BDE8 label=frame_ladrao_entrar_1
 B $BDE8 #HTML[#CALL:decode_data($C740,$BDE8)]
 
 b $BE65 Ladrão a entrar na porta - frame 2
+@ $BE65 label=frame_ladrao_entrar_2
 B $BE65 #HTML[#CALL:decode_data($C740,$BE65)]
 
 c $BEC5
 
-; @label:$BEDC=sacaAPistola 
 c $BEDC Saca a pistola @ #R$BEE9
+@ $BEDC label=saca_a_pistola
 
 b $BEE9 Frame - Sacar a pistola
+@ $BEE9 label=frame_saca_pistola
 B $BEE9 #HTML[#CALL:decode_data($D409,$BEE9)]
 
 ; Rotina principal do ladrão
-; @label:$BF17=ladrao
 c $BF17 Ladrão
+@ $BF17 label=ladrao
   $BF17,3 Abre a porta
   $BF1A,5 Define a "LAST K" last pressed key = 00 (é para limpar IMEO)
   $BF1F Sai da porta
@@ -1384,8 +1418,8 @@ c $C1C2 Disparar contra o ladrão
   $C1E7,3 Saca a pistola para fora!
   $C1EA,5 Delay com a duracao do valor em A
 
-; @label:$C23B=naoTenhoPistola
 c $C23B Não tenho pistola
+@ $C23B label=nao_tenho_pistola
   $C23B Vira a cara para o ecrã #R$B83F
   $C23E,$c Balão - Não tenho pistola, #R$C03B
   $C24A,5 Delay com a duracao do valor em A 
@@ -1396,7 +1430,7 @@ i $C258
 
 c $C259 Delay
 R $C259 I:A Numero de vezes que a rotina vai correr
-@ $C259 label=delayEmA
+@ $C259 label=delay_em_A
 N $C259 A rotina corre o numero de vezes que estiver em A
   $C259 C = 0
 N $C25B Inicio Loop B
@@ -1408,11 +1442,11 @@ N $C25F Fim Loop B
   $C262 Decrementa A
   $C263,2 Se A <> 0 corre do inicio
 
-; @label:$C266=chama_desenhaCorpo
 c $C266 Chama o #R$B001
+@ $C266 label=chama_B001
 
 c $C26A Faz um fadeOut a azul
-@ $C26A label=fadeOut_azul
+@ $C26A label=fade_out_azul
 
 ;s $C273
 i $C273
@@ -1425,8 +1459,8 @@ D $C27A Provavelmente define alguma variavel, pq é executado antes de mostrar o
 ;s $C2A9
 i $C2A9
 
-; @label:$C2AA=desenhaDespesa
 c $C2AA Desenha a despesa
+@ $C2AA label=desenha_despesa
   $C2AA,6 Define CHARS a $3C00
   $C2B0,6 Imprime a frame #R$C2CE
   $C2B6,4 Imprime o 1º caracter da despesa - #R$C338 + 1
@@ -1435,17 +1469,18 @@ c $C2AA Desenha a despesa
   $C2C4,3 Imprime um $ (cifrao)
   $C2C7,6 Imprime dois 0 (zeros)
 
-; @label:$C2CE=frame_despesa 
 b $C2CE Frame Despesa
+@ $C2CE label=frame_despesa
   $C2CE #HTML[#CALL:decode_data($3C00,$C2CE)]
 
 ;s $C2DE
 i $C2DE
 
-; @label:$C2DF=desenhaHighscore
 c $C2DF Desenha o Highscore
+@ $C2DF label=desenha_highscore
 
 b $C302 HISCORE =
+@ $C302 label=frame_highscore
   $C302 #HTML[#CALL:decode_data($3C00,$C302)]
 
 ;s $C314
@@ -1453,54 +1488,52 @@ i $C314
 
 b $C336
 
-; @label:$C337=tem_droga
 b $C337 Inventorio: Droga
+@ $C337 label=var_inventario_droga
 
-; @label:$C338=despesa
-b $C338 Despesa
+b $C338 Despesa no cafe
+@ $C338 label=var_despesa_no_cafe
 
 b $C33A
 
 b $C33B
 
-; @label:$C33C=tem_carteira
 b $C33C Inventorio: Carteira
+@ $C33C label=var_inventario_carteira
 
-; @label:$C33D=tem_arma
 b $C33D Inventorio: Arma
+@ $C33D label=var_inventario_arma
 
-; @label:$C33E=dinheiro
 b $C33E Dinheiro
+@ $C33E label=var_dinheiro
 
-; @label:$C342=highscore
 b $C342 Highscore
+@ $C342 label=var_highscore
 D $C342 O valor inicial é 0005 que passa a 0050 porque se tem de trocar a ordem dos bytes
 D $C342 (no jogo aparece 005000 mas os ultimos dois zeros sao fixos)
 D $C342 Para um highscore de 1234|00 tinha de estar 2143 ou seja $32 $31 $34 $33
 
-; @label:$C346=score
 b $C346 Score
+@ $C346 label=var_score
 D $C346 Quatro bytes ASCII do Spectrum com a ordem trocada
 D $C346 Ver mais em #R$C342(highscore)
 
-;b $C348
-
 b $C34A
 
-; @label:$C34B=posicaoPorta
-b $C34B Posicao da Porta
-  $C34B A posicao da vai de: f8 - 09 - 1f. 09 e' quando esta em posicao para ser "aberta"
+b $C34B Posicao da porta
+@ $C34B label=var_posicao_da_porta
+  $C34B A posicao da vai de: f8 - 09 - 1f. 09 é quando esta em posicao para ser "aberta"
  
-; @label:$C34C=ultima_tecla_pressionada
 b $C34C Ultima tecla pressionada
+@ $C34C label=var_ultima_tecla_pressionada
 
-b $C34D ??
+b $C34D
 
-; @label:$C34E=frameAnimacaoPernas
-b $C34E Numero da frame actual da animacao das pernas - Usado em #R$B01D
+b $C34E Frame actual da animacao das pernas - Usado em #R$B01D
+@ $C34E label=var_pernas_frame_actual
 
-; @label:$C34F=atributos_fadeOut
-b $C34F Atributos a serem usados no fadeOut
+b $C34F Atributos usados em #R$AFD1
+@ $C34F label=var_atributos_fade_out
 
 ; @label:$C350=chars3
 b $C350 CHARS
